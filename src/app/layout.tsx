@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Mohammad Akram | Tech Job Application Command Center',
+  title: 'Job Tracker',
   description: 'Verified permanent full-time entry-level tech jobs tracker with real-time Supabase sync, date sorting, and ATS copilot.',
 };
 

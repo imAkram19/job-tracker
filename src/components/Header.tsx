@@ -39,19 +39,19 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDossier, onOpenExport }) =
           {/* Left: Branding & Profile */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs font-bold text-sm shrink-0">
-              MA
+              JT
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
-                  Mohammad Akram
+                  Job Tracker
                 </h1>
                 <span className="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-medium">
-                  MCA 2026 Fresher
+                  Mohammad Akram
                 </span>
               </div>
               <p className="text-xs text-slate-500 font-normal hidden sm:block">
-                Job Application Command Center • Hyderabad / Bengaluru / Remote
+                Permanent Full-Time Tech Openings • MCA 2026
               </p>
             </div>
           </div>

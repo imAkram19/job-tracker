@@ -1,4 +1,4 @@
-# Mohammad Akram | Tech Job Application Command Center 🎯
+# Job Tracker 🎯
 
 A high-performance, mobile-responsive web application built with **Next.js 14 (App Router)**, **React**, **Tailwind CSS**, and **Supabase Real-Time Cloud Sync** to track and apply to verified permanent full-time entry-level tech jobs.
 
