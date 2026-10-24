@@ -22,6 +22,8 @@ dist
 
 # Private Documents & Raw Files
 *.csv
+*.xlsx
+old_csv/
 resume.html
 screening-answers.md
 jobs.md

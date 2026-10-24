@@ -40,6 +40,7 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
     { id: 'Applied', label: 'Applied' },
     { id: 'Interviewing', label: 'Interviewing' },
     { id: 'Offer', label: 'Offer' },
+    { id: 'Archived', label: 'Archived' },
   ];
 
   const clearAllFilters = () => {

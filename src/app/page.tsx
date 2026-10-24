@@ -57,7 +57,7 @@ export default function Home() {
   const handleUpdateStatus = async (jobId: string, newStatus: JobStatus) => {
     const existing = tracking[jobId] || { status: 'Not Applied', comments: '' };
     
-    let appliedDate: string | undefined = existing.appliedDate;
+    let appliedDate: string | undefined = existing.appliedDate || undefined;
     if (newStatus === 'Applied') {
       appliedDate = existing.appliedDate || new Date().toISOString();
     } else if (newStatus === 'Not Applied') {

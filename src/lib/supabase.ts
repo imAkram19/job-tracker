@@ -1,5 +1,12 @@
+// Polyfill WebSocket for SSR in Node 20 to prevent Realtime error
+if (typeof window === 'undefined' && typeof globalThis.WebSocket === 'undefined') {
+  (globalThis as any).WebSocket = class DummyWebSocket {};
+}
+
 import { createClient } from '@supabase/supabase-js';
 import { TrackingState, UserJobTracking } from '@/types/job';
+
+import trackingSeed from '@/data/tracking_seed.json';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -29,7 +36,8 @@ export async function loadTrackingState(): Promise<TrackingState> {
   try {
     const { data, error } = await supabase
       .from('job_applications')
-      .select('job_id, status, comments, applied_at, updated_at');
+      .select('job_id, status, comments, applied_at, updated_at')
+      .limit(1000);
 
     if (error) {
       console.warn('Supabase fetch error, using local fallback:', error.message);
@@ -115,11 +123,11 @@ export function getLocalTrackingState(): TrackingState {
         }
         return migrated;
       }
-      return {};
+      return (trackingSeed as unknown as TrackingState) || {};
     }
     return JSON.parse(stored);
   } catch {
-    return {};
+    return (trackingSeed as unknown as TrackingState) || {};
   }
 }
 

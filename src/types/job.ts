@@ -33,8 +33,8 @@ export interface JobItem {
 export interface UserJobTracking {
   status: JobStatus;
   comments: string;
-  appliedDate?: string;
-  updatedAt?: string;
+  appliedDate?: string | null;
+  updatedAt?: string | null;
 }
 
 export type TrackingState = Record<string, UserJobTracking>;

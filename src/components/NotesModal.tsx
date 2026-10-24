@@ -39,7 +39,7 @@ export const NotesModal: React.FC<NotesModalProps> = ({
   if (!isOpen || !job) return null;
 
   const handleSave = () => {
-    let appliedDate: string | undefined = trackingItem?.appliedDate;
+    let appliedDate: string | undefined = trackingItem?.appliedDate || undefined;
     if (status === 'Applied') {
       appliedDate = trackingItem?.appliedDate || new Date().toISOString();
     } else if (status === 'Not Applied') {
