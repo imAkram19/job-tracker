@@ -60,7 +60,7 @@ export default function Home() {
     let appliedDate: string | undefined = existing.appliedDate || undefined;
     if (newStatus === 'Applied') {
       appliedDate = existing.appliedDate || new Date().toISOString();
-    } else if (newStatus === 'Not Applied') {
+    } else if (newStatus === 'Not Applied' || newStatus === 'No link') {
       appliedDate = undefined; // Explicitly clear applied date
     }
 
@@ -144,6 +144,31 @@ export default function Home() {
     return result;
   }, [jobs, tracking, searchQuery, statusFilter, categoryFilter, locationFilter, sortOption]);
 
+  const filterCounts = useMemo(() => {
+    const status: Record<string, number> = { ALL: jobs.length };
+    const category: Record<string, number> = { ALL: jobs.length };
+    const location: Record<string, number> = {
+      ALL: jobs.length,
+      Bengaluru: 0,
+      Hyderabad: 0,
+      Pune: 0,
+    };
+
+    jobs.forEach((job) => {
+      const currentStatus = tracking[job.id]?.status || 'Not Applied';
+      status[currentStatus] = (status[currentStatus] || 0) + 1;
+      category[job.category] = (category[job.category] || 0) + 1;
+
+      Object.keys(location).forEach((city) => {
+        if (city !== 'ALL' && job.location.includes(city)) {
+          location[city] += 1;
+        }
+      });
+    });
+
+    return { status, category, location };
+  }, [jobs, tracking]);
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 selection:bg-blue-600 selection:text-white">
       {/* Top Header */}
@@ -172,6 +197,7 @@ export default function Home() {
           onSortChange={setSortOption}
           totalFiltered={filteredAndSortedJobs.length}
           totalCount={jobs.length}
+          filterCounts={filterCounts}
         />
 
         {/* View Switching: Desktop Table vs Mobile Cards */}

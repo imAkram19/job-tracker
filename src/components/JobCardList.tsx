@@ -128,15 +128,21 @@ export const JobCardList: React.FC<JobCardListProps> = ({
               </div>
 
               {/* Direct Apply Button */}
-              <a
-                href={job.applyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition shadow-xs flex items-center gap-1 shrink-0 active:scale-95"
-              >
-                <span>Apply</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+              {userTrack.status === 'No link' ? (
+                <span className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 border border-slate-200 font-medium text-xs shrink-0">
+                  No link
+                </span>
+              ) : (
+                <a
+                  href={job.applyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition shadow-xs flex items-center gap-1 shrink-0 active:scale-95"
+                >
+                  <span>Apply</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
             </div>
 
           </div>

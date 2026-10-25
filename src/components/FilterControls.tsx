@@ -5,6 +5,12 @@ import { Search, ArrowUpDown, X } from 'lucide-react';
 
 export type SortOption = 'date-desc' | 'date-asc' | 'rank-asc';
 
+interface FilterCounts {
+  status: Record<string, number>;
+  category: Record<string, number>;
+  location: Record<string, number>;
+}
+
 interface FilterControlsProps {
   searchQuery: string;
   onSearchChange: (q: string) => void;
@@ -18,6 +24,7 @@ interface FilterControlsProps {
   onSortChange: (sort: SortOption) => void;
   totalFiltered: number;
   totalCount: number;
+  filterCounts: FilterCounts;
 }
 
 export const FilterControls: React.FC<FilterControlsProps> = ({
@@ -33,13 +40,16 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
   onSortChange,
   totalFiltered,
   totalCount,
+  filterCounts,
 }) => {
   const statusTabs = [
     { id: 'ALL', label: 'All Jobs' },
     { id: 'Not Applied', label: 'Not Applied' },
+    { id: 'No link', label: 'No link' },
     { id: 'Applied', label: 'Applied' },
     { id: 'Interviewing', label: 'Interviewing' },
     { id: 'Offer', label: 'Offer' },
+    { id: 'Rejected', label: 'Rejected' },
     { id: 'Archived', label: 'Archived' },
   ];
 
@@ -126,7 +136,7 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
                   : 'bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 shadow-2xs'
               }`}
             >
-              {tab.label}
+              {tab.label} ({filterCounts.status[tab.id] || 0})
             </button>
           ))}
         </div>
@@ -139,11 +149,11 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
             onChange={(e) => onCategoryFilterChange(e.target.value)}
             className="flex-1 sm:flex-initial text-xs py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
           >
-            <option value="ALL">All Domains</option>
-            <option value="Frontend & Full-Stack">Frontend & Full-Stack</option>
-            <option value="Backend & Full-Stack">Backend & Full-Stack</option>
-            <option value="QA & Testing">QA & Testing</option>
-            <option value="Support & Trainee">Support & Trainee</option>
+            <option value="ALL">All Domains ({filterCounts.category.ALL || 0})</option>
+            <option value="Frontend & Full-Stack">Frontend & Full-Stack ({filterCounts.category['Frontend & Full-Stack'] || 0})</option>
+            <option value="Backend & Full-Stack">Backend & Full-Stack ({filterCounts.category['Backend & Full-Stack'] || 0})</option>
+            <option value="QA & Testing">QA & Testing ({filterCounts.category['QA & Testing'] || 0})</option>
+            <option value="Support & Trainee">Support & Trainee ({filterCounts.category['Support & Trainee'] || 0})</option>
           </select>
 
           {/* Location Filter */}
@@ -152,10 +162,10 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
             onChange={(e) => onLocationFilterChange(e.target.value)}
             className="flex-1 sm:flex-initial text-xs py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
           >
-            <option value="ALL">All Locations</option>
-            <option value="Bengaluru">Bengaluru</option>
-            <option value="Hyderabad">Hyderabad</option>
-            <option value="Pune">Pune</option>
+            <option value="ALL">All Locations ({filterCounts.location.ALL || 0})</option>
+            <option value="Bengaluru">Bengaluru ({filterCounts.location.Bengaluru || 0})</option>
+            <option value="Hyderabad">Hyderabad ({filterCounts.location.Hyderabad || 0})</option>
+            <option value="Pune">Pune ({filterCounts.location.Pune || 0})</option>
           </select>
 
           <span className="text-xs text-slate-400 hidden lg:inline font-mono">

@@ -120,16 +120,22 @@ export const JobTable: React.FC<JobTableProps> = ({
                     />
                     
                     {/* Direct Apply Button */}
-                    <a
-                      href={job.applyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm hover:shadow active:scale-95 shrink-0"
-                      title="Open job application page in new tab"
-                    >
-                      <span>Apply</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                    {userTrack.status === 'No link' ? (
+                      <span className="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-500 border border-slate-200 shrink-0">
+                        No link
+                      </span>
+                    ) : (
+                      <a
+                        href={job.applyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm hover:shadow active:scale-95 shrink-0"
+                        title="Open job application page in new tab"
+                      >
+                        <span>Apply</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
                   
                   {userTrack.status === 'Applied' && userTrack.appliedDate && (

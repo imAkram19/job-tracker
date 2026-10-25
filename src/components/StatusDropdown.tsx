@@ -42,6 +42,11 @@ export const StatusDropdown: React.FC<StatusDropdownProps> = ({
           dot: 'bg-slate-400 ring-slate-100',
           style: 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200/70',
         };
+      case 'No link':
+        return {
+          dot: 'bg-slate-500 ring-slate-100',
+          style: 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200/70',
+        };
       case 'Not Applied':
       default:
         return {
@@ -67,6 +72,7 @@ export const StatusDropdown: React.FC<StatusDropdownProps> = ({
           className={`w-full appearance-none pl-6 pr-7 py-1.5 rounded-lg text-xs font-medium border cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition shadow-sm ${config.style}`}
         >
           <option value="Not Applied">Not Applied</option>
+          <option value="No link">No link</option>
           <option value="Applied">Applied</option>
           <option value="Interviewing">Interviewing</option>
           <option value="Offer">Offer</option>

@@ -6,6 +6,7 @@ export type JobCategory =
 
 export type JobStatus = 
   | 'Not Applied' 
+  | 'No link'
   | 'Applied' 
   | 'Interviewing' 
   | 'Offer' 
