@@ -108,3 +108,15 @@ When you scrape fresh jobs using your MCP agent:
    git push origin master
    ```
 3. Vercel automatically deploys the updated job feed to the live website.
+
+## Desktop EXE and local Playwright
+
+Double-click `AkramJobTracker.exe` in the project folder. It starts a hidden production server and opens the tracker; you do not need to run `npm run dev`. Click Auto Fill inside that window to open the separate Chromium application browser.
+
+The launcher requires Node.js, installed project dependencies, and Playwright Chromium (`npx playwright install chromium`). It uses `.next-desktop` for its production build, leaving `.next` available for normal development/Vercel. A missing or outdated desktop build is rebuilt automatically; the first launch can take a few minutes. The EXE must stay beside `package.json` and `node_modules`.
+
+The launcher uses a free loopback port in 3000–3009 and verifies `/api/automation/health` before opening the tracker. Startup failures appear in a dialog and `logs/app-server.log`. Use the system-tray menu to reopen the tracker or exit its owned server. After editing launcher source, close the EXE and run `powershell -File launcher/build.ps1` to rebuild it.
+
+Vercel hosts the website, but the current automation APIs run on this PC. Opening the Vercel page does not connect it to the local EXE. Use the tracker window opened by the EXE for Auto Fill.
+
+To regression-test the compiled desktop automation, run `node launcher/test-production.cjs` after a desktop build. It opens headed Chromium, intercepts every page request with a local diagnostic document, checks the status stream, and disconnects it. It does not contact employers or submit applications.

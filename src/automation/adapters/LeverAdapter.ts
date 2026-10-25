@@ -213,16 +213,7 @@ export class LeverAdapter extends BasePlatformAdapter {
       }
     }
 
-    // 5. Validation check
-    await validationHandler.validatePage();
-
-    // 6. Stop before final submission as required
-    stateManager.setState('READY_FOR_REVIEW');
-    stateManager.log(
-      'success',
-      'Application fields filled and resume attached. Browser is at the final review page. [AUTO_SUBMIT = false] - Stopping for human review.'
-    );
-
+    await validationHandler.finishCurrentPage();
     return true;
   }
 }

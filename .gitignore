@@ -5,6 +5,7 @@
 
 # Next.js build output
 /.next/
+/.next-desktop/
 /out/
 
 # Production build artifacts

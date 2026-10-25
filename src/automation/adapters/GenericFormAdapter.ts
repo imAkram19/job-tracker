@@ -125,19 +125,13 @@ export class GenericFormAdapter extends BasePlatformAdapter {
     }
 
     // Check for validation errors
-    await validationHandler.validatePage();
+    await validationHandler.finishCurrentPage();
 
     // Check for next button or review state
     const actions = await analyzer.findActionButtons();
     if (actions.nextButton) {
       stateManager.log('info', `Multi-step application detected (Next button: ${actions.nextButton}). Stopping for human confirmation.`);
     }
-
-    stateManager.setState('READY_FOR_REVIEW');
-    stateManager.log(
-      'success',
-      'Form fields completed. Stopped at final review page [AUTO_SUBMIT = false]. Please inspect in browser.'
-    );
 
     return true;
   }

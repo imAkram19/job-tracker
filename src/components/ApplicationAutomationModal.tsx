@@ -64,7 +64,8 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
   const [rememberAnswer, setRememberAnswer] = useState(true);
   const [isSubmittingAnswer, setIsSubmittingAnswer] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
-  const [showLogs, setShowLogs] = useState(false);
+  const [showLogs, setShowLogs] = useState(true);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   // Batch review state
   const [batchOverview, setBatchOverview] = useState<{
@@ -96,6 +97,25 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
   
   const eventSourceRef = useRef<EventSource | null>(null);
   const logsEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialogRef.current?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !(event.target instanceof HTMLInputElement)) { onClose(); return; }
+      if (event.key !== 'Tab') return;
+      const controls = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]') || []).filter(el => el.getClientRects().length > 0);
+      const first = controls[0], last = controls[controls.length - 1];
+      if (!first) { event.preventDefault(); return; }
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === dialogRef.current)) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || document.activeElement === dialogRef.current)) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => { document.body.style.overflow = overflow; document.removeEventListener('keydown', onKey); previous?.focus(); };
+  }, [isOpen, onClose]);
 
   // Auto-scroll logs
   useEffect(() => {
@@ -141,6 +161,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
       eventSourceRef.current = sse;
 
       sse.addEventListener('status', (e) => {
+        setError(null);
         const statusData: AutomationSessionStatus = JSON.parse(e.data);
         setSession({
           ...statusData,
@@ -185,7 +206,8 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
       });
 
       sse.onerror = () => {
-        // SSE disconnected
+        setError('Lost connection to the desktop automation server. Reopen the EXE if it stopped, then restart this automation session.');
+        if (sse.readyState === EventSource.CLOSED) sse.close();
       };
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -469,13 +491,16 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             Human Input Required
           </span>
         );
+      case 'PAGE_PAUSED':
       case 'READY_FOR_REVIEW':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
             <CheckCircle2 className="w-3.5 h-3.5" />
-            Ready for Human Review (Stopped)
+            Check current page
           </span>
         );
+      case 'NEEDS_ATTENTION':
+        return <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800"><AlertCircle className="h-3.5 w-3.5" />Page needs attention</span>;
       case 'FILLING_FORM':
         return (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-300">
@@ -514,27 +539,28 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 bg-slate-50">
       <div 
-        className="w-full max-w-2xl rounded-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="assistant-title" tabIndex={-1}
+        className="w-full h-[100dvh] bg-white overflow-hidden flex flex-col outline-none [&_button]:focus-visible:outline [&_button]:focus-visible:outline-2 [&_button]:focus-visible:outline-offset-2 [&_button]:focus-visible:outline-blue-600"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="px-5 sm:px-8 py-5 shrink-0 border-b border-slate-200 bg-white flex items-center justify-between gap-4">
+          <div className="flex min-w-0 items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-xs">
               <Bot className="w-5 h-5" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-slate-900">
-                  Playwright Application Assistant
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 id="assistant-title" className="text-lg sm:text-xl font-semibold tracking-tight text-slate-900">
+                  Application assistant
                 </h3>
                 <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-semibold">
                   Job #{job.rank || job.id}
                 </span>
               </div>
-              <p className="text-xs text-slate-500 truncate max-w-md">
+              <p className="mt-1 text-sm text-slate-500 break-words">
                 {job.title} • {job.company}
               </p>
             </div>
@@ -542,16 +568,16 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
           <button
             onClick={onClose}
             className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition"
-            title="Minimize Assistant"
+            title="Close assistant" aria-label="Close assistant"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="p-6 space-y-5 overflow-y-auto">
+        <div className="flex-1 min-h-0 overflow-y-auto bg-slate-50 px-5 py-6 sm:px-8 space-y-6">
           {/* Status Bar */}
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <div className="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 flex flex-wrap items-center justify-between gap-5">
             <div className="space-y-0.5 min-w-0">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                 Automation Status
@@ -577,97 +603,28 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
 
             <div className="text-right">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                Submission Lock
+                Submission
               </span>
               <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                AUTO_SUBMIT = OFF
+                Manual submission
               </span>
             </div>
           </div>
 
-          {/* Active Browser Window Notice */}
-          <div className="p-3 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 text-xs text-blue-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 shadow-2xs">
-            <div className="flex items-center gap-2">
-              <Bot className="w-4 h-4 text-blue-600 shrink-0" />
-              <span className="text-[11px] leading-relaxed">
-                Chromium browser is open for this application. (If it opened behind your window, click <strong>Bring to Front</strong> or check your taskbar).
-              </span>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h4 className="text-base font-semibold text-slate-900">Current application page</h4>
+              <p className="mt-1 text-xs text-slate-500">Review your answers and continue in the browser.</p>
             </div>
-            <button
-              type="button"
-              onClick={handleRelaunchBrowser}
-              className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shrink-0 shadow-2xs transition active:scale-95 flex items-center gap-1.5"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span>Bring to Front</span>
-            </button>
-          </div>
-
-          {/* Interactive On-Demand Auto-Fill & Page Learning Action */}
-          <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-blue-50/90 border border-blue-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-xs">
-            <div className="space-y-0.5 max-w-md">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-blue-900">
-                <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>On-Demand Page Actions</span>
-              </div>
-              <p className="text-[11px] text-slate-600 leading-relaxed">
-                Use <strong>Scan & Fill</strong> to automatically populate fields. If you manually created an account or filled custom answers in Chrome, click <strong>Remember Page Data</strong> to permanently memorize them for future jobs.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={handleRelaunchBrowser}
-                title="Brings the Chromium browser window to front or reopens it if minimized"
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 shadow-2xs hover:shadow-xs transition active:scale-95"
-              >
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
-                <span>Show Chrome</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={handleLearnFromPage}
-                disabled={isLearning || session?.state === 'FILLING_FORM'}
-                title="Reads whatever you entered in Chrome (including custom answers & portal passwords) and saves them to permanent memory"
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-white hover:bg-slate-50 text-indigo-700 border border-indigo-200 shadow-2xs hover:shadow-xs transition active:scale-95 disabled:opacity-50"
-              >
-                {isLearning ? (
-                  <>
-                    <Bot className="w-3.5 h-3.5 animate-spin text-indigo-600" />
-                    <span>Memorizing...</span>
-                  </>
-                ) : (
-                  <>
-                    <BookmarkPlus className="w-3.5 h-3.5 text-indigo-600" />
-                    <span>Remember Page Data</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={handleScanAndFillPage}
-                disabled={isScanning || session?.state === 'FILLING_FORM'}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xs hover:shadow transition active:scale-95 disabled:opacity-50"
-              >
-                {isScanning || session?.state === 'FILLING_FORM' ? (
-                  <>
-                    <Bot className="w-3.5 h-3.5 animate-spin" />
-                    <span>Scanning & Filling...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Scan & Fill Current Page</span>
-                  </>
-                )}
-              </button>
+            <div className="flex flex-wrap items-center gap-2">
+              <button type="button" onClick={handleRelaunchBrowser} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"><ExternalLink className="h-4 w-4" />Show browser</button>
+              <button type="button" onClick={handleLearnFromPage} disabled={!session || isLearning || isScanning || isApplyingBatch || session.state === 'FILLING_FORM'} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-50"><BookmarkPlus className="h-4 w-4" />{isLearning ? 'Saving…' : 'Remember answers'}</button>
+              <button type="button" onClick={handleScanAndFillPage} disabled={!session || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM', 'WAITING_FOR_HUMAN'].includes(session.state)} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"><Sparkles className="h-4 w-4" />{isScanning || isApplyingBatch || session?.state === 'FILLING_FORM' ? 'Filling…' : 'Scan & fill'}</button>
             </div>
           </div>
-
+          <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
+          <section className="min-w-0 space-y-5" aria-label="Application fields">
           {learnedToast && (
             <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs flex items-center justify-between gap-2.5 animate-in fade-in duration-150">
               <div className="flex items-center gap-2">
@@ -730,7 +687,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                 The assistant inspected the entire page. Confirm or select your preferred answers below. Clicking <strong>Confirm & Fill All</strong> will apply them in Chrome, attach your resume, and remember your choices for future jobs.
               </p>
 
-              <div className="space-y-3.5 max-h-72 overflow-y-auto pr-1">
+              <div className="space-y-3.5 space-y-3">
                 {batchOverview.unresolved.map((field) => (
                   <div key={field.id} className="p-3 rounded-lg bg-white border border-indigo-200/80 shadow-2xs space-y-2">
                     <div className="flex items-center justify-between gap-2">
@@ -902,34 +859,24 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             </div>
           )}
 
-          {/* READY FOR REVIEW CARD */}
-          {session?.state === 'READY_FOR_REVIEW' && (
-            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 space-y-2.5">
-              <div className="flex items-center gap-2 text-emerald-900 font-bold text-xs uppercase tracking-wide">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                Application Ready For Human Review
-              </div>
-              <p className="text-xs text-emerald-800 leading-relaxed">
-                All known fields have been filled and your verified resume PDF is attached. 
-                The Playwright Chromium window is currently open on your screen at the final review page.
-              </p>
-              <div className="p-2.5 rounded-lg bg-white/80 border border-emerald-200 text-xs text-slate-700">
-                👉 <strong>Action Required:</strong> Look at the open browser window on your desktop, verify all fields, and click the final <strong>"Submit Application"</strong> button manually when you are ready.
-              </div>
+          {session && ['PAGE_PAUSED', 'NEEDS_ATTENTION', 'READY_FOR_REVIEW'].includes(session.state) && (
+            <div role="status" className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
+              <p className="font-semibold">{session.state === 'NEEDS_ATTENTION' ? 'Check the current page' : 'Page scan finished'}</p>
+              <p className="mt-1 text-blue-800">{session.state === 'NEEDS_ATTENTION' ? 'Some fields need attention, or no form was found. Open the browser to continue.' : 'Check the entered values in the browser. If another step appears, scan that page next.'}</p>
             </div>
           )}
 
           {/* Filled Fields Section */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center justify-between">
+          <div className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+            <h4 className="text-sm font-semibold text-slate-800 mb-5 flex items-center justify-between">
               <span className="flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5 text-blue-600" />
-                Form Fields Progress ({deduplicateFields(session?.filledFields || []).length} completed)
+                Entered fields ({deduplicateFields(session?.filledFields || []).length})
               </span>
             </h4>
 
             {session?.filledFields && deduplicateFields(session.filledFields).length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-56 overflow-y-auto p-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {deduplicateFields(session.filledFields).map((field, idx) => {
                   const isEditing = editingFieldLabel === field.label;
                   return (
@@ -942,7 +889,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className="font-semibold text-slate-700 truncate max-w-[190px]">
+                        <span className="font-semibold text-slate-700 break-words">
                           {field.label}
                         </span>
                         <div className="flex items-center gap-1 shrink-0">
@@ -1009,7 +956,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                           </button>
                         </div>
                       ) : (
-                        <span className="text-[11px] text-slate-500 font-mono truncate">
+                        <span className="text-sm text-slate-600 break-all">
                           {field.value || <em className="text-slate-400">Empty</em>}
                         </span>
                       )}
@@ -1018,26 +965,28 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                 })}
               </div>
             ) : (
-              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-center text-xs text-slate-400">
-                Fields will appear here as Playwright analyzes and fills them in real time.
+              <div className="px-6 py-16 rounded-lg bg-slate-50 text-center text-sm text-slate-500">
+                No fields entered yet. Filled answers will appear here as the page is processed.
               </div>
             )}
           </div>
 
+          </section>
+          <aside className="min-w-0 xl:sticky xl:top-0" aria-label="Automation activity">
           {/* Collapsible Logs Drawer */}
           <div className="border border-slate-200 rounded-xl overflow-hidden">
             <button
               onClick={() => setShowLogs(!showLogs)}
-              className="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100 flex items-center justify-between text-xs font-semibold text-slate-700 transition"
+              aria-expanded={showLogs} className="w-full px-5 py-4 bg-white hover:bg-slate-50 flex items-center justify-between text-xs font-semibold text-slate-700 transition"
             >
-              <span>Live Automation Logs ({session?.logs.length || 0})</span>
+              <span>Activity ({session?.logs.length || 0})</span>
               {showLogs ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             </button>
 
             {showLogs && (
-              <div className="p-3 bg-slate-900 text-slate-200 font-mono text-[11px] max-h-44 overflow-y-auto space-y-1">
+              <div className="p-4 bg-white text-slate-700 font-mono text-[11px] max-h-[60dvh] overflow-y-auto space-y-3 border-t border-slate-100">
                 {session?.logs.map((log, i) => (
-                  <div key={i} className="flex items-start gap-2 leading-relaxed">
+                  <div key={i} className="flex flex-wrap items-start gap-x-2 leading-relaxed">
                     <span className="text-slate-500 shrink-0">
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </span>
@@ -1054,26 +1003,28 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                     >
                       [{log.level.toUpperCase()}]
                     </span>
-                    <span className="text-slate-300 break-all">{log.message}</span>
+                    <span className="text-slate-600 break-words">{log.message}</span>
                   </div>
                 ))}
                 <div ref={logsEndRef} />
               </div>
             )}
           </div>
+          </aside>
+          </div>
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3.5 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+        <div className="px-5 sm:px-8 py-3.5 shrink-0 border-t border-slate-200 bg-white flex flex-wrap items-center justify-between gap-3">
           <div className="text-[11px] text-slate-500 flex items-center gap-1.5">
             <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
             <a
               href={job.applyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-600 underline truncate max-w-xs"
+              className="hover:text-blue-600 underline truncate max-w-[50vw] sm:max-w-lg"
             >
-              {job.applyUrl}
+              Open original listing
             </a>
           </div>
 
@@ -1091,7 +1042,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
               onClick={onClose}
               className="px-4 py-1.5 rounded-lg text-xs font-medium bg-slate-200 hover:bg-slate-300 text-slate-800 transition"
             >
-              Close Window
+              Back to tracker
             </button>
           </div>
         </div>

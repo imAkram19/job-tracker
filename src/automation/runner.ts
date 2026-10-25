@@ -318,13 +318,8 @@ export class AutomationSession {
       }
     }
 
-    await validationHandler.validatePage();
-    this.stateManager.setState('READY_FOR_REVIEW');
-    this.stateManager.log(
-      'success',
-      `Filled ${filledCount} fields in batch. Application ready for final review [AUTO_SUBMIT = false].`
-    );
-
+    await validationHandler.finishCurrentPage();
+    if (errorCount > 0) this.stateManager.setState('NEEDS_ATTENTION');
     return { filledCount, errorCount };
   }
 

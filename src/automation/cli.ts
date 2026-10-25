@@ -80,7 +80,7 @@ async function main() {
 
   if (success) {
     console.log('\n🎉 Application automation completed successfully!');
-    console.log('Browser is paused at the final review page. Inspect and submit manually when satisfied.\n');
+    console.log('Current page scan finished. Check the browser for missing answers or further steps.\n');
   } else {
     console.log('\n⚠️ Application automation paused or ended without completion.\n');
   }

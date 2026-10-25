@@ -16,6 +16,13 @@ export class ValidationHandler {
     this.stateManager = stateManager;
   }
 
+  public async finishCurrentPage(): Promise<void> {
+    const report = await this.validatePage();
+    const hasControls = await this.page.locator('input:not([type="hidden"]):not([type="submit"]), select, textarea, [role="combobox"]').count();
+    this.stateManager.setState(report.hasErrors || hasControls === 0 ? 'NEEDS_ATTENTION' : 'PAGE_PAUSED');
+    this.stateManager.log('info', 'Current page scan finished. Check the browser for missing answers or further steps. Nothing has been submitted.');
+  }
+
   public async validatePage(): Promise<ValidationReport> {
     const report = await this.page.evaluate(() => {
       const errorMessages: string[] = [];

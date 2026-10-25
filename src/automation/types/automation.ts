@@ -6,6 +6,8 @@ export type AutomationState =
   | 'WAITING_FOR_HUMAN'
   | 'CONTINUING'
   | 'READY_FOR_REVIEW'
+  | 'PAGE_PAUSED'
+  | 'NEEDS_ATTENTION'
   | 'SUBMITTED'
   | 'FAILED'
   | 'SKIPPED'
