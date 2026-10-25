@@ -25,6 +25,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({ jobs, tracking }
   let interviewingCount = 0;
   let offerCount = 0;
   let notAppliedCount = 0;
+  let reviewCount = 0;
 
   jobs.forEach(job => {
     const item = tracking[job.id];
@@ -32,6 +33,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({ jobs, tracking }
     if (status === 'Applied') appliedCount++;
     else if (status === 'Interviewing') interviewingCount++;
     else if (status === 'Offer') offerCount++;
+    else if (status === 'Review') reviewCount++;
     else if (status === 'Not Applied') notAppliedCount++;
   });
 
@@ -60,11 +62,16 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({ jobs, tracking }
             <Sparkles className="w-3.5 h-3.5" />
           </div>
         </div>
-        <div className="flex items-baseline gap-2">
+        <div className="flex items-baseline gap-2 flex-wrap">
           <span className="text-2xl font-bold text-slate-900">{totalJobs}</span>
           <span className="text-[11px] text-emerald-600 font-medium">
             +{freshJobsCount} fresh
           </span>
+          {reviewCount > 0 && (
+            <span className="text-[10px] text-indigo-700 font-semibold bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">
+              {reviewCount} in review
+            </span>
+          )}
         </div>
         <p className="text-[11px] text-slate-400 mt-0.5">Verified permanent roles</p>
       </div>

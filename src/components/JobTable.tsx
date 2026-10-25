@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { JobItem, JobStatus, TrackingState } from '@/types/job';
 import { StatusDropdown } from './StatusDropdown';
+import { ReviewBadge } from './ReviewBadge';
 import { formatRelativeDate } from '@/lib/utils';
 
 interface JobTableProps {
@@ -64,8 +65,13 @@ export const JobTable: React.FC<JobTableProps> = ({
               >
                 {/* 1. Company & Date Posted */}
                 <td className="py-3.5 px-4">
-                  <div className="font-semibold text-slate-900 text-[13px] group-hover:text-blue-600 transition-colors leading-snug">
-                    {job.company}
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-semibold text-slate-900 text-[13px] group-hover:text-blue-600 transition-colors leading-snug">
+                      {job.company}
+                    </span>
+                    {userTrack.status === 'Review' && (
+                      <ReviewBadge size="xs" />
+                    )}
                   </div>
                   <div className="flex items-center gap-1.5 mt-1 text-[11px] text-slate-500">
                     <span className="inline-flex items-center gap-1 font-medium text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded text-[10px] border border-blue-100">

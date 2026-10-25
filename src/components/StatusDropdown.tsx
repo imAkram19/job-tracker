@@ -17,6 +17,11 @@ export const StatusDropdown: React.FC<StatusDropdownProps> = ({
 }) => {
   const getStatusConfig = (status: JobStatus) => {
     switch (status) {
+      case 'Review':
+        return {
+          dot: 'bg-indigo-500 ring-indigo-100',
+          style: 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100/70',
+        };
       case 'Applied':
         return {
           dot: 'bg-blue-500 ring-blue-100',
@@ -72,6 +77,7 @@ export const StatusDropdown: React.FC<StatusDropdownProps> = ({
           className={`w-full appearance-none pl-6 pr-7 py-1.5 rounded-lg text-xs font-medium border cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition shadow-sm ${config.style}`}
         >
           <option value="Not Applied">Not Applied</option>
+          <option value="Review">Review</option>
           <option value="No link">No link</option>
           <option value="Applied">Applied</option>
           <option value="Interviewing">Interviewing</option>

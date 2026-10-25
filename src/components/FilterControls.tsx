@@ -45,6 +45,7 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
   const statusTabs = [
     { id: 'ALL', label: 'All Jobs' },
     { id: 'Not Applied', label: 'Not Applied' },
+    { id: 'Review', label: 'Review' },
     { id: 'Applied', label: 'Applied' },
     { id: 'Interviewing', label: 'Interviewing' },
     { id: 'Offer', label: 'Offer' },

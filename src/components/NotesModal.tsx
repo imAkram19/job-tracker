@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { JobItem, JobStatus, UserJobTracking } from '@/types/job';
 import { StatusDropdown } from './StatusDropdown';
+import { ReviewBadge } from './ReviewBadge';
 
 interface NotesModalProps {
   job: JobItem | null;
@@ -69,13 +70,16 @@ export const NotesModal: React.FC<NotesModalProps> = ({
         {/* Header */}
         <div className="px-5 py-3.5 border-b border-slate-200 flex items-start justify-between bg-slate-50/70">
           <div className="space-y-0.5">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[11px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-mono">
                 #{job.rank}
               </span>
               <h3 className="text-sm font-bold text-slate-900">
                 {job.company}
               </h3>
+              {status === 'Review' && (
+                <ReviewBadge size="xs" />
+              )}
             </div>
             <p className="text-xs text-slate-500 font-medium">{job.title}</p>
           </div>

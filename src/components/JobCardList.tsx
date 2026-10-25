@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { JobItem, JobStatus, TrackingState } from '@/types/job';
 import { StatusDropdown } from './StatusDropdown';
+import { ReviewBadge } from './ReviewBadge';
 import { formatRelativeDate } from '@/lib/utils';
 
 interface JobCardListProps {
@@ -50,13 +51,16 @@ export const JobCardList: React.FC<JobCardListProps> = ({
             {/* Top row: Company & Date Posted in one row */}
             <div className="flex items-start justify-between gap-2">
               <div>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
                   <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 border border-slate-200">
                     #{job.rank}
                   </span>
                   <h3 className="text-sm font-semibold text-slate-900 leading-tight">
                     {job.company}
                   </h3>
+                  {userTrack.status === 'Review' && (
+                    <ReviewBadge size="xs" />
+                  )}
                 </div>
                 <h4 className="text-xs font-medium text-slate-800 mt-1">
                   {job.title}
@@ -77,6 +81,9 @@ export const JobCardList: React.FC<JobCardListProps> = ({
 
             {/* Badges: Category, Location, Salary */}
             <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+              {userTrack.status === 'Review' && (
+                <ReviewBadge size="xs" />
+              )}
               <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 font-medium">
                 {job.category}
               </span>
