@@ -3,7 +3,6 @@
 import React from 'react';
 import { 
   ExternalLink, 
-  MessageSquare, 
   Clock, 
   MapPin, 
   Briefcase, 
@@ -43,12 +42,10 @@ export const JobTable: React.FC<JobTableProps> = ({
         {/* Table Head */}
         <thead>
           <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-            <th className="py-3 px-4 w-10 text-center text-slate-400">#</th>
             <th className="py-3 px-4 min-w-[200px]">Company & Date Posted</th>
             <th className="py-3 px-4 min-w-[280px]">Role & Domain</th>
             <th className="py-3 px-4 min-w-[130px]">Salary / CTC</th>
             <th className="py-3 px-4 min-w-[210px]">Your Status & Link</th>
-            <th className="py-3 px-4 min-w-[200px] text-right">Notes & Comments</th>
           </tr>
         </thead>
 
@@ -60,19 +57,12 @@ export const JobTable: React.FC<JobTableProps> = ({
               comments: '',
             };
 
-            const hasComments = Boolean(userTrack.comments && userTrack.comments.trim().length > 0);
-
             return (
               <tr 
                 key={job.id} 
                 className="hover:bg-slate-50/70 transition-colors group"
               >
-                {/* 1. Rank */}
-                <td className="py-3.5 px-4 text-center text-slate-400 font-mono text-[11px]">
-                  {job.rank}
-                </td>
-
-                {/* 2. Company & Date Posted (Merged column) */}
+                {/* 1. Company & Date Posted */}
                 <td className="py-3.5 px-4">
                   <div className="font-semibold text-slate-900 text-[13px] group-hover:text-blue-600 transition-colors leading-snug">
                     {job.company}
@@ -88,7 +78,7 @@ export const JobTable: React.FC<JobTableProps> = ({
                   </div>
                 </td>
 
-                {/* 3. Role & Domain (Cleaner proper structure) */}
+                {/* 2. Role & Domain */}
                 <td className="py-3.5 px-4">
                   <div className="font-medium text-slate-900 text-[13px] leading-snug">
                     {job.title}
@@ -113,14 +103,14 @@ export const JobTable: React.FC<JobTableProps> = ({
                   </div>
                 </td>
 
-                {/* 4. Salary / CTC */}
+                {/* 3. Salary / CTC */}
                 <td className="py-3.5 px-4">
                   <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-medium font-mono bg-emerald-50 text-emerald-800 border border-emerald-200">
                     {job.salary}
                   </span>
                 </td>
 
-                {/* 5. Your Status & Apply Link (Moved together) */}
+                {/* 4. Your Status & Apply Link */}
                 <td className="py-3.5 px-4">
                   <div className="flex items-center gap-2">
                     <StatusDropdown
@@ -147,24 +137,6 @@ export const JobTable: React.FC<JobTableProps> = ({
                       Applied: {new Date(userTrack.appliedDate).toLocaleDateString()}
                     </span>
                   )}
-                </td>
-
-                {/* 6. Notes & Comments (LAST column) */}
-                <td className="py-3.5 px-4 text-right">
-                  <button
-                    onClick={() => onOpenNotes(job)}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition max-w-[220px] text-left truncate ${
-                      hasComments
-                        ? 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100'
-                        : 'bg-white text-slate-500 border-slate-200 hover:text-slate-800 hover:border-slate-300 shadow-sm'
-                    }`}
-                    title={userTrack.comments || "Click to add notes"}
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 shrink-0 text-blue-500" />
-                    <span className="truncate">
-                      {hasComments ? userTrack.comments : '+ Add Note'}
-                    </span>
-                  </button>
                 </td>
 
               </tr>
