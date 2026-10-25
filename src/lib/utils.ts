@@ -5,9 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatRelativeDate(dateString: string): string {
+export function formatRelativeDate(dateString?: string | null): string {
+  if (!dateString) return "Recently";
   try {
     const postDate = new Date(dateString);
+    if (isNaN(postDate.getTime())) return "Recently";
     const now = new Date();
     const diffTime = Math.abs(now.getTime() - postDate.getTime());
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
@@ -18,6 +20,6 @@ export function formatRelativeDate(dateString: string): string {
     if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`;
     return dateString;
   } catch {
-    return dateString;
+    return dateString || "Recently";
   }
 }

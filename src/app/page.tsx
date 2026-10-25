@@ -16,6 +16,13 @@ import { JobCardList } from '@/components/JobCardList';
 import { NotesModal } from '@/components/NotesModal';
 import { CandidateModal } from '@/components/CandidateModal';
 import { ExportImportModal } from '@/components/ExportImportModal';
+import { ApplicationAutomationModal } from '@/components/ApplicationAutomationModal';
+
+function parseJobDate(d?: string): number {
+  if (!d) return 0;
+  const t = new Date(d).getTime();
+  return isNaN(t) ? 0 : t;
+}
 
 const initialJobs: JobItem[] = rawJobsData as JobItem[];
 
@@ -23,6 +30,7 @@ export default function Home() {
   const [jobs, setJobs] = useState<JobItem[]>(initialJobs);
   const [tracking, setTracking] = useState<TrackingState>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Filters & Sorting state
   const [searchQuery, setSearchQuery] = useState('');
@@ -33,12 +41,14 @@ export default function Home() {
 
   // Modals state
   const [selectedJobForNotes, setSelectedJobForNotes] = useState<JobItem | null>(null);
+  const [automationJob, setAutomationJob] = useState<JobItem | null>(null);
   const [isNotesOpen, setIsNotesOpen] = useState(false);
   const [isDossierOpen, setIsDossierOpen] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
 
   // Load tracking state on mount from Supabase / LocalStorage
   useEffect(() => {
+    setIsMounted(true);
     async function initData() {
       setIsLoading(true);
       try {
@@ -130,15 +140,19 @@ export default function Home() {
 
     result.sort((a, b) => {
       if (sortOption === 'date-desc') {
-        return new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime();
+        const diff = parseJobDate(b.datePosted) - parseJobDate(a.datePosted);
+        if (diff !== 0) return diff;
+        return a.rank - b.rank;
       }
       if (sortOption === 'date-asc') {
-        return new Date(a.datePosted).getTime() - new Date(b.datePosted).getTime();
+        const diff = parseJobDate(a.datePosted) - parseJobDate(b.datePosted);
+        if (diff !== 0) return diff;
+        return a.rank - b.rank;
       }
       if (sortOption === 'rank-asc') {
         return a.rank - b.rank;
       }
-      return 0;
+      return a.rank - b.rank;
     });
 
     return result;
@@ -207,6 +221,7 @@ export default function Home() {
             tracking={tracking}
             onUpdateStatus={handleUpdateStatus}
             onOpenNotes={handleOpenNotes}
+            onAutoApply={(job) => setAutomationJob(job)}
           />
         </div>
 
@@ -216,6 +231,7 @@ export default function Home() {
             tracking={tracking}
             onUpdateStatus={handleUpdateStatus}
             onOpenNotes={handleOpenNotes}
+            onAutoApply={(job) => setAutomationJob(job)}
           />
         </div>
 
@@ -280,6 +296,19 @@ export default function Home() {
         filteredJobs={filteredAndSortedJobs}
         tracking={tracking}
         onImportState={handleImportState}
+      />
+
+      {/* Playwright Application Automation Assistant Modal */}
+      <ApplicationAutomationModal
+        job={automationJob}
+        isOpen={!!automationJob}
+        onClose={() => setAutomationJob(null)}
+        currentStatus={automationJob ? (tracking[automationJob.id]?.status || 'Not Applied') : 'Not Applied'}
+        onStatusChange={(status) => {
+          if (automationJob) {
+            handleUpdateStatus(automationJob.id, status);
+          }
+        }}
       />
     </div>
   );

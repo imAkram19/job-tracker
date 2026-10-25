@@ -1,0 +1,57 @@
+import path from 'path';
+import { CandidateProfileData } from '../types/automation';
+
+export const candidateProfile: CandidateProfileData = {
+  firstName: 'Mohammad',
+  lastName: 'Akram',
+  fullName: 'Mohammad Akram',
+  email: 'iamakram1902@gmail.com',
+  phone: '8686080807',
+  phoneCountryCode: '+91',
+  address: 'Warangal',
+  city: 'Warangal',
+  state: 'Telangana',
+  country: 'India',
+  postalCode: '506002',
+  tagline: 'Full Stack Developer · React · Node.js · TypeScript',
+  linkedin: 'https://www.linkedin.com/in/akram19',
+  github: 'https://github.com/imAkram19',
+  portfolio: 'https://iam-akram-portfolio.vercel.app',
+  currentCompany: 'Fresher / Student (MCA 2024–2026)',
+  education: [
+    {
+      degree: 'Master of Computer Applications (MCA)',
+      fieldOfStudy: 'Computer Applications / Software Engineering',
+      university: 'Masterji Degree and PG College',
+      startYear: '2024',
+      graduationYear: '2026',
+    },
+    {
+      degree: 'Bachelor of Computer Applications (BCA)',
+      fieldOfStudy: 'Computer Applications',
+      university: 'Masterji Degree and PG College',
+      startYear: '2019',
+      graduationYear: '2022',
+    },
+  ],
+  yearsOfExperience: 0,
+  yearsWithReact: 1, // 1 year project-based; 0 professional
+  resumePath: path.resolve(process.cwd(), 'resumes', 'Mohammad_Akram_Resume.pdf'),
+  skills: [
+    'JavaScript',
+    'TypeScript',
+    'React',
+    'Next.js',
+    'Node.js',
+    'Express.js',
+    'Python',
+    'SQL',
+    'PostgreSQL',
+    'MongoDB',
+    'Prisma ORM',
+    'Tailwind CSS',
+    'Docker',
+    'REST APIs',
+    'Supabase',
+  ],
+};

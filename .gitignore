@@ -10,11 +10,14 @@
 # Production build artifacts
 build
 dist
+*.exe
 
 # Environment variables & secrets
 .env*.local
 .env
 .mcp.json
+src/automation/data/portalAccounts.json
+logs/
 
 # Agents & MCP internal folders
 .agents/

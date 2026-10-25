@@ -5,7 +5,8 @@ import {
   ExternalLink, 
   MessageSquare, 
   Clock, 
-  MapPin 
+  MapPin,
+  Bot
 } from 'lucide-react';
 import { JobItem, JobStatus, TrackingState } from '@/types/job';
 import { StatusDropdown } from './StatusDropdown';
@@ -17,6 +18,7 @@ interface JobCardListProps {
   tracking: TrackingState;
   onUpdateStatus: (jobId: string, status: JobStatus) => void;
   onOpenNotes: (job: JobItem) => void;
+  onAutoApply?: (job: JobItem) => void;
 }
 
 export const JobCardList: React.FC<JobCardListProps> = ({
@@ -24,6 +26,7 @@ export const JobCardList: React.FC<JobCardListProps> = ({
   tracking,
   onUpdateStatus,
   onOpenNotes,
+  onAutoApply,
 }) => {
   if (jobs.length === 0) {
     return (
@@ -34,7 +37,7 @@ export const JobCardList: React.FC<JobCardListProps> = ({
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" suppressHydrationWarning>
       {jobs.map((job) => {
         const userTrack = tracking[job.id] || {
           status: 'Not Applied',
@@ -134,6 +137,18 @@ export const JobCardList: React.FC<JobCardListProps> = ({
                 </button>
               </div>
 
+              {/* Automation Trigger for this specific job */}
+              {onAutoApply && userTrack.status !== 'No link' && (
+                <button
+                  onClick={() => onAutoApply(job)}
+                  className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-xs shadow-xs hover:shadow flex items-center gap-1.5 shrink-0 active:scale-95"
+                  title="Auto-fill this application with Playwright"
+                >
+                  <Bot className="w-3.5 h-3.5" />
+                  <span>Auto Apply</span>
+                </button>
+              )}
+
               {/* Direct Apply Button */}
               {userTrack.status === 'No link' ? (
                 <span className="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-500 border border-slate-200 font-medium text-xs shrink-0">
@@ -144,9 +159,9 @@ export const JobCardList: React.FC<JobCardListProps> = ({
                   href={job.applyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition shadow-xs flex items-center gap-1 shrink-0 active:scale-95"
+                  className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 transition shadow-2xs flex items-center shrink-0"
+                  title="Open job link manually in new tab"
                 >
-                  <span>Apply</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               )}

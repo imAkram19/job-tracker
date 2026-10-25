@@ -1,0 +1,303 @@
+[
+  {
+    "id": "relocation",
+    "questionKeywords": [
+      "relocate",
+      "relocation",
+      "willing to relocate",
+      "open to relocate"
+    ],
+    "normalizedQuestion": "Are you willing to relocate?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Open to Hyderabad, Bengaluru, Remote, and across India"
+  },
+  {
+    "id": "notice_period",
+    "questionKeywords": [
+      "notice period",
+      "availability",
+      "how soon can you start",
+      "earliest start date",
+      "start date"
+    ],
+    "normalizedQuestion": "What is your notice period or availability?",
+    "answer": "Immediate (0 days)",
+    "confidence": "HIGH",
+    "notes": "Student / fresher immediate joiner"
+  },
+  {
+    "id": "total_experience",
+    "questionKeywords": [
+      "total experience",
+      "years of experience",
+      "total years of professional experience",
+      "work experience"
+    ],
+    "normalizedQuestion": "How many years of professional experience do you have?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Fresher graduating in 2026. Do not misrepresent."
+  },
+  {
+    "id": "react_experience",
+    "questionKeywords": [
+      "experience with react",
+      "years of react",
+      "react.js experience",
+      "react experience"
+    ],
+    "normalizedQuestion": "How many years of experience do you have with React?",
+    "answer": "1",
+    "confidence": "HIGH",
+    "notes": "1 year project-based development"
+  },
+  {
+    "id": "current_ctc",
+    "questionKeywords": [
+      "current ctc",
+      "current salary",
+      "present ctc"
+    ],
+    "normalizedQuestion": "What is your current CTC?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Not applicable — fresher"
+  },
+  {
+    "id": "expected_ctc",
+    "questionKeywords": [
+      "expected ctc",
+      "expected salary",
+      "salary expectation"
+    ],
+    "normalizedQuestion": "What is your expected CTC?",
+    "answer": "₹4.5 - 6.5 LPA",
+    "confidence": "HIGH",
+    "notes": "Flexible for reputable organizations & learning opportunities"
+  },
+  {
+    "id": "work_auth_india",
+    "questionKeywords": [
+      "authorized to work in india",
+      "work authorization in india",
+      "legally authorized to work in india"
+    ],
+    "normalizedQuestion": "Are you legally authorized to work in India?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Indian Citizen"
+  },
+  {
+    "id": "sponsorship_india",
+    "questionKeywords": [
+      "require visa sponsorship",
+      "require sponsorship",
+      "need sponsorship"
+    ],
+    "normalizedQuestion": "Will you now or in the future require visa sponsorship to work?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "For India-based roles"
+  },
+  {
+    "id": "internship_to_fte",
+    "questionKeywords": [
+      "internship-to-fte",
+      "open to internship",
+      "internship before full time"
+    ],
+    "normalizedQuestion": "Are you open to an internship converting to full-time employment?",
+    "answer": "Yes",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "gender_voluntary",
+    "questionKeywords": [
+      "gender",
+      "gender identity"
+    ],
+    "normalizedQuestion": "Gender",
+    "answer": "Male",
+    "confidence": "HIGH"
+  },
+  {
+    "id": "ans_1792945325643",
+    "questionKeywords": [
+      "password",
+      "create",
+      "password",
+      "protect",
+      "access"
+    ],
+    "normalizedQuestion": "Set a Password Create a password to protect and access your account",
+    "answer": "Akram@786",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792945338640",
+    "questionKeywords": [
+      "desired",
+      "salary"
+    ],
+    "normalizedQuestion": "Desired Salary",
+    "answer": "Fresher",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792945371169",
+    "questionKeywords": [
+      "your",
+      "locationrequired"
+    ],
+    "normalizedQuestion": "Set Your Locationrequired",
+    "answer": "Hyderabad",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792945555868",
+    "questionKeywords": [
+      "pronouns"
+    ],
+    "normalizedQuestion": "Pronouns",
+    "answer": "He/Him",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792947103253",
+    "questionKeywords": [
+      "hear",
+      "about",
+      "this"
+    ],
+    "normalizedQuestion": "How did you hear about this job?✱",
+    "answer": "Social Media",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792947123774",
+    "questionKeywords": [
+      "have",
+      "relative",
+      "that",
+      "currently",
+      "employed"
+    ],
+    "normalizedQuestion": "Do you have a relative that's currently employed by Endpoint?✱",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792947135369",
+    "questionKeywords": [
+      "under",
+      "years",
+      "provide",
+      "required",
+      "proof"
+    ],
+    "normalizedQuestion": "If you are under 18 years of age, can you provide required proof of you eligibility to work?✱",
+    "answer": "Not Applicable",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792947141424",
+    "questionKeywords": [
+      "travel",
+      "your",
+      "requires"
+    ],
+    "normalizedQuestion": "Can you travel if your job requires it?✱",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792947152129",
+    "questionKeywords": [
+      "this",
+      "notify",
+      "that",
+      "personal",
+      "data"
+    ],
+    "normalizedQuestion": "This is to notify you that personal data about you has been collected by Endpoint Clinical L.P. (“Endpoint”), which is located 8045 Arco Corporate Drive, Suite 250, Raleigh, NC 27617 and can be contacted by emailing compliance@Endpointclinical.com, because Endpoint wishes to evaluate your candidacy for employment. Your personal data was either obtained from an application via a job board or website, publicly available sources (e.g. LinkedIn) or provided to Endpoint by someone who referred you for potential employment. Your personal data will be processed for the purposes of managing Endpoint’s recruitment related activities, which include setting up and conducting interviews and tests for applicants, evaluating and assessing the results thereto, and as is otherwise needed in the recruitment and hiring processes. Such processing is legally permissible under Art. 6(1)(f) of Regulation (EU) 2016/679 (General Data Protection Regulation) as necessary for the purposes of the legitimate interests pursued by Endpoint, which are the solicitation, evaluation, and selection of applicants for employment. Your personal data has been shared with Lever, Inc., a cloud services provider located in the United States of America and engaged by Endpoint to help manage its recruitment and hiring process on Endpoint’s behalf. Accordingly, if you are located outside of the United States, your personal data has been transferred to the United States. Because the European Union Commission has determined that United States data privacy laws do not ensure an adequate level of protection for personal data collected from EU data subjects, the transfer was subject to appropriate additional safeguards under the EU-US Privacy Shield Framework. You can obtain a copy of the standard contractual clauses by contacting us at compliance@Endpointclinical.com. Your personal data will be retained by Endpoint for two (2) years after notifying you of the outcome of the recruitment exercise. Under the GDPR, you have the right to request access to your personal data, to request that your personal data be rectified or erased, and to request that processing of your personal data be restricted. You also have to right to data portability. In addition, you may lodge a complaint with an EU supervisory authority.✱",
+    "answer": "Acknowledge/Confirm",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792947165536",
+    "questionKeywords": [
+      "depending",
+      "your",
+      "previous",
+      "experience",
+      "endpoint"
+    ],
+    "normalizedQuestion": "Depending on your previous experience, Endpoint may choose to consider you for other positions within the company. Do you allow for Endpoint to use the information submitted in this application for that purpose?✱",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792948438399",
+    "questionKeywords": [
+      "name"
+    ],
+    "normalizedQuestion": "Name",
+    "answer": "Mohammad Akram",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792949085376",
+    "questionKeywords": [
+      "current",
+      "location"
+    ],
+    "normalizedQuestion": "Current Location",
+    "answer": "Hyderabad, Telangana, India",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792949550561",
+    "questionKeywords": [
+      "email"
+    ],
+    "normalizedQuestion": "Email",
+    "answer": "iamakram1902@gmail.com",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792949550562",
+    "questionKeywords": [
+      "phone"
+    ],
+    "normalizedQuestion": "Phone",
+    "answer": "8686080807",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792949723137",
+    "questionKeywords": [
+      "upload",
+      "profile",
+      "image"
+    ],
+    "normalizedQuestion": "Upload profile image",
+    "answer": "C:\\fakepath\\Mohammad_Akram_Resume.pdf",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  }
+]
