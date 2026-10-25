@@ -35,6 +35,11 @@ export async function POST(
       return NextResponse.json({ success: true, message: 'Automation aborted' });
     }
 
+    if (action === 'RELAUNCH_BROWSER') {
+      await session.browserManager.ensureActivePage(session.job.applyUrl);
+      return NextResponse.json({ success: true, message: 'Browser reopened / brought to front' });
+    }
+
     if (action === 'SCAN_PAGE_OVERVIEW') {
       const overview = await session.scanPageOverview();
       return NextResponse.json({ success: true, overview });

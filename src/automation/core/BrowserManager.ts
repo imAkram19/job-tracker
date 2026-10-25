@@ -32,6 +32,7 @@ export class BrowserManager {
           '--start-maximized',
           '--no-sandbox',
           '--disable-setuid-sandbox',
+          '--new-window',
         ],
       });
 
@@ -42,6 +43,7 @@ export class BrowserManager {
       });
 
       this.page = await this.context.newPage();
+      await this.page.bringToFront().catch(() => {});
 
       // Track newly opened tabs/popups (e.g. Google Login, SSO, OAuth)
       this.context.on('page', (newPage) => {

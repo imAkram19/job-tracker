@@ -371,6 +371,19 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
     }
   };
 
+  const handleRelaunchBrowser = async () => {
+    if (!session) return;
+    try {
+      await fetch(`/api/automation/session/${session.sessionId}/respond`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'RELAUNCH_BROWSER' }),
+      });
+    } catch (err) {
+      console.error('Error reopening browser:', err);
+    }
+  };
+
   const handleLocalStatusChange = (newStatus: JobStatus) => {
     setStatus(newStatus);
     if (onStatusChange) {
@@ -570,6 +583,24 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             </div>
           </div>
 
+          {/* Active Browser Window Notice */}
+          <div className="p-3 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 text-xs text-blue-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 shadow-2xs">
+            <div className="flex items-center gap-2">
+              <Bot className="w-4 h-4 text-blue-600 shrink-0" />
+              <span className="text-[11px] leading-relaxed">
+                Chromium browser is open for this application. (If it opened behind your window, click <strong>Bring to Front</strong> or check your taskbar).
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={handleRelaunchBrowser}
+              className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shrink-0 shadow-2xs transition active:scale-95 flex items-center gap-1.5"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Bring to Front</span>
+            </button>
+          </div>
+
           {/* Interactive On-Demand Auto-Fill & Page Learning Action */}
           <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-blue-50/90 border border-blue-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-xs">
             <div className="space-y-0.5 max-w-md">
@@ -583,6 +614,16 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             </div>
 
             <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={handleRelaunchBrowser}
+                title="Brings the Chromium browser window to front or reopens it if minimized"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 shadow-2xs hover:shadow-xs transition active:scale-95"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+                <span>Show Chrome</span>
+              </button>
+
               <button
                 type="button"
                 onClick={handleLearnFromPage}

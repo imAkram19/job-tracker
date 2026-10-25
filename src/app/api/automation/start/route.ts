@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { jobId } = body;
+    const { jobId, forceNew } = body;
 
     if (!jobId) {
       return NextResponse.json({ error: 'jobId is required' }, { status: 400 });
@@ -35,12 +35,17 @@ export async function POST(req: NextRequest) {
 
     // Check if there is already an active session for this job
     const existing = getActiveSessionByJobId(String(jobId));
-    if (existing) {
-      return NextResponse.json({
-        sessionId: existing.stateManager.getSessionId(),
-        status: existing.stateManager.getStatus(),
-        message: 'Active session already exists for this job',
-      });
+    if (existing && !forceNew) {
+      try {
+        await existing.browserManager.ensureActivePage(existing.job.applyUrl);
+        return NextResponse.json({
+          sessionId: existing.stateManager.getSessionId(),
+          status: existing.stateManager.getStatus(),
+          message: 'Active session resumed for this job',
+        });
+      } catch (err) {
+        console.warn('Could not resume existing session browser, starting fresh session:', err);
+      }
     }
 
     const session = new AutomationSession(job);
