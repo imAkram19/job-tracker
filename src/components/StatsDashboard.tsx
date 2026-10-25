@@ -16,6 +16,10 @@ interface StatsDashboardProps {
 
 export const StatsDashboard: React.FC<StatsDashboardProps> = ({ jobs, tracking }) => {
   const totalJobs = jobs.length;
+  const actionableJobs = jobs.filter((job) => {
+    const status = tracking[job.id]?.status || 'Not Applied';
+    return status !== 'No link' && status !== 'Archived';
+  }).length;
   
   let appliedCount = 0;
   let interviewingCount = 0;
@@ -75,12 +79,12 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({ jobs, tracking }
         </div>
         <div className="flex items-baseline gap-2">
           <span className="text-2xl font-bold text-blue-600">{appliedCount}</span>
-          <span className="text-[11px] text-slate-400">/ {totalJobs} total</span>
+          <span className="text-[11px] text-slate-400">/ {actionableJobs} total</span>
         </div>
         <div className="mt-2 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
           <div 
             className="bg-blue-600 h-full rounded-full transition-all duration-500" 
-            style={{ width: `${Math.round((appliedCount / (totalJobs || 1)) * 100)}%` }}
+            style={{ width: `${Math.round((appliedCount / (actionableJobs || 1)) * 100)}%` }}
           />
         </div>
       </div>
