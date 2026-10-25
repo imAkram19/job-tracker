@@ -32,24 +32,13 @@ export class BrowserManager {
         '--new-window',
       ];
 
-      try {
-        // Prefer installed Google Chrome on user system for best compatibility & visibility
-        this.browser = await chromium.launch({
-          channel: 'chrome',
-          headless,
-          slowMo,
-          args: launchArgs,
-        });
-        this.stateManager.log('info', 'Launched using system Google Chrome');
-      } catch (chromeErr) {
-        // Fallback to Playwright's bundled Chromium
-        this.browser = await chromium.launch({
-          headless,
-          slowMo,
-          args: launchArgs,
-        });
-        this.stateManager.log('info', 'Launched using Playwright bundled Chromium');
-      }
+      // Launch dedicated Playwright Chromium directly (distinct blue icon, never merged into Chrome)
+      this.browser = await chromium.launch({
+        headless,
+        slowMo,
+        args: launchArgs,
+      });
+      this.stateManager.log('info', 'Launched dedicated Chromium browser window');
 
       // Setting viewport to null allows the browser window to occupy the full maximized screen
       this.context = await this.browser.newContext({

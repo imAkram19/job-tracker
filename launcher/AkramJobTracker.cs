@@ -28,9 +28,15 @@ namespace AkramJobTracker
                     return;
                 }
 
-                if (!IsServerResponsive())
+                string activeUrl = DetectActiveUrl();
+                if (activeUrl != null)
+                {
+                    appUrl = activeUrl;
+                }
+                else
                 {
                     StartBackgroundServer();
+                    appUrl = DetectActiveUrl() ?? "http://localhost:3000";
                 }
 
                 OpenAppWindow();
@@ -39,11 +45,18 @@ namespace AkramJobTracker
             }
         }
 
-        private static bool IsServerResponsive()
+        private static string DetectActiveUrl()
+        {
+            if (IsUrlResponsive("http://localhost:3000")) return "http://localhost:3000";
+            if (IsUrlResponsive("http://localhost:3001")) return "http://localhost:3001";
+            return null;
+        }
+
+        private static bool IsUrlResponsive(string url)
         {
             try
             {
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(appUrl);
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
                 req.Timeout = 1200;
                 req.Method = "GET";
                 using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
@@ -66,9 +79,9 @@ namespace AkramJobTracker
 
                 ProcessStartInfo psi = new ProcessStartInfo();
                 psi.FileName = "cmd.exe";
-                bool hasBuild = Directory.Exists(Path.Combine(appDir, ".next"));
-                string cmd = hasBuild ? "npm start" : "npm run dev";
-                psi.Arguments = string.Format("/c ({0} > \"{1}\" 2>&1)", cmd, logPath);
+                bool hasBuild = File.Exists(Path.Combine(appDir, @".next\BUILD_ID"));
+                string cmd = hasBuild ? "call npm start" : "call npm run dev";
+                psi.Arguments = string.Format("/c {0} > \"{1}\" 2>&1", cmd, logPath);
                 psi.WorkingDirectory = appDir;
                 psi.CreateNoWindow = true;
                 psi.UseShellExecute = false;
@@ -76,10 +89,10 @@ namespace AkramJobTracker
 
                 serverProcess = Process.Start(psi);
 
-                for (int i = 0; i < 25; i++)
+                for (int i = 0; i < 30; i++)
                 {
                     Thread.Sleep(500);
-                    if (IsServerResponsive()) break;
+                    if (DetectActiveUrl() != null) break;
                 }
             }
             catch { }
