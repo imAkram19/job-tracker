@@ -24,20 +24,36 @@ export class BrowserManager {
     this.stateManager.log('info', `Launching Playwright Chromium (headless=${headless})`);
 
     try {
-      this.browser = await chromium.launch({
-        headless,
-        slowMo,
-        args: [
-          '--disable-blink-features=AutomationControlled',
-          '--start-maximized',
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--new-window',
-        ],
-      });
+      const launchArgs = [
+        '--disable-blink-features=AutomationControlled',
+        '--start-maximized',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--new-window',
+      ];
 
+      try {
+        // Prefer installed Google Chrome on user system for best compatibility & visibility
+        this.browser = await chromium.launch({
+          channel: 'chrome',
+          headless,
+          slowMo,
+          args: launchArgs,
+        });
+        this.stateManager.log('info', 'Launched using system Google Chrome');
+      } catch (chromeErr) {
+        // Fallback to Playwright's bundled Chromium
+        this.browser = await chromium.launch({
+          headless,
+          slowMo,
+          args: launchArgs,
+        });
+        this.stateManager.log('info', 'Launched using Playwright bundled Chromium');
+      }
+
+      // Setting viewport to null allows the browser window to occupy the full maximized screen
       this.context = await this.browser.newContext({
-        viewport: options.viewport ?? { width: 1280, height: 850 },
+        viewport: null,
         userAgent:
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
       });
@@ -172,5 +188,14 @@ export class BrowserManager {
     } catch (err) {
       console.error('Error closing browser:', err);
     }
+  }
+
+  public isAlive(): boolean {
+    return !!(
+      this.browser &&
+      this.browser.isConnected() &&
+      this.context &&
+      this.context.pages().some((p) => !p.isClosed())
+    );
   }
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   X, 
   Bot, 
@@ -104,6 +104,96 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
     }
   }, [session?.logs, showLogs]);
 
+  const startSession = useCallback(async (forceNew = false) => {
+    if (!job) return;
+
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
+    }
+
+    setIsLoading(true);
+    setError(null);
+    setBatchOverview(null);
+
+    try {
+      const res = await fetch('/api/automation/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jobId: job.id, forceNew }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to start automation session');
+      }
+
+      const data = await res.json();
+      const initialStatus: AutomationSessionStatus = data.status;
+      setSession({
+        ...initialStatus,
+        filledFields: deduplicateFields(initialStatus.filledFields || []),
+      });
+      setIsLoading(false);
+
+      // Open SSE connection
+      const sse = new EventSource(`/api/automation/session/${data.sessionId}/stream`);
+      eventSourceRef.current = sse;
+
+      sse.addEventListener('status', (e) => {
+        const statusData: AutomationSessionStatus = JSON.parse(e.data);
+        setSession({
+          ...statusData,
+          filledFields: deduplicateFields(statusData.filledFields || []),
+        });
+      });
+
+      sse.addEventListener('stateChange', (e) => {
+        const payload = JSON.parse(e.data);
+        const sess: AutomationSessionStatus = payload.session;
+        setSession({
+          ...sess,
+          filledFields: deduplicateFields(sess.filledFields || []),
+        });
+      });
+
+      sse.addEventListener('log', (e) => {
+        const logItem = JSON.parse(e.data);
+        setSession((prev) => prev ? { ...prev, logs: [...prev.logs, logItem] } : null);
+      });
+
+      sse.addEventListener('fieldFilled', (e) => {
+        const field = JSON.parse(e.data);
+        setSession((prev) => {
+          if (!prev) return null;
+          const existingIdx = prev.filledFields.findIndex(
+            (f) => f.label.toLowerCase().trim() === field.label.toLowerCase().trim()
+          );
+          if (existingIdx >= 0) {
+            const updated = [...prev.filledFields];
+            updated[existingIdx] = field;
+            return { ...prev, filledFields: updated };
+          }
+          return { ...prev, filledFields: [...prev.filledFields, field] };
+        });
+      });
+
+      sse.addEventListener('humanQuestionRequired', (e) => {
+        const question: HumanQuestionRequest = JSON.parse(e.data);
+        setSession((prev) => prev ? { ...prev, pendingQuestion: question, state: 'WAITING_FOR_HUMAN' } : null);
+        setHumanAnswer(question.suggestedAnswer || '');
+      });
+
+      sse.onerror = () => {
+        // SSE disconnected
+      };
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(msg);
+      setIsLoading(false);
+    }
+  }, [job]);
+
   // Start automation when modal opens for a job
   useEffect(() => {
     if (!isOpen || !job) {
@@ -117,108 +207,15 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
       return;
     }
 
-    let isMounted = true;
-    setIsLoading(true);
-    setError(null);
-    setBatchOverview(null);
-
-    async function startSession() {
-      try {
-        const res = await fetch('/api/automation/start', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ jobId: job!.id }),
-        });
-
-        if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || 'Failed to start automation session');
-        }
-
-        const data = await res.json();
-        if (!isMounted) return;
-
-        const initialStatus: AutomationSessionStatus = data.status;
-        setSession({
-          ...initialStatus,
-          filledFields: deduplicateFields(initialStatus.filledFields || []),
-        });
-        setIsLoading(false);
-
-        // Open SSE connection
-        const sse = new EventSource(`/api/automation/session/${data.sessionId}/stream`);
-        eventSourceRef.current = sse;
-
-        sse.addEventListener('status', (e) => {
-          if (!isMounted) return;
-          const statusData: AutomationSessionStatus = JSON.parse(e.data);
-          setSession({
-            ...statusData,
-            filledFields: deduplicateFields(statusData.filledFields || []),
-          });
-        });
-
-        sse.addEventListener('stateChange', (e) => {
-          if (!isMounted) return;
-          const payload = JSON.parse(e.data);
-          const sess: AutomationSessionStatus = payload.session;
-          setSession({
-            ...sess,
-            filledFields: deduplicateFields(sess.filledFields || []),
-          });
-        });
-
-        sse.addEventListener('log', (e) => {
-          if (!isMounted) return;
-          const logItem = JSON.parse(e.data);
-          setSession((prev) => prev ? { ...prev, logs: [...prev.logs, logItem] } : null);
-        });
-
-        sse.addEventListener('fieldFilled', (e) => {
-          if (!isMounted) return;
-          const field = JSON.parse(e.data);
-          setSession((prev) => {
-            if (!prev) return null;
-            const existingIdx = prev.filledFields.findIndex(
-              (f) => f.label.toLowerCase().trim() === field.label.toLowerCase().trim()
-            );
-            if (existingIdx >= 0) {
-              const updated = [...prev.filledFields];
-              updated[existingIdx] = field;
-              return { ...prev, filledFields: updated };
-            }
-            return { ...prev, filledFields: [...prev.filledFields, field] };
-          });
-        });
-
-        sse.addEventListener('humanQuestionRequired', (e) => {
-          if (!isMounted) return;
-          const question: HumanQuestionRequest = JSON.parse(e.data);
-          setSession((prev) => prev ? { ...prev, pendingQuestion: question, state: 'WAITING_FOR_HUMAN' } : null);
-          setHumanAnswer(question.suggestedAnswer || '');
-        });
-
-        sse.onerror = () => {
-          // SSE disconnected
-        };
-      } catch (err) {
-        if (!isMounted) return;
-        const msg = err instanceof Error ? err.message : String(err);
-        setError(msg);
-        setIsLoading(false);
-      }
-    }
-
-    startSession();
+    startSession(false);
 
     return () => {
-      isMounted = false;
       if (eventSourceRef.current) {
         eventSourceRef.current.close();
         eventSourceRef.current = null;
       }
     };
-  }, [isOpen, job]);
+  }, [isOpen, job, startSession]);
 
   if (!isOpen || !job) return null;
 
@@ -372,15 +369,21 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
   };
 
   const handleRelaunchBrowser = async () => {
-    if (!session) return;
+    if (!session) {
+      startSession(true);
+      return;
+    }
     try {
-      await fetch(`/api/automation/session/${session.sessionId}/respond`, {
+      const res = await fetch(`/api/automation/session/${session.sessionId}/respond`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'RELAUNCH_BROWSER' }),
       });
-    } catch (err) {
-      console.error('Error reopening browser:', err);
+      if (!res.ok) {
+        startSession(true);
+      }
+    } catch {
+      startSession(true);
     }
   };
 
@@ -686,14 +689,23 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                   <p className="mt-0.5 text-red-700">{error}</p>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setError(null)}
-                className="text-red-500 hover:text-red-800 p-0.5 transition"
-                title="Dismiss"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => startSession(true)}
+                  className="px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs shadow-2xs transition active:scale-95"
+                >
+                  Relaunch Browser
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setError(null)}
+                  className="text-red-500 hover:text-red-800 p-0.5 transition"
+                  title="Dismiss"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           )}
 

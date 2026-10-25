@@ -19,14 +19,24 @@ namespace AkramJobTracker
         [STAThread]
         public static void Main()
         {
-            if (!IsServerResponsive())
+            bool isNewInstance;
+            using (Mutex mutex = new Mutex(true, "AkramJobTrackerSingleInstanceMutex", out isNewInstance))
             {
-                StartBackgroundServer();
+                if (!isNewInstance)
+                {
+                    OpenAppWindow();
+                    return;
+                }
+
+                if (!IsServerResponsive())
+                {
+                    StartBackgroundServer();
+                }
+
+                OpenAppWindow();
+
+                Application.Run(new TrayContext());
             }
-
-            OpenAppWindow();
-
-            Application.Run(new TrayContext());
         }
 
         private static bool IsServerResponsive()
@@ -51,10 +61,14 @@ namespace AkramJobTracker
         {
             try
             {
+                string logDir = Path.GetDirectoryName(logPath);
+                if (!Directory.Exists(logDir)) Directory.CreateDirectory(logDir);
+
                 ProcessStartInfo psi = new ProcessStartInfo();
                 psi.FileName = "cmd.exe";
                 bool hasBuild = Directory.Exists(Path.Combine(appDir, ".next"));
-                psi.Arguments = hasBuild ? "/c npm start" : "/c npm run dev";
+                string cmd = hasBuild ? "npm start" : "npm run dev";
+                psi.Arguments = string.Format("/c ({0} > \"{1}\" 2>&1)", cmd, logPath);
                 psi.WorkingDirectory = appDir;
                 psi.CreateNoWindow = true;
                 psi.UseShellExecute = false;
@@ -62,7 +76,7 @@ namespace AkramJobTracker
 
                 serverProcess = Process.Start(psi);
 
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 25; i++)
                 {
                     Thread.Sleep(500);
                     if (IsServerResponsive()) break;

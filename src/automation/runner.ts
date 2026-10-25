@@ -491,16 +491,12 @@ export class AutomationSession {
   }
 }
 
-// Global in-memory registry of active sessions for API communication
-declare global {
-  // eslint-disable-next-line no-var
-  var __automationSessions: Map<string, AutomationSession> | undefined;
+// Global in-memory registry of active sessions for API communication across Next.js bundles
+const globalAny = globalThis as unknown as { __automationSessions?: Map<string, AutomationSession> };
+if (!globalAny.__automationSessions) {
+  globalAny.__automationSessions = new Map<string, AutomationSession>();
 }
-
-const sessions = global.__automationSessions || new Map<string, AutomationSession>();
-if (process.env.NODE_ENV !== 'production') {
-  global.__automationSessions = sessions;
-}
+const sessions: Map<string, AutomationSession> = globalAny.__automationSessions;
 
 export function registerSession(session: AutomationSession): void {
   sessions.set(session.stateManager.getSessionId(), session);
@@ -513,7 +509,12 @@ export function getSession(sessionId: string): AutomationSession | undefined {
 export function getActiveSessionByJobId(jobId: string): AutomationSession | undefined {
   const activeSessions = Array.from(sessions.values());
   for (const session of activeSessions) {
-    if (session.job.id === jobId && session.stateManager.getState() !== 'READY_FOR_REVIEW' && session.stateManager.getState() !== 'FAILED') {
+    if (
+      String(session.job.id) === String(jobId) &&
+      session.stateManager.getState() !== 'READY_FOR_REVIEW' &&
+      session.stateManager.getState() !== 'FAILED' &&
+      session.browserManager.isAlive()
+    ) {
       return session;
     }
   }
