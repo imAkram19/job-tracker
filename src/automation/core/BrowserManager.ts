@@ -150,6 +150,25 @@ export class BrowserManager {
     return page;
   }
 
+  public async openAuthenticationPage(url: string): Promise<Page> {
+    if (!this.context || !this.browser?.isConnected()) throw new Error('Open the application browser first.');
+    // Open sign-in separately so the application form stays available.
+    const page = this.context.pages().find(p => !p.isClosed() && p.url() === url) || await this.context.newPage();
+    if (page.url() !== url) await page.goto(url, { waitUntil: 'domcontentloaded' });
+    await page.bringToFront();
+    return page;
+  }
+
+  public async pickerPage(fallbackUrl: string): Promise<Page> {
+    if (this.context) {
+      for (const page of this.context.pages()) {
+        if (!page.isClosed() && await page.evaluate(() => document.hasFocus()).catch(() => false)) return page;
+      }
+      if (this.page && !this.page.isClosed()) return this.page;
+    }
+    return this.ensureActivePage(fallbackUrl);
+  }
+
   public async navigate(url: string): Promise<void> {
     const page = this.getPage();
     this.stateManager.setState('OPENING_APPLICATION');

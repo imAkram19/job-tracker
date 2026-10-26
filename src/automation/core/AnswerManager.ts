@@ -1,3 +1,5 @@
+import { SelectedAnswerMemory, excludedMemoryField } from './SelectedAnswerMemory';
+import type { FormField } from '../types/automation';
 import fs from 'fs';
 import path from 'path';
 import { ApprovedAnswer, ConfidenceLevel } from '../types/automation';
@@ -11,11 +13,13 @@ export class AnswerManager {
     this.load();
   }
 
+  public findSelected(field: FormField) { return new SelectedAnswerMemory().find(field); }
+
   public load(): void {
     try {
       if (fs.existsSync(this.filePath)) {
         const raw = fs.readFileSync(this.filePath, 'utf-8');
-        this.answers = JSON.parse(raw);
+        this.answers = JSON.parse(raw).filter((item: ApprovedAnswer) => !excludedMemoryField(item.normalizedQuestion));
       } else {
         this.answers = [];
       }
@@ -53,7 +57,10 @@ export class AnswerManager {
     confidence: ConfidenceLevel;
     approvedItem?: ApprovedAnswer;
   } {
+    if (excludedMemoryField(questionText)) return { answer: null, confidence: 'LOW' };
     const norm = this.normalize(questionText);
+    const exact = this.answers.find(item => norm === this.normalize(item.normalizedQuestion));
+    if (exact) return { answer: exact.answer, confidence: exact.confidence, approvedItem: exact };
 
     for (const item of this.answers) {
       // 1. Direct match with normalized question
@@ -63,7 +70,7 @@ export class AnswerManager {
 
       // 2. Keyword match: all or majority of keywords match
       const matchingKeywords = item.questionKeywords.filter((kw) =>
-        norm.includes(this.normalize(kw))
+        this.normalize(kw).split(' ').length >= 2 && norm.includes(this.normalize(kw))
       );
 
       if (matchingKeywords.length > 0) {
@@ -78,6 +85,8 @@ export class AnswerManager {
    * Stores a new approved answer provided by the user
    */
   public addApprovedAnswer(questionText: string, answer: string, confidence: ConfidenceLevel = 'HIGH'): void {
+    if (excludedMemoryField(questionText)) throw new Error('Search and authentication fields cannot be saved as application answers.');
+    this.load();
     const norm = this.normalize(questionText);
     const id = `ans_${Date.now()}`;
 
@@ -87,7 +96,7 @@ export class AnswerManager {
 
     const newAnswer: ApprovedAnswer = {
       id,
-      questionKeywords: keywords,
+      questionKeywords: [],
       normalizedQuestion: questionText.trim(),
       answer: answer.trim(),
       confidence,

@@ -31,6 +31,7 @@ export type InputElementType =
   | 'unknown';
 
 export interface FormField {
+  pageOrigin?: string;
   id: string;
   name: string;
   label: string;

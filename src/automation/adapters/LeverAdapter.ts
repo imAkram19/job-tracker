@@ -140,6 +140,7 @@ export class LeverAdapter extends BasePlatformAdapter {
       if (!inputInfo || inputInfo.hasValue) continue;
 
       const formField: FormField = {
+        pageOrigin: new URL(page.url()).origin,
         id: inputInfo.id,
         name: inputInfo.name,
         label: questionText.replace(/\*/g, '').trim(),

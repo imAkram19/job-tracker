@@ -65,7 +65,7 @@ export class HumanInteractionManager extends EventEmitter {
     }
 
     if (resolution.action === 'CONTINUE' && resolution.answer) {
-      if (resolution.rememberAnswer !== false) {
+      if (resolution.rememberAnswer === true) {
         this.answerManager.addApprovedAnswer(
           this.currentRequest.question,
           resolution.answer,

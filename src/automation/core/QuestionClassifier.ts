@@ -1,3 +1,4 @@
+import { excludedMemoryField } from './SelectedAnswerMemory';
 import { FormField, ConfidenceLevel } from '../types/automation';
 import { FieldMapper } from './FieldMapper';
 import { AnswerManager } from './AnswerManager';
@@ -34,6 +35,15 @@ export class QuestionClassifier {
   }
 
   public classifyAndResolve(field: FormField): ClassificationResult {
+    if (excludedMemoryField(field.label, field.type, field.name) && field.type !== 'file') {
+      return { isProfileField: false, isScreeningQuestion: false, value: null, confidence: 'LOW' };
+    }
+    const selected = this.answerManager.findSelected(field);
+    if (selected) {
+      const optionExists = !field.options?.length || field.options.includes(selected.answer);
+      return { isProfileField: false, isScreeningQuestion: true, value: optionExists ? selected.answer : null,
+        confidence: optionExists ? 'HIGH' : 'LOW', matchedQuestion: selected.label };
+    }
     const concept = this.detectConcept(field.label, field.name);
 
     // 1. Check candidate profile mapping
@@ -65,7 +75,8 @@ export class QuestionClassifier {
 
     // 2. Check approved answers knowledge base
     const query = `${field.label} ${field.name}`;
-    const answerMatch = this.answerManager.findAnswer(query);
+    const exactLabel = this.answerManager.findAnswer(field.label);
+    const answerMatch = exactLabel.answer ? exactLabel : this.answerManager.findAnswer(query);
     if (answerMatch.answer) {
       let resolvedValue = answerMatch.answer;
       let conf: ConfidenceLevel = answerMatch.confidence;

@@ -120,3 +120,17 @@ The launcher uses a free loopback port in 3000–3009 and verifies `/api/automat
 Vercel hosts the website, but the current automation APIs run on this PC. Opening the Vercel page does not connect it to the local EXE. Use the tracker window opened by the EXE for Auto Fill.
 
 To regression-test the compiled desktop automation, run `node launcher/test-production.cjs` after a desktop build. It opens headed Chromium, intercepts every page request with a local diagnostic document, checks the status stream, and disconnects it. It does not contact employers or submit applications.
+
+### Selected question memory
+
+In the desktop application assistant, choose **Remember a field**, then **Choose field in browser**. Hover over the application field in Chromium and click it, return to the assistant, confirm its answer, and select **Save this question**. Escape cancels selection. The default scope is the current website; optionally reuse the exact question on any website. Saved questions can be removed in the same panel.
+
+Whole-page learning has been removed. Search boxes and sign-in fields are excluded, and editing an answer no longer silently memorizes it. Selected memories match the normalized question and field type; changed dropdown options require review. Custom widgets and embedded forms may still need manual filling.
+
+### Portal authentication
+
+Choose **Authentication → Add account** to save separate accounts for different portals (or multiple accounts on one portal). Password accounts support **Open sign-in**, then **Fill login**. Filling requires the saved website origin and unambiguous login fields; you review and submit sign-in yourself. For username-first flows, continue in Chromium, then use Fill login again on the password step.
+
+Google, LinkedIn, and SSO entries open the portal so you can choose its provider button and complete sign-in and verification yourself. Browser sessions are not persisted across restarts. Existing answer-bank entries are not imported as credentials.
+
+Selected questions and account records live in %LOCALAPPDATA%/AkramJobTracker, outside the repository and cloud QA bank. Passwords use Windows DPAPI encryption bound to the current Windows account. These features use the desktop/local server, not the hosted Vercel page.

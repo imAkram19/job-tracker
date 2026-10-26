@@ -1,3 +1,7 @@
+import { FieldPicker } from './core/FieldPicker';
+import { SelectedAnswerMemory } from './core/SelectedAnswerMemory';
+import { PortalAuthentication } from './core/PortalAuthentication';
+import type { Page } from 'playwright';
 import { JobItem } from '@/types/job';
 import { candidateProfile } from './data/candidateProfile';
 import { ApplicationStateManager } from './core/ApplicationStateManager';
@@ -21,6 +25,10 @@ export class AutomationSession {
   public readonly humanManager: HumanInteractionManager;
   public readonly answerManager: AnswerManager;
   public readonly job: JobItem;
+  public readonly fieldPicker = new FieldPicker();
+  public readonly selectedMemory = new SelectedAnswerMemory();
+  public readonly authentication = new PortalAuthentication();
+  public readonly authenticationPages = new Map<string, Page>();
 
   constructor(job: JobItem) {
     this.job = job;
@@ -210,7 +218,7 @@ export class AutomationSession {
 
     const resolutionMap = new Map<string, { answer: string; remember: boolean }>();
     for (const res of resolutions) {
-      resolutionMap.set(res.fieldId, { answer: res.answer, remember: res.remember ?? true });
+      resolutionMap.set(res.fieldId, { answer: res.answer, remember: res.remember === true });
     }
 
     const { FormAnalyzer } = await import('./core/FormAnalyzer');
@@ -323,79 +331,13 @@ export class AutomationSession {
     return { filledCount, errorCount };
   }
 
-  public async learnFromActivePage(): Promise<{
-    learnedCount: number;
-    learnedFields: Array<{ label: string; value: string }>;
-    portalSaved?: string;
-  }> {
-    const page = await this.browserManager.ensureActivePage(this.job.applyUrl);
-    const currentUrl = page.url();
-    this.stateManager.log('info', `Reading active page to learn and remember entered data: ${currentUrl}`);
-
-    const { FormAnalyzer } = await import('./core/FormAnalyzer');
-    const { PortalAccountManager } = await import('./core/PortalAccountManager');
-
-    const analyzer = new FormAnalyzer(page);
-    const fields = await analyzer.discoverFields();
-
-    const learnedFields: Array<{ label: string; value: string }> = [];
-    const portalMgr = new PortalAccountManager();
-
-    let detectedEmail = '';
-    let detectedPassword = '';
-
-    for (const field of fields) {
-      const val = (field.currentValue || '').trim();
-      if (!val) continue;
-
-      // Track login/credential fields
-      if (field.type === 'password' || field.label.toLowerCase().includes('password')) {
-        detectedPassword = val;
-      }
-      if (field.type === 'email' || field.label.toLowerCase().includes('email')) {
-        detectedEmail = val;
-      }
-
-      // Save question-answer pair into approved answers
-      this.answerManager.addApprovedAnswer(field.label, val, 'HIGH');
-      learnedFields.push({ label: field.label, value: val });
-    }
-
-    let portalSaved: string | undefined;
-    if (detectedPassword || detectedEmail) {
-      try {
-        const domain = new URL(currentUrl).hostname;
-        portalMgr.recordAccount(domain, this.job.company || domain, {
-          email: detectedEmail || candidateProfile.email,
-          password: detectedPassword,
-          notes: `Learned during application for ${this.job.title} at ${this.job.company}`,
-        });
-        portalSaved = domain;
-        this.stateManager.log('info', `Recorded portal account credentials for: ${domain}`);
-      } catch {
-        // Ignore URL parsing errors
-      }
-    }
-
-    this.stateManager.log(
-      'success',
-      `Learned and remembered ${learnedFields.length} field values from active page into permanent memory.`
-    );
-
-    return {
-      learnedCount: learnedFields.length,
-      learnedFields,
-      portalSaved,
-    };
-  }
-
   public async updateFieldValue(
     fieldLabel: string,
     newValue: string,
     refillInBrowser: boolean = true
   ): Promise<boolean> {
     this.stateManager.recordFilledField(fieldLabel, newValue);
-    this.answerManager.addApprovedAnswer(fieldLabel, newValue, 'HIGH');
+    // Editing a field does not silently turn it into a reusable answer.
     this.stateManager.log('info', `Updated "${fieldLabel}" to: "${newValue}"`);
 
     if (refillInBrowser) {
@@ -482,6 +424,7 @@ export class AutomationSession {
 
   public async abort(): Promise<void> {
     this.stateManager.setError('Automation aborted by user');
+    await this.fieldPicker.cancel();
     await this.browserManager.close();
   }
 }

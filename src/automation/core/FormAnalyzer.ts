@@ -42,8 +42,8 @@ export class FormAnalyzer {
         // 2. Check aria-labelledby
         const labelledBy = el.getAttribute('aria-labelledby');
         if (labelledBy) {
-          const labelEl = document.getElementById(labelledBy);
-          if (labelEl && labelEl.innerText.trim()) return labelEl.innerText.trim();
+          const labelText = labelledBy.split(/\s+/).map(id => document.getElementById(id)?.textContent?.trim() || '').join(' ').trim();
+          if (labelText) return labelText;
         }
 
         // 3. Check for explicitly linked <label for="id">
@@ -103,6 +103,11 @@ export class FormAnalyzer {
 
       let index = 0;
       for (const el of elements) {
+        const meta = [findLabel(el), el.getAttribute('name') || '', el.getAttribute('autocomplete') || ''].join(' ');
+        if (el.matches('input[type="password"],input[type="search"],input[autocomplete="username"],input[autocomplete="one-time-code"],input[autocomplete="current-password"],input[autocomplete="new-password"]') ||
+          el.closest('[role="search"],form:has(input[type="password"])') ||
+          /\b(search|password|passcode|verification code|captcha)\b/i.test(meta) ||
+          /\/(login|signin|sign-in|sign_in|auth|authenticate|register)(\/|$)/i.test(location.pathname)) continue;
         const isFileInput = el instanceof HTMLInputElement && el.type === 'file';
         if (!isFileInput) {
           const style = window.getComputedStyle(el);
@@ -152,6 +157,7 @@ export class FormAnalyzer {
           });
 
           discovered.push({
+            pageOrigin: location.origin,
             id: el.name,
             name: el.name,
             label: cleanedGroupLabel || el.name,
@@ -219,6 +225,7 @@ export class FormAnalyzer {
         }
 
         discovered.push({
+            pageOrigin: location.origin,
           id: el.id || el.getAttribute('name') || `field_${index}`,
           name: el.getAttribute('name') || '',
           label: label || el.getAttribute('placeholder') || el.getAttribute('name') || `Field ${index + 1}`,
