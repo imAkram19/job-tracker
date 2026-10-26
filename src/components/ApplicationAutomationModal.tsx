@@ -29,6 +29,7 @@ import { AutomationSessionStatus, AutomationState, HumanQuestionRequest } from '
 import { StatusDropdown } from './StatusDropdown';
 import { RememberFieldPanel } from './RememberFieldPanel';
 import { AuthenticationPanel } from './AuthenticationPanel';
+import type { SelectedAnswer } from '@/automation/core/SelectedAnswerMemory';
 
 function deduplicateFields(fields: Array<{ label: string; value: string }>) {
   if (!fields) return [];
@@ -90,10 +91,34 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
   const [batchAnswers, setBatchAnswers] = useState<Record<string, string>>({});
   const [batchRemember, setBatchRemember] = useState(false);
   const [isApplyingBatch, setIsApplyingBatch] = useState(false);
+  const [savedMemories, setSavedMemories] = useState<SelectedAnswer[]>([]);
+  const [savingMemory, setSavingMemory] = useState<string | null>(null);
+  const [memoryError, setMemoryError] = useState('');
   const [memoryOpen, setMemoryOpen] = useState(true);
   const [authOpen, setAuthOpen] = useState(false);
   const [isPicking, setIsPicking] = useState(false);
   const [learnedToast, setLearnedToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSavedMemories([]); setMemoryError('');
+    if (!session?.sessionId) return;
+    let active = true;
+    fetch(`/api/automation/session/${session.sessionId}/respond`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'MEMORY_LIST' }) })
+      .then(async res => { const data = await res.json(); if (!res.ok) throw new Error(data.error); if (active) setSavedMemories(data.entries); })
+      .catch(err => { if (active) setMemoryError(err.message); });
+    return () => { active = false; };
+  }, [session?.sessionId]);
+
+  async function rememberEnteredField(label: string) {
+    if (!session) return;
+    setSavingMemory(label); setMemoryError('');
+    try {
+      const res = await fetch(`/api/automation/session/${session.sessionId}/respond`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'MEMORY_SAVE_ENTERED', fieldLabel: label }) });
+      const data = await res.json(); if (!res.ok) throw new Error(data.error || 'Unable to save this answer.');
+      setSavedMemories(data.entries);
+    } catch (err) { setMemoryError((err as Error).message); }
+    finally { setSavingMemory(null); }
+  }
 
   // Editable filled fields state
   const [editingFieldLabel, setEditingFieldLabel] = useState<string | null>(null);
@@ -524,7 +549,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 sm:px-8 py-5 shrink-0 border-b border-slate-200 bg-white flex items-center justify-between gap-4">
+        <div className="px-5 sm:px-8 py-5 shrink-0 border-b border-slate-200 bg-white flex flex-wrap items-center gap-x-6 gap-y-4">
           <div className="flex min-w-0 items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-xs">
               <Bot className="w-5 h-5" />
@@ -543,19 +568,8 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
               </p>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition"
-            title="Close assistant" aria-label="Close assistant"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Content Body */}
-        <div className="flex-1 min-h-0 overflow-y-auto bg-slate-50 px-5 py-6 sm:px-8 space-y-6">
           {/* Status Bar */}
-          <div className="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 flex flex-wrap items-center justify-between gap-5">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 min-w-0 xl:ml-auto">
             <div className="space-y-0.5 min-w-0">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                 Automation Status
@@ -568,7 +582,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             </div>
 
             {/* In-Modal Application Status Dropdown */}
-            <div className="space-y-0.5 min-w-[150px]">
+            <div className="space-y-0.5 min-w-[130px]">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                 Application Status
               </span>
@@ -579,7 +593,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
               />
             </div>
 
-            <div className="text-right">
+            <div className="text-left">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                 Submission
               </span>
@@ -590,6 +604,17 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             </div>
           </div>
 
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition"
+            title="Close assistant" aria-label="Close assistant"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Content Body */}
+        <div className="flex-1 min-h-0 overflow-y-auto bg-slate-50 px-5 py-6 sm:px-8 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h4 className="text-base font-semibold text-slate-900">Current application page</h4>
@@ -604,7 +629,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
           </div>
           <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
           <section className="min-w-0 space-y-5" aria-label="Application fields">
-          {memoryOpen && session && <RememberFieldPanel key={session.sessionId} sessionId={session.sessionId} disabled={isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FORM_DETECTED', 'FILLING_FORM', 'CONTINUING'].includes(session.state)} onClose={() => setMemoryOpen(false)} onPickingChange={setIsPicking} />}
+          {memoryOpen && session && <RememberFieldPanel key={session.sessionId} sessionId={session.sessionId} entries={savedMemories} onEntriesChange={setSavedMemories} disabled={isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FORM_DETECTED', 'FILLING_FORM', 'CONTINUING'].includes(session.state)} onClose={() => setMemoryOpen(false)} onPickingChange={setIsPicking} />}
           {authOpen && <AuthenticationPanel sessionId={session?.sessionId} disabled={isPicking || isScanning || isApplyingBatch || !session || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM', 'WAITING_FOR_HUMAN'].includes(session.state)} onClose={() => setAuthOpen(false)} />}
           {learnedToast && (
             <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs flex items-center justify-between gap-2.5 animate-in fade-in duration-150">
@@ -856,10 +881,13 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
               </span>
             </h4>
 
+            {memoryError && <p role="alert" className="mb-3 text-sm text-red-700">{memoryError}</p>}
+            <p className="mb-4 -mt-2 text-xs text-slate-500">Click ✓ Remember to save an answer for future applications.</p>
             {session?.filledFields && deduplicateFields(session.filledFields).length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {deduplicateFields(session.filledFields).map((field, idx) => {
                   const isEditing = editingFieldLabel === field.label;
+                  const saved = savedMemories.find(entry => entry.label.toLowerCase().trim() === field.label.toLowerCase().trim() && entry.answer === field.value.trim());
                   return (
                     <div
                       key={idx}
@@ -897,7 +925,13 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                               </button>
                             </>
                           ) : null}
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <button type="button" onClick={() => rememberEnteredField(field.label)}
+                            disabled={!!saved || !!savingMemory || isEditing || !field.value.trim() || isPicking || isScanning || isApplyingBatch || ['STARTING','OPENING_APPLICATION','FORM_DETECTED','FILLING_FORM','CONTINUING'].includes(session.state)}
+                            aria-label={saved ? `Saved to memory: ${field.label}` : `Remember ${field.label}`}
+                            title={saved ? `Saved to memory (${saved.scope === 'all' ? 'all websites' : saved.origin})` : 'Save this answer to memory for this website'}
+                            className={`inline-flex items-center gap-1 rounded-md px-2 py-1 font-medium disabled:cursor-default ${saved ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-blue-50 hover:text-blue-700 disabled:opacity-50'}`}>
+                            <Check className="w-4 h-4" />{saved ? 'Saved' : savingMemory === field.label ? 'Saving…' : 'Remember'}
+                          </button>
                         </div>
                       </div>
 

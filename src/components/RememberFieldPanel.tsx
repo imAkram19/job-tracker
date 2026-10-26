@@ -1,16 +1,16 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { MousePointer2, X, Trash2 } from 'lucide-react';
+import { MousePointer2, X, Trash2, Check } from 'lucide-react';
 import type { PickedField, SelectedAnswer } from '@/automation/core/SelectedAnswerMemory';
 
-export function RememberFieldPanel({ sessionId, disabled = false, onClose, onPickingChange }: {
-  sessionId: string; disabled?: boolean; onClose: () => void; onPickingChange: (active: boolean) => void;
+export function RememberFieldPanel({ sessionId, entries, onEntriesChange, disabled = false, onClose, onPickingChange }: {
+  sessionId: string; entries: SelectedAnswer[]; onEntriesChange: (entries: SelectedAnswer[]) => void; disabled?: boolean; onClose: () => void; onPickingChange: (active: boolean) => void;
 }) {
   const [picking, setPicking] = useState(false);
   const [selected, setSelected] = useState<PickedField | null>(null);
   const [answer, setAnswer] = useState('');
   const [scope, setScope] = useState<'site' | 'all'>('site');
-  const [entries, setEntries] = useState<SelectedAnswer[]>([]);
+  const setEntries = onEntriesChange;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -74,7 +74,7 @@ export function RememberFieldPanel({ sessionId, disabled = false, onClose, onPic
     setBusy(true); setError('');
     try {
       const data = await request('MEMORY_SAVE', { selectedId: selected.id, answer, scope });
-      setEntries(data.entries); setSelected(null); setAnswer(''); setNotice('Saved this question only. It will be matched exactly on future scans.');
+      setEntries(data.entries); setSelected(null); setAnswer(''); setNotice('Saved to memory and added to Entered fields. This answer will be reused for the exact question.');
     } catch (err) { setError((err as Error).message); }
     finally { setBusy(false); }
   }
@@ -99,9 +99,9 @@ export function RememberFieldPanel({ sessionId, disabled = false, onClose, onPic
       <label className="block text-sm text-slate-700">Use this answer
         <select className="ml-2 rounded-lg border border-slate-300 bg-white p-2" value={scope} onChange={e => setScope(e.target.value as 'site' | 'all')}><option value="site">On this website only</option><option value="all">For this exact question on any website</option></select>
       </label>
-      <button onClick={save} disabled={busy || !answer.trim()} className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">{busy ? 'Saving…' : 'Save this question'}</button>
+      <button onClick={save} disabled={busy || !answer.trim()} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"><Check className="h-4 w-4" />{busy ? 'Saving…' : 'Save to memory'}</button>
     </div>}
-    <details className="border-t border-slate-100 pt-3"><summary className="cursor-pointer text-sm font-medium text-slate-700">Saved questions ({entries.length})</summary>
+    <details open className="border-t border-slate-100 pt-3"><summary className="cursor-pointer text-sm font-medium text-slate-700">Saved questions ({entries.length})</summary>
       <div className="mt-3 max-h-72 overflow-y-auto divide-y divide-slate-100">{!entries.length && <p className="py-3 text-sm text-slate-500">No selected questions saved yet.</p>}{entries.map(entry => <div key={entry.id} className="flex items-start justify-between gap-3 py-3"><div className="min-w-0"><p className="text-sm font-medium break-words">{entry.label}</p><p className="text-sm text-slate-600 break-words">{entry.answer}</p><p className="text-xs text-slate-400">{entry.scope === 'all' ? 'Exact question · any website' : entry.origin}</p></div><button disabled={busy} aria-label={`Forget ${entry.label}`} className="p-2 text-slate-400 hover:text-red-600" onClick={async () => { setBusy(true); try { const data = await request('MEMORY_DELETE', { id: entry.id }); setEntries(data.entries); } catch (err) { setError((err as Error).message); } finally { setBusy(false); } }}><Trash2 className="h-4 w-4" /></button></div>)}</div>
     </details>
   </section>;
