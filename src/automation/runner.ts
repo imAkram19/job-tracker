@@ -1,3 +1,4 @@
+import { fieldLocator, isResumeField } from './core/FieldLocator';
 import { fillField } from './core/FieldFiller';
 import { FieldPicker } from './core/FieldPicker';
 import { SelectedAnswerMemory } from './core/SelectedAnswerMemory';
@@ -161,7 +162,7 @@ export class AutomationSession {
     const unresolved: any[] = [];
 
     for (const field of fields) {
-      if (field.type === 'file') {
+      if (field.type === 'file' && isResumeField(field)) {
         autoMapped.push({
           id: field.id,
           name: field.name,
@@ -235,8 +236,9 @@ export class AutomationSession {
 
     for (const field of fields) {
       if (field.type === 'file') {
+        if (!isResumeField(field)) { if (field.required) errorCount++; continue; }
         try {
-          if (await fileUploader.uploadResume(field.selector, candidateProfile.resumePath)) filledCount++;
+          if (await fileUploader.uploadResume(field.selector, candidateProfile.resumePath, field.framePath)) filledCount++;
           else errorCount++;
         } catch {
           errorCount++;
@@ -254,6 +256,8 @@ export class AutomationSession {
         }
       } else {
         const classification = classifier.classifyAndResolve(field);
+        const hasManualValue = !!field.currentValue && !(field.type === 'checkbox' && !field.options?.length && field.currentValue === 'No');
+        if (hasManualValue && !classification.fromAnswerBank) continue;
         if (classification.value && classification.confidence !== 'LOW') {
           answerToFill = classification.value;
         }
@@ -262,7 +266,7 @@ export class AutomationSession {
       if (!answerToFill) continue;
 
       try {
-        await fillField(page.locator(field.selector), field.type, answerToFill);
+        await fillField(fieldLocator(page, field), field.type, answerToFill);
         this.stateManager.recordFilledField(field.label, answerToFill);
         filledCount++;
       } catch (err) {
@@ -283,7 +287,7 @@ export class AutomationSession {
       const fields = await new FormAnalyzer(page).discoverFields();
       const matches = fields.filter(f => f.label.toLowerCase().trim() === fieldLabel.toLowerCase().trim());
       if (matches.length !== 1) throw new Error('No unique question matches this edit. Rescan the page.');
-      await fillField(page.locator(matches[0].selector), matches[0].type, newValue);
+      await fillField(fieldLocator(page, matches[0]), matches[0].type, newValue);
     }
     this.stateManager.recordFilledField(fieldLabel, newValue);
     this.stateManager.log('success', `Updated "${fieldLabel}"`);
@@ -306,7 +310,7 @@ export class AutomationSession {
           f.label.toLowerCase().includes(fieldLabel.toLowerCase())
       );
       if (target && target.type !== 'file') {
-        const locator = page.locator(target.selector).first();
+        const locator = fieldLocator(page, target).first();
         if ((await locator.count()) > 0) {
           await locator.fill('');
         }

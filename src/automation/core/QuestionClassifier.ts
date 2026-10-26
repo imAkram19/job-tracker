@@ -1,3 +1,4 @@
+import { isResumeField } from './FieldLocator';
 import { excludedMemoryField } from './SelectedAnswerMemory';
 import { FormField, ConfidenceLevel } from '../types/automation';
 import { FieldMapper } from './FieldMapper';
@@ -5,6 +6,7 @@ import { AnswerManager } from './AnswerManager';
 import { OptionMatcher, FieldConcept } from './OptionMatcher';
 
 export interface ClassificationResult {
+  fromAnswerBank?: boolean;
   isProfileField: boolean;
   isScreeningQuestion: boolean;
   value: string | null;
@@ -38,11 +40,12 @@ export class QuestionClassifier {
     if (excludedMemoryField(field.label, field.type, field.name) && field.type !== 'file') {
       return { isProfileField: false, isScreeningQuestion: false, value: null, confidence: 'LOW' };
     }
+    if (field.type === 'file' && !isResumeField(field)) return { isProfileField: false, isScreeningQuestion: false, value: null, confidence: 'LOW' };
     const selected = this.answerManager.findSelected(field);
     if (selected) {
       const optionExists = !field.options?.length || field.options.includes(selected.answer);
       return { isProfileField: false, isScreeningQuestion: true, value: optionExists ? selected.answer : null,
-        confidence: optionExists ? 'HIGH' : 'LOW', matchedQuestion: selected.label };
+        confidence: optionExists ? 'HIGH' : 'LOW', matchedQuestion: selected.label, fromAnswerBank: true };
     }
     const concept = this.detectConcept(field.label, field.name);
 

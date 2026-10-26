@@ -1,3 +1,4 @@
+import { fieldLocator } from './FieldLocator';
 import fs from 'fs';
 import { Page } from 'playwright';
 import { ApplicationStateManager } from './ApplicationStateManager';
@@ -11,7 +12,7 @@ export class FileUploader {
     this.stateManager = stateManager;
   }
 
-  public async uploadResume(fileInputSelector: string, resumePath: string): Promise<boolean> {
+  public async uploadResume(fileInputSelector: string, resumePath: string, framePath?: string[]): Promise<boolean> {
     this.stateManager.log('info', `Attempting resume upload to selector: ${fileInputSelector}`);
 
     if (!fs.existsSync(resumePath)) {
@@ -20,20 +21,12 @@ export class FileUploader {
     }
 
     try {
-      const fileInput = this.page.locator(fileInputSelector).first();
+      const fileInput = fieldLocator(this.page, { selector: fileInputSelector, framePath });
 
       // Ensure input exists
       const count = await fileInput.count();
-      if (count === 0) {
-        // Fallback: search for any input[type="file"]
-        const anyFileInput = this.page.locator('input[type="file"]').first();
-        if ((await anyFileInput.count()) > 0) {
-          await anyFileInput.setInputFiles(resumePath);
-          this.stateManager.log('info', `Uploaded resume via fallback input[type="file"]`);
-          this.stateManager.recordFilledField('Resume / CV', resumePath);
-          return true;
-        }
-        this.stateManager.log('warn', `No file input found for resume upload`);
+      if (count !== 1) {
+        this.stateManager.log('warn', 'Resume input is missing or ambiguous. Rescan the page.');
         return false;
       }
 

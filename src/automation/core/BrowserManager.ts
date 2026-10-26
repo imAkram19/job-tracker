@@ -11,6 +11,7 @@ export class BrowserManager {
   private browser: Browser | null = null;
   private context: BrowserContext | null = null;
   private page: Page | null = null;
+  private authenticationPages = new WeakSet<Page>();
   private stateManager: ApplicationStateManager;
 
   constructor(stateManager: ApplicationStateManager) {
@@ -122,10 +123,13 @@ export class BrowserManager {
       if (this.browser && this.browser.isConnected() && this.context) {
         const openPages = this.context.pages().filter((p) => !p.isClosed());
         if (openPages.length > 0) {
-          const appTab = openPages.find((p) => {
-            const u = p.url().toLowerCase();
-            return !u.includes('accounts.google.com') && !u.startsWith('about:blank') && !u.includes('oauth');
-          }) || openPages[openPages.length - 1];
+          const applicationPages = openPages.filter(p => !this.authenticationPages.has(p) && !p.url().includes('accounts.google.com') && !p.url().includes('/oauth'));
+          let appTab = this.page && applicationPages.includes(this.page) ? this.page : applicationPages[0] || openPages[0];
+          const focused: Page[] = [];
+          for (const candidate of applicationPages) {
+            if (await candidate.evaluate(() => document.hasFocus()).catch(() => false)) focused.push(candidate);
+          }
+          if (focused.length === 1) appTab = focused[0];
 
           this.page = appTab;
           try {
@@ -153,7 +157,10 @@ export class BrowserManager {
   public async openAuthenticationPage(url: string): Promise<Page> {
     if (!this.context || !this.browser?.isConnected()) throw new Error('Open the application browser first.');
     // Open sign-in separately so the application form stays available.
+    const applicationPage = this.page;
     const page = this.context.pages().find(p => !p.isClosed() && p.url() === url) || await this.context.newPage();
+    this.authenticationPages.add(page);
+    if (applicationPage && applicationPage !== page) this.page = applicationPage;
     if (page.url() !== url) await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.bringToFront();
     return page;

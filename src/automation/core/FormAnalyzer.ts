@@ -1,288 +1,134 @@
-import { Page } from 'playwright';
-import { FormField, InputElementType } from '../types/automation';
+import { Page, Frame } from 'playwright';
+import { randomUUID } from 'crypto';
+import { FormField } from '../types/automation';
 
 export class FormAnalyzer {
-  private page: Page;
+  constructor(private page: Page) {}
 
-  constructor(page: Page) {
-    this.page = page;
-  }
-
-  /**
-   * Scans the active DOM using reliable accessible labeling heuristics
-   * to discover interactive form fields, labels, requirements, and options.
-   */
   public async discoverFields(): Promise<FormField[]> {
-    try {
-      return await this.evaluateFields();
-    } catch {
-      // If page was navigating/reloading (e.g. immediately after Google login completes),
-      // wait a short moment for DOM to settle and retry
-      try {
-        await this.page.waitForTimeout(1500);
-        return await this.evaluateFields();
-      } catch {
-        return [];
+    const result: FormField[] = [];
+    for (const frame of this.page.frames()) {
+      const framePath: string[] = [];
+      let current: Frame | null = frame;
+      let hidden = false;
+      while (current?.parentFrame()) {
+        const element = await current.frameElement();
+        if (!await element.isVisible()) { hidden = true; break; }
+        let id = await element.getAttribute('data-akram-frame');
+        if (!id) { id = randomUUID(); await element.evaluate((el, value) => (el as Element).setAttribute('data-akram-frame', value), id); }
+        framePath.unshift(`[data-akram-frame="${id}"]`);
+        current = current.parentFrame();
+      }
+      if (hidden) continue;
+      try { result.push(...await this.scanFrame(frame, framePath)); }
+      catch {
+        if (frame.isDetached()) continue;
+        await frame.waitForLoadState('domcontentloaded', { timeout: 2000 }).catch(() => {});
+        // A failed scan is not an empty, successfully processed application.
+        result.push(...await this.scanFrame(frame, framePath));
       }
     }
+    return result;
   }
 
-  private async evaluateFields(): Promise<FormField[]> {
-    return await this.page.evaluate(() => {
-      const discovered: any[] = [];
-      const seen = new Set<Element>();
-      const processedRadioNames = new Set<string>();
-
-      // Heuristic helper to find label text for an element
-      function findLabel(el: HTMLElement): string {
-        // Portal question text takes precedence over generic "Type your response" placeholders.
-        const questionLabel = el.closest('.application-question,.custom-question')?.querySelector('.application-label')?.textContent?.trim();
-        if (questionLabel) return questionLabel;
-        // 1. Check aria-label
-        const ariaLabel = el.getAttribute('aria-label');
-        if (ariaLabel && ariaLabel.trim()) return ariaLabel.trim();
-
-        // 2. Check aria-labelledby
-        const labelledBy = el.getAttribute('aria-labelledby');
-        if (labelledBy) {
-          const labelText = labelledBy.split(/\s+/).map(id => document.getElementById(id)?.textContent?.trim() || '').join(' ').trim();
-          if (labelText) return labelText;
-        }
-
-        // 3. Check for explicitly linked <label for="id">
-        if (el.id) {
-          const labelEl = document.querySelector(`label[for="${CSS.escape(el.id)}"]`) as HTMLElement;
-          if (labelEl && labelEl.innerText.trim()) return labelEl.innerText.trim();
-        }
-
-        // 4. Check wrapping <label>
-        const parentLabel = el.closest('label');
-        if (parentLabel && parentLabel.innerText.trim()) {
-          const clone = parentLabel.cloneNode(true) as HTMLElement;
-          clone.querySelectorAll('input, select, textarea').forEach((n) => n.remove());
-          if (clone.innerText.trim()) return clone.innerText.trim();
-        }
-
-        // 5. Check placeholder
-        const placeholder = el.getAttribute('placeholder');
-        if (placeholder && placeholder.trim()) return placeholder.trim();
-
-        // 6. Check closest preceding label, heading, or fieldset legend
-        const container = el.closest(
-          'fieldset, .form-group, .field, [class*="field"], [class*="form-item"], [class*="question"], li, div'
-        );
-        if (container) {
-          const legend = container.querySelector(
-            'legend, label, h3, h4, h5, [class*="label"], [class*="title"]'
-          ) as HTMLElement;
-          if (legend && legend.innerText.trim() && !legend.contains(el)) {
-            return legend.innerText.trim();
-          }
-        }
-
-        // 7. Check name attribute
-        const nameAttr = el.getAttribute('name');
-        if (nameAttr) return nameAttr;
-
-        return '';
+  private async scanFrame(frame: Frame, framePath: string[]): Promise<FormField[]> {
+    return frame.evaluate(({ prefix, framePath }) => {
+      const roots: (Document | ShadowRoot)[] = [document];
+      for (let i = 0; i < roots.length; i++) {
+        for (const el of Array.from(roots[i].querySelectorAll('*'))) if (el.shadowRoot) roots.push(el.shadowRoot);
       }
-
-      function cleanLabel(raw: string): { label: string; required: boolean } {
-        let isRequired = false;
-        let text = raw.replace(/\n+/g, ' ').trim();
-        if (/[*✱]/.test(text) || /required/i.test(text)) {
-          isRequired = true;
-          text = text.replace(/[*✱]/g, '').replace(/\(required\)/gi, '').trim();
+      const selector = 'input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]),textarea,select,[role="combobox"]';
+      const elements = roots.flatMap(root => Array.from(root.querySelectorAll<HTMLElement>(selector)));
+      function visible(el: HTMLElement): boolean {
+        for (let node: HTMLElement | null = el; node;) {
+          const style = getComputedStyle(node);
+          if (node.hidden || node.hasAttribute('inert') || style.display === 'none' || style.visibility === 'hidden' || style.visibility === 'collapse') return false;
+          node = node.parentElement || ((node.getRootNode() as ShadowRoot).host as HTMLElement | undefined) || null;
         }
-        return { label: text, required: isRequired };
+        return el.getClientRects().length > 0;
       }
-
-      // Collect all inputs, textareas, selects, and file inputs
-      const elements = Array.from(
-        document.querySelectorAll(
-          'input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select, input[type="file"]'
-        )
-      ) as HTMLElement[];
-
-      let index = 0;
+      function enabled(el: HTMLElement): boolean { return !el.matches(':disabled,[disabled],[readonly],[aria-disabled="true"],[aria-readonly="true"]'); }
+      function labelText(el: Element): string {
+        const clone = el.cloneNode(true) as Element;
+        clone.querySelectorAll('input,textarea,select,button,[role="listbox"],[hidden],script,style').forEach(child => child.remove());
+        return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+      }
+      function label(el: HTMLElement): string {
+        const root = el.getRootNode() as Document | ShadowRoot;
+        const question = el.closest('.application-question,.custom-question')?.querySelector('.application-label');
+        if (question) return labelText(question);
+        const ids = (el.getAttribute('aria-labelledby') || '').split(/\s+/).filter(Boolean);
+        const referenced = ids.map(id => root.querySelector(`#${CSS.escape(id)}`)).filter(Boolean) as Element[];
+        if (referenced.length) return referenced.map(labelText).join(' ');
+        if (el.getAttribute('aria-label')?.trim()) return el.getAttribute('aria-label')!.trim();
+        const wrapping = el.closest('label');
+        if (wrapping && labelText(wrapping)) return labelText(wrapping);
+        const labels = Array.from((el as HTMLInputElement).labels || []);
+        if (labels.length) return labels.map(labelText).join(' ');
+        const group = el.closest('fieldset,.form-group,[role="group"],[class*="question"],[class*="form-item"],.field');
+        const heading = group?.querySelector('legend,label,.application-label,[class*="label"],h3,h4');
+        if (heading && labelText(heading)) return labelText(heading);
+        return el.getAttribute('placeholder') || el.getAttribute('name') || '';
+      }
+      function eligible(el: HTMLElement): boolean {
+        const meta = `${label(el)} ${el.getAttribute('name') || ''}`;
+        if (!enabled(el) || (!visible(el) && !(el.matches('input[type="file"]') && el.parentElement && visible(el.parentElement)))) return false;
+        if (el.matches('input[type="password"],input[type="search"],[autocomplete="username"],[autocomplete="one-time-code"],[autocomplete="current-password"],[autocomplete="new-password"]')) return false;
+        return !el.closest('[role="search"],form:has(input[type="password"])') &&
+          !/\b(search|password|passcode|verification code|captcha)\b/i.test(meta) &&
+          !/\/(login|signin|sign-in|sign_in|auth|authenticate|register)(\/|$)/i.test(location.pathname);
+      }
+      const seen = new Set<HTMLElement>();
+      const found: any[] = [];
+      let sequence = 0;
       for (const el of elements) {
-        const meta = [findLabel(el), el.getAttribute('name') || '', el.getAttribute('autocomplete') || ''].join(' ');
-        if (el.matches('input[type="password"],input[type="search"],input[autocomplete="username"],input[autocomplete="one-time-code"],input[autocomplete="current-password"],input[autocomplete="new-password"]') ||
-          el.closest('[role="search"],form:has(input[type="password"])') ||
-          /\b(search|password|passcode|verification code|captcha)\b/i.test(meta) ||
-          /\/(login|signin|sign-in|sign_in|auth|authenticate|register)(\/|$)/i.test(location.pathname)) continue;
-        const isFileInput = el instanceof HTMLInputElement && el.type === 'file';
-        if (!isFileInput) {
-          const style = window.getComputedStyle(el);
-          if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') {
-            continue;
-          }
+        if (seen.has(el) || !eligible(el)) continue;
+        let type = el instanceof HTMLSelectElement ? 'select' : el instanceof HTMLTextAreaElement ? 'textarea' :
+          el.getAttribute('role') === 'combobox' ? 'combobox' : (el as HTMLInputElement).type || 'text';
+        if (!['select','textarea','combobox','radio','checkbox','file','email','tel','number','date'].includes(type)) type = 'text';
+        const input = el as HTMLInputElement;
+        const choices = ['radio','checkbox'].includes(type) && input.name ? elements.filter(other => {
+          const candidate = other as HTMLInputElement;
+          return candidate.type === type && candidate.name === input.name && candidate.form === input.form && candidate.getRootNode() === input.getRootNode() && eligible(other);
+        }) as HTMLInputElement[] : [];
+        const grouped = type === 'radio' || (type === 'checkbox' && choices.length > 1);
+        const members: HTMLElement[] = grouped && choices.length ? choices : [el];
+        let rawLabel = label(el);
+        if (grouped) {
+          const group = el.closest('fieldset,[role="radiogroup"],.application-question,.custom-question,.form-group,[class*="question"]');
+          const heading = group?.querySelector('legend,.application-label,[class*="label"]');
+          rawLabel = heading ? labelText(heading) : group?.getAttribute('aria-label') || input.name || rawLabel;
         }
-
-        if (seen.has(el)) continue;
-
-        // Group radio buttons by name into a single FormField
-        if (el instanceof HTMLInputElement && el.name && (el.type === 'radio' || (el.type === 'checkbox' && document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(el.name)}"]`).length > 1))) {
-          if (processedRadioNames.has(el.name)) {
-            continue;
-          }
-          processedRadioNames.add(el.name);
-
-          const radios = Array.from(
-            document.querySelectorAll(`input[type="${el.type}"][name="${CSS.escape(el.name)}"]`)
-          ) as HTMLInputElement[];
-
-          radios.forEach((r) => seen.add(r));
-
-          // Find container label / question text for the radio group
-          const groupContainer = el.closest('fieldset,[role="radiogroup"],.application-question,.custom-question,.form-group,[class*="question"]') || el.closest('[class*="field"],div');
-          let groupLabel = '';
-          if (groupContainer) {
-            const legend = groupContainer.querySelector('legend, .application-label, label, h4, h5, [class*="label"]') as HTMLElement;
-            if (legend && legend.innerText.trim()) {
-              groupLabel = legend.innerText.trim();
-            }
-          }
-          if (!groupLabel) groupLabel = findLabel(el);
-
-          const { label: cleanedGroupLabel, required: req } = cleanLabel(groupLabel);
-
-          const options: string[] = [];
-          let currentValue = '';
-
-          radios.forEach((r) => {
-            const rLabel =
-              r.closest('label')?.textContent?.trim() ||
-              document.querySelector(`label[for="${CSS.escape(r.id)}"]`)?.textContent?.trim() ||
-              r.value;
-            if (rLabel) options.push(rLabel);
-            if (r.checked) currentValue = rLabel || r.value;
-          });
-
-          discovered.push({
-            pageOrigin: location.origin,
-            id: el.name,
-            name: el.name,
-            label: cleanedGroupLabel || el.name,
-            type: el.type,
-            required: req || radios.some((r) => r.required),
-            options,
-            selector: `input[type="radio"][name="${CSS.escape(el.name)}"]`,
-            currentValue,
-          });
-
-          index++;
-          continue;
-        }
-
-        seen.add(el);
-
-        const rawLabel = findLabel(el);
-        const { label, required: labelReq } = cleanLabel(rawLabel);
-
-        const htmlRequired =
-          el.hasAttribute('required') ||
-          el.getAttribute('aria-required') === 'true' ||
-          el.classList.contains('required') ||
-          labelReq;
-
-        let type: InputElementType = 'text';
+        const required = members.some(member => member.hasAttribute('required') || member.getAttribute('aria-required') === 'true') || /[*✱]|\(required\)\s*$/i.test(rawLabel);
+        const cleaned = rawLabel.replace(/[*✱]/g,'').replace(/\(required\)\s*$/i,'').replace(/\s+/g,' ').trim();
+        const token = el.getAttribute('data-akram-field') || `${prefix}-${sequence++}`;
+        for (const member of members) { member.setAttribute('data-akram-field',token); seen.add(member); }
         let options: string[] | undefined;
-
-        if (el instanceof HTMLTextAreaElement) {
-          type = 'textarea';
+        let value = input.value || '';
+        if (grouped) {
+          options = members.map(member => labelText((member as HTMLInputElement).labels?.[0] || member) || (member as HTMLInputElement).value);
+          value = members.map((member,i) => (member as HTMLInputElement).checked ? options![i] : '').filter(Boolean).join('; ');
         } else if (el instanceof HTMLSelectElement) {
-          type = 'select';
-          options = Array.from(el.options)
-            .map((o) => o.text.trim())
-            .filter((t) => t && !t.toLowerCase().startsWith('select') && !t.toLowerCase().startsWith('choose'));
-        } else if (el instanceof HTMLInputElement) {
-          const rawType = el.type.toLowerCase();
-          if (rawType === 'file') type = 'file';
-          else if (rawType === 'password') type = 'password';
-          else if (rawType === 'email') type = 'email';
-          else if (rawType === 'tel') type = 'tel';
-          else if (rawType === 'checkbox') type = 'checkbox';
-          else if (rawType === 'date') type = 'date';
-          else if (rawType === 'number') type = 'number';
-          else type = 'text';
-        }
-
-        let selector = '';
-        if (el.id) {
-          selector = `#${CSS.escape(el.id)}`;
-        } else if (el.getAttribute('name')) {
-          selector = `[name="${CSS.escape(el.getAttribute('name')!)}"]`;
-        } else {
-          selector = `${el.tagName.toLowerCase()}:nth-of-type(${index + 1})`;
-        }
-
-        let currentVal = (el as HTMLInputElement).value || '';
-        if (el instanceof HTMLSelectElement) {
-          const selected = el.selectedOptions[0];
-          if (selected && !selected.text.toLowerCase().startsWith('select') && !selected.text.toLowerCase().startsWith('choose')) {
-            currentVal = selected.text.trim() || selected.value.trim();
-          }
-        } else if (el instanceof HTMLInputElement && el.type === 'checkbox') {
-          currentVal = el.checked ? 'Yes' : 'No';
-        }
-
-        discovered.push({
-            pageOrigin: location.origin,
-          id: el.id || el.getAttribute('name') || `field_${index}`,
-          name: el.getAttribute('name') || '',
-          label: label || el.getAttribute('placeholder') || el.getAttribute('name') || `Field ${index + 1}`,
-          type,
-          required: htmlRequired,
-          options,
-          selector,
-          currentValue: currentVal,
-        });
-
-        index++;
+          options = Array.from(el.options).filter(o => o.value && !o.disabled && !(o.parentElement instanceof HTMLOptGroupElement && o.parentElement.disabled)).map(o=>o.text.trim());
+          value = el.value ? el.selectedOptions[0]?.text.trim() || '' : '';
+        } else if (type === 'checkbox') value = input.checked ? 'Yes' : 'No';
+        found.push({ id: token, name: input.name || '', label: cleaned || input.name || `Field ${found.length+1}`, type, required, options,
+          selector: `[data-akram-field="${token}"]`, framePath, pageOrigin: self.origin, currentValue: value });
       }
-
-      return discovered;
-    });
+      return found;
+    }, { prefix: randomUUID(), framePath });
   }
 
-  public async findActionButtons(): Promise<{
-    submitButton: string | null;
-    nextButton: string | null;
-  }> {
-    return await this.page.evaluate(() => {
-      const buttons = Array.from(
-        document.querySelectorAll('button, input[type="submit"], input[type="button"], a.btn, [role="button"]')
-      ) as HTMLElement[];
-
-      let submitSelector: string | null = null;
-      let nextSelector: string | null = null;
-
-      for (const btn of buttons) {
-        const text = (btn.innerText || (btn as HTMLInputElement).value || btn.getAttribute('aria-label') || '').toLowerCase().trim();
-
-        if (
-          text.includes('submit') ||
-          text.includes('send application') ||
-          text.includes('apply now') ||
-          text.includes('review application')
-        ) {
-          if (!submitSelector) {
-            submitSelector = btn.id ? `#${btn.id}` : btn.className ? `button.${btn.className.split(' ')[0]}` : 'button[type="submit"]';
-          }
-        } else if (
-          text.includes('next') ||
-          text.includes('continue') ||
-          text.includes('proceed') ||
-          text.includes('save & continue')
-        ) {
-          if (!nextSelector) {
-            nextSelector = btn.id ? `#${btn.id}` : btn.className ? `button.${btn.className.split(' ')[0]}` : 'button';
-          }
-        }
-      }
-
-      return { submitButton: submitSelector, nextButton: nextSelector };
-    });
+  public async findActionButtons(): Promise<{submitButton: string | null; nextButton: string | null}> {
+    // Navigation remains manual. These selectors are only used to explain the next step.
+    const result = { submitButton: null as string | null, nextButton: null as string | null };
+    const buttons = this.page.getByRole('button');
+    for (let i=0;i<await buttons.count();i++) {
+      const button=buttons.nth(i); if (!await button.isVisible() || !await button.isEnabled()) continue;
+      const text=(await button.innerText()).trim();
+      if (/submit|send application|apply now/i.test(text)) result.submitButton=text;
+      else if (/next|continue|proceed/i.test(text)) result.nextButton=text;
+    }
+    return result;
   }
 }

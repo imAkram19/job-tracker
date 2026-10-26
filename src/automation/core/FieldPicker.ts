@@ -1,3 +1,5 @@
+import { FormAnalyzer } from './FormAnalyzer';
+import type { FormField } from '../types/automation';
 import { randomUUID } from 'crypto';
 import { Page, Frame } from 'playwright';
 import { PickedField, excludedMemoryField } from './SelectedAnswerMemory';
@@ -6,6 +8,7 @@ type PickerState = { active: boolean; selected: PickedField | null; error?: stri
 
 export class FieldPicker {
   private page?: Page;
+  private discovered: FormField[] = [];
   private token = '';
   private binding = `__akramPick_${randomUUID().replace(/-/g, '')}`;
   private boundPages = new WeakSet<Page>();
@@ -18,6 +21,7 @@ export class FieldPicker {
   public async start(page: Page): Promise<void> {
     await this.cancel();
     this.page = page;
+    this.discovered = await new FormAnalyzer(page).discoverFields();
     this.token = randomUUID();
     this.state = { active: true, selected: null };
     if (!this.boundPages.has(page)) {
@@ -27,7 +31,7 @@ export class FieldPicker {
         if (!field) { await this.cancel(); return; }
         if (excludedMemoryField(field.label, field.type, field.name)) { this.state.error = 'Choose an application question, not a search or login field.'; return; }
         let origin: string;
-        try { origin = new URL(frame.url()).origin; } catch { return; }
+        try { origin = await frame.evaluate(() => self.origin); } catch { return; }
         if (!origin.startsWith('https://') && !origin.startsWith('http://')) return;
         const selected: PickedField = { ...field, id: randomUUID(), origin };
         await this.cancel();
@@ -60,7 +64,7 @@ export class FieldPicker {
   }
 
   private async install(frame: Frame): Promise<void> {
-    await frame.evaluate(({ binding, token }) => {
+    await frame.evaluate(({ binding, token, fields }) => {
       (window as any).__akramPickerCleanup?.();
       const hint = document.createElement('div');
       hint.textContent = 'Select a question field · Esc to cancel';
@@ -78,7 +82,12 @@ export class FieldPicker {
         }
         return null;
       }
+      function knownField(el: HTMLElement) {
+        const marker = el.getAttribute('data-akram-field');
+        return marker ? fields.find(field => field.selector === `[data-akram-field="${marker}"]`) : undefined;
+      }
       function labelFor(el: HTMLElement): string {
+        const known = knownField(el); if (known) return known.label;
         if (el instanceof HTMLInputElement && ['radio','checkbox'].includes(el.type) && el.name) {
           const group = el.closest('fieldset,[role="radiogroup"],.application-question,.custom-question,.form-group,[class*="question"]') || el.closest('[class*="field"],div');
           const legend = group?.querySelector('legend, .application-label, label, h4, h5, [class*="label"]') as HTMLElement | null;
@@ -137,7 +146,7 @@ export class FieldPicker {
       }
       function blocked(el: HTMLElement): boolean {
         const input = el as HTMLInputElement;
-        return ['password','search','file','hidden','submit','button','reset'].includes(input.type) ||
+        return el.matches(':disabled,[readonly],[aria-disabled="true"]') || ['password','search','file','hidden','submit','button','reset'].includes(input.type) ||
           !!el.closest('[role="search"],form:has(input[type="password"])') ||
           /\b(password|passcode|otp|verification code|search|captcha|username|sign in|log in)\b/i.test(`${labelFor(el)} ${input.name || ''}`) ||
           ['current-password','new-password','one-time-code','username'].includes(el.getAttribute('autocomplete') || '');
@@ -158,18 +167,21 @@ export class FieldPicker {
         const label = labelFor(el).replace(/\s+/g, ' ').replace(/[*✱]/g, '').trim();
         if (!label) { hint.textContent = 'This field has no question label. Choose a labelled field.'; return; }
         const rawType = input.type || el.getAttribute('role') || 'text';
-        const type = el.tagName === 'SELECT' ? 'select' : el.tagName === 'TEXTAREA' ? 'textarea' : (['email','tel','checkbox','radio','date','number','text'].includes(rawType) ? rawType : 'text');
+        const type = el.tagName === 'SELECT' ? 'select' : el.tagName === 'TEXTAREA' ? 'textarea' : el.getAttribute('role') === 'combobox' ? 'combobox' : (['email','tel','checkbox','radio','date','number','text'].includes(rawType) ? rawType : 'text');
         let value = input.value || el.textContent || '';
         let options: string[] | undefined;
         if (el instanceof HTMLSelectElement) { options = Array.from(el.options).filter(o => !o.disabled && o.value).map(o => o.text.trim()); value = el.selectedOptions[0]?.value ? el.selectedOptions[0].text.trim() : ''; }
         if (input.type === 'checkbox') value = input.checked ? 'Yes' : 'No';
         if (input.type === 'radio' || (input.type === 'checkbox' && document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(input.name)}"]`).length > 1)) {
           const root = el.getRootNode() as Document | ShadowRoot;
-          const group = Array.from(root.querySelectorAll<HTMLInputElement>(`input[type="${input.type}"][name="${CSS.escape(input.name)}"]`));
+          const known = knownField(el);
+          const group = Array.from(root.querySelectorAll<HTMLInputElement>(known?.selector || `input[type="${input.type}"][name="${CSS.escape(input.name)}"]`));
           const optionLabel = (radio: HTMLInputElement) => Array.from(radio.labels || []).map(l => l.textContent?.trim()).join(' ') || radio.value;
           options = group.map(optionLabel);
           value = group.find(r => r.checked) ? optionLabel(group.find(r => r.checked)!) : '';
         }
+        const known = knownField(el);
+        if (known?.options) options = known.options;
         void (window as any)[binding](token, { label, name: input.name || '', type, value: value.slice(0,10000), options });
       };
       const key = (event: KeyboardEvent) => { if (event.key === 'Escape') { stop(event); void (window as any)[binding](token, null); } };
@@ -187,6 +199,6 @@ export class FieldPicker {
         document.removeEventListener('keydown', key, true);
         delete (window as any).__akramPickerCleanup;
       };
-    }, { binding: this.binding, token: this.token });
+    }, { binding: this.binding, token: this.token, fields: this.discovered });
   }
 }

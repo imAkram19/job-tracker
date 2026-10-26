@@ -21,6 +21,7 @@ export type InputElementType =
   | 'email'
   | 'tel'
   | 'textarea'
+  | 'combobox'
   | 'select'
   | 'radio'
   | 'checkbox'
@@ -31,6 +32,7 @@ export type InputElementType =
   | 'unknown';
 
 export interface FormField {
+  framePath?: string[];
   pageOrigin?: string;
   id: string;
   name: string;

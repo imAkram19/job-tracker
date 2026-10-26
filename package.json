@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "apply": "tsx src/automation/cli.ts"
+    "apply": "tsx src/automation/cli.ts",
+    "test:autofill": "tsx launcher/test-autofill-edges.ts && tsx launcher/test-fields.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.6",

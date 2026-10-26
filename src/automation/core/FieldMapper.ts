@@ -75,7 +75,7 @@ export class FieldMapper {
     // 4. Full Name
     if (
       /\b(full name|legal name|your name|candidate name)\b/.test(combined) ||
-      combined === 'name'
+      normLabel === 'name' || (!normLabel && normName === 'name')
     ) {
       return {
         isMatch: true,
