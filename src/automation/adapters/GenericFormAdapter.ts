@@ -1,3 +1,4 @@
+import { fillField } from '../core/FieldFiller';
 import { BasePlatformAdapter } from './BasePlatformAdapter';
 import { FormAnalyzer } from '../core/FormAnalyzer';
 import { FormField } from '../types/automation';
@@ -26,10 +27,11 @@ export class GenericFormAdapter extends BasePlatformAdapter {
 
     stateManager.setState('FILLING_FORM');
 
+    let fillErrors = 0;
     for (const field of fields) {
       // 1. Resume / CV upload
       if (field.type === 'file') {
-        await fileUploader.uploadResume(field.selector, candidate.resumePath);
+        if (!await fileUploader.uploadResume(field.selector, candidate.resumePath)) fillErrors++;
         continue;
       }
 
@@ -57,68 +59,11 @@ export class GenericFormAdapter extends BasePlatformAdapter {
       // 4. Fill field if answer is available
       if (chosenAnswer) {
         try {
-          if (field.type === 'radio') {
-            const radios = page.locator(field.selector);
-            const count = await radios.count();
-            let clicked = false;
-            for (let i = 0; i < count; i++) {
-              const radio = radios.nth(i);
-              const rVal = (await radio.getAttribute('value')) || '';
-              const rId = await radio.getAttribute('id');
-              let rLabel = '';
-              if (rId) {
-                rLabel = await page.locator(`label[for="${CSS.escape(rId)}"]`).innerText().catch(() => '');
-              }
-              if (!rLabel) {
-                rLabel = await radio.locator('xpath=ancestor::label').innerText().catch(() => '');
-              }
-              const combined = `${rLabel} ${rVal}`.toLowerCase().trim();
-              if (
-                combined.includes(chosenAnswer.toLowerCase()) ||
-                (chosenAnswer.toLowerCase() === 'yes' && (rVal === '1' || rVal.toLowerCase() === 'yes'))
-              ) {
-                await radio.check({ force: true });
-                clicked = true;
-                break;
-              }
-            }
-            if (!clicked && count > 0) {
-              await radios.first().check({ force: true });
-            }
-            stateManager.recordFilledField(field.label, chosenAnswer);
-            stateManager.log('info', `Selected radio for ${field.label}: ${chosenAnswer}`);
-          } else {
-            const locator = page.locator(field.selector).first();
-            if ((await locator.count()) > 0 && (await locator.isVisible())) {
-              if (field.type === 'select') {
-                try {
-                  await locator.selectOption({ label: chosenAnswer });
-                } catch {
-                  try {
-                    await locator.selectOption({ value: chosenAnswer });
-                  } catch {
-                    // Try selecting by index if found in field.options
-                    const optIndex = field.options?.findIndex(
-                      (o) => o.toLowerCase().trim() === chosenAnswer!.toLowerCase().trim()
-                    );
-                    if (optIndex !== undefined && optIndex >= 0) {
-                      await locator.selectOption({ index: optIndex });
-                    }
-                  }
-                }
-              } else if (field.type === 'checkbox') {
-                if (chosenAnswer.toLowerCase() === 'yes' || chosenAnswer.toLowerCase() === 'true') {
-                  await locator.check();
-                }
-              } else {
-                await locator.fill(chosenAnswer);
-              }
-
-              stateManager.recordFilledField(field.label, chosenAnswer);
-              stateManager.log('info', `Filled ${field.label}: ${chosenAnswer}`);
-            }
-          }
+          await fillField(page.locator(field.selector), field.type, chosenAnswer);
+          stateManager.recordFilledField(field.label, chosenAnswer);
+          stateManager.log('info', `Filled ${field.label}`);
         } catch (fillErr) {
+          fillErrors++;
           stateManager.log('warn', `Could not fill ${field.label}: ${fillErr}`);
         }
       }
@@ -126,6 +71,7 @@ export class GenericFormAdapter extends BasePlatformAdapter {
 
     // Check for validation errors
     await validationHandler.finishCurrentPage();
+    if (fillErrors) stateManager.setState('NEEDS_ATTENTION');
 
     // Check for next button or review state
     const actions = await analyzer.findActionButtons();

@@ -87,9 +87,9 @@ export class FormAnalyzer {
       function cleanLabel(raw: string): { label: string; required: boolean } {
         let isRequired = false;
         let text = raw.replace(/\n+/g, ' ').trim();
-        if (text.includes('*') || /required/i.test(text)) {
+        if (/[*✱]/.test(text) || /required/i.test(text)) {
           isRequired = true;
-          text = text.replace(/\*/g, '').replace(/\(required\)/gi, '').trim();
+          text = text.replace(/[*✱]/g, '').replace(/\(required\)/gi, '').trim();
         }
         return { label: text, required: isRequired };
       }
@@ -119,20 +119,20 @@ export class FormAnalyzer {
         if (seen.has(el)) continue;
 
         // Group radio buttons by name into a single FormField
-        if (el instanceof HTMLInputElement && el.type === 'radio' && el.name) {
+        if (el instanceof HTMLInputElement && el.name && (el.type === 'radio' || (el.type === 'checkbox' && document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(el.name)}"]`).length > 1))) {
           if (processedRadioNames.has(el.name)) {
             continue;
           }
           processedRadioNames.add(el.name);
 
           const radios = Array.from(
-            document.querySelectorAll(`input[type="radio"][name="${CSS.escape(el.name)}"]`)
+            document.querySelectorAll(`input[type="${el.type}"][name="${CSS.escape(el.name)}"]`)
           ) as HTMLInputElement[];
 
           radios.forEach((r) => seen.add(r));
 
           // Find container label / question text for the radio group
-          const groupContainer = el.closest('fieldset, .question, .custom-question, .form-group, [class*="question"], [class*="field"], div');
+          const groupContainer = el.closest('fieldset,[role="radiogroup"],.application-question,.custom-question,.form-group,[class*="question"]') || el.closest('[class*="field"],div');
           let groupLabel = '';
           if (groupContainer) {
             const legend = groupContainer.querySelector('legend, .application-label, label, h4, h5, [class*="label"]') as HTMLElement;
@@ -161,7 +161,7 @@ export class FormAnalyzer {
             id: el.name,
             name: el.name,
             label: cleanedGroupLabel || el.name,
-            type: 'radio',
+            type: el.type,
             required: req || radios.some((r) => r.required),
             options,
             selector: `input[type="radio"][name="${CSS.escape(el.name)}"]`,

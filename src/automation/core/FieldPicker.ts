@@ -79,8 +79,8 @@ export class FieldPicker {
         return null;
       }
       function labelFor(el: HTMLElement): string {
-        if (el instanceof HTMLInputElement && el.type === 'radio' && el.name) {
-          const group = el.closest('fieldset, .question, .custom-question, .form-group, [class*="question"], [class*="field"], div');
+        if (el instanceof HTMLInputElement && ['radio','checkbox'].includes(el.type) && el.name) {
+          const group = el.closest('fieldset,[role="radiogroup"],.application-question,.custom-question,.form-group,[class*="question"]') || el.closest('[class*="field"],div');
           const legend = group?.querySelector('legend, .application-label, label, h4, h5, [class*="label"]') as HTMLElement | null;
           if (legend?.innerText.trim()) return legend.innerText.trim();
         }
@@ -152,7 +152,7 @@ export class FieldPicker {
         if (!el) return;
         if (blocked(el)) { hint.textContent = 'Search and sign-in fields are excluded. Select an application question.'; return; }
         const input = el as HTMLInputElement;
-        const label = labelFor(el).replace(/\s+/g, ' ').replace(/\*/g, '').trim();
+        const label = labelFor(el).replace(/\s+/g, ' ').replace(/[*✱]/g, '').trim();
         if (!label) { hint.textContent = 'This field has no question label. Choose a labelled field.'; return; }
         const rawType = input.type || el.getAttribute('role') || 'text';
         const type = el.tagName === 'SELECT' ? 'select' : el.tagName === 'TEXTAREA' ? 'textarea' : (['email','tel','checkbox','radio','date','number','text'].includes(rawType) ? rawType : 'text');
@@ -160,9 +160,9 @@ export class FieldPicker {
         let options: string[] | undefined;
         if (el instanceof HTMLSelectElement) { options = Array.from(el.options).filter(o => !o.disabled && o.value).map(o => o.text.trim()); value = el.selectedOptions[0]?.value ? el.selectedOptions[0].text.trim() : ''; }
         if (input.type === 'checkbox') value = input.checked ? 'Yes' : 'No';
-        if (input.type === 'radio') {
+        if (input.type === 'radio' || (input.type === 'checkbox' && document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(input.name)}"]`).length > 1)) {
           const root = el.getRootNode() as Document | ShadowRoot;
-          const group = Array.from(root.querySelectorAll<HTMLInputElement>(`input[type="radio"][name="${CSS.escape(input.name)}"]`));
+          const group = Array.from(root.querySelectorAll<HTMLInputElement>(`input[type="${input.type}"][name="${CSS.escape(input.name)}"]`));
           const optionLabel = (radio: HTMLInputElement) => Array.from(radio.labels || []).map(l => l.textContent?.trim()).join(' ') || radio.value;
           options = group.map(optionLabel);
           value = group.find(r => r.checked) ? optionLabel(group.find(r => r.checked)!) : '';

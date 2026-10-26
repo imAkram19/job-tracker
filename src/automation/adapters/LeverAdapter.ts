@@ -1,3 +1,4 @@
+import { fillField } from '../core/FieldFiller';
 import { BasePlatformAdapter } from './BasePlatformAdapter';
 import { FormField } from '../types/automation';
 
@@ -82,7 +83,11 @@ export class LeverAdapter extends BasePlatformAdapter {
     const questionSections = await page.$$('.application-question, .custom-question, .application-field:not(.main-field)');
     stateManager.log('info', `Found ${questionSections.length} additional question section(s)`);
 
+    let sectionIndex = 0;
+    let fillErrors = 0;
     for (const section of questionSections) {
+      const sectionId = String(sectionIndex++);
+      await section.evaluate((el, id) => el.setAttribute('data-akram-section', id), sectionId);
       // Find question text
       const questionText = await section.evaluate((el) => {
         const labelEl = el.querySelector('.application-label, .text, label, h4, h5');
@@ -118,11 +123,11 @@ export class LeverAdapter extends BasePlatformAdapter {
           };
         }
 
-        const radioInputs = Array.from(el.querySelectorAll('input[type="radio"]')) as HTMLInputElement[];
+        const radioInputs = Array.from(el.querySelectorAll('input[type="radio"],input[type="checkbox"]')) as HTMLInputElement[];
         if (radioInputs.length > 0) {
           const hasChecked = radioInputs.some((r) => r.checked);
           return {
-            type: 'radio',
+            type: radioInputs[0].type,
             name: radioInputs[0].name || radioInputs[0].id,
             id: radioInputs[0].name || radioInputs[0].id,
             options: radioInputs.map((r) => {
@@ -143,7 +148,7 @@ export class LeverAdapter extends BasePlatformAdapter {
         pageOrigin: new URL(page.url()).origin,
         id: inputInfo.id,
         name: inputInfo.name,
-        label: questionText.replace(/\*/g, '').trim(),
+        label: questionText.replace(/[*✱]/g, '').trim(),
         type: inputInfo.type as any,
         required: inputInfo.required,
         options: inputInfo.options,
@@ -174,47 +179,21 @@ export class LeverAdapter extends BasePlatformAdapter {
       if (chosenAnswer) {
         // Fill the field based on type
         try {
-          if (formField.type === 'textarea' || formField.type === 'text') {
-            const inputLoc = await section.$('input[type="text"], textarea');
-            if (inputLoc) {
-              await inputLoc.fill(chosenAnswer);
-              stateManager.recordFilledField(formField.label, chosenAnswer);
-              stateManager.log('info', `Answered question "${formField.label}": ${chosenAnswer}`);
-            }
-          } else if (formField.type === 'select') {
-            const selectLoc = await section.$('select');
-            if (selectLoc) {
-              try {
-                await selectLoc.selectOption({ label: chosenAnswer });
-              } catch {
-                await selectLoc.selectOption({ value: chosenAnswer });
-              }
-              stateManager.recordFilledField(formField.label, chosenAnswer);
-              stateManager.log('info', `Selected option for "${formField.label}": ${chosenAnswer}`);
-            }
-          } else if (formField.type === 'radio') {
-            const radios = await section.$$('input[type="radio"]');
-            for (const radio of radios) {
-              const val = await radio.getAttribute('value');
-              const label = await radio.evaluate((r) => r.closest('label')?.textContent?.trim() || '');
-              if (
-                (val && val.toLowerCase() === chosenAnswer.toLowerCase()) ||
-                (label && label.toLowerCase().includes(chosenAnswer.toLowerCase()))
-              ) {
-                await radio.click();
-                stateManager.recordFilledField(formField.label, chosenAnswer);
-                stateManager.log('info', `Selected radio for "${formField.label}": ${chosenAnswer}`);
-                break;
-              }
-            }
-          }
+          const selector = formField.type === 'radio' || formField.type === 'checkbox'
+            ? `input[type="${formField.type}"]`
+            : formField.type === 'select' ? 'select' : 'input[type="text"],textarea';
+          await fillField(page.locator(`[data-akram-section="${sectionId}"]`).locator(selector), formField.type, chosenAnswer);
+          stateManager.recordFilledField(formField.label, chosenAnswer);
+          stateManager.log('info', `Answered "${formField.label}"`);
         } catch (fillErr) {
+          fillErrors++;
           stateManager.log('warn', `Failed to apply answer to "${formField.label}": ${fillErr}`);
         }
       }
     }
 
     await validationHandler.finishCurrentPage();
+    if (fillErrors) stateManager.setState('NEEDS_ATTENTION');
     return true;
   }
 }
