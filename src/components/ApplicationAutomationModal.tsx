@@ -90,7 +90,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
   const [batchAnswers, setBatchAnswers] = useState<Record<string, string>>({});
   const [batchRemember, setBatchRemember] = useState(false);
   const [isApplyingBatch, setIsApplyingBatch] = useState(false);
-  const [memoryOpen, setMemoryOpen] = useState(false);
+  const [memoryOpen, setMemoryOpen] = useState(true);
   const [authOpen, setAuthOpen] = useState(false);
   const [isPicking, setIsPicking] = useState(false);
   const [learnedToast, setLearnedToast] = useState<string | null>(null);
@@ -138,7 +138,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
       eventSourceRef.current = null;
     }
 
-    setMemoryOpen(false); setAuthOpen(false); setIsPicking(false);
+    setMemoryOpen(true); setAuthOpen(false); setIsPicking(false);
     setIsLoading(true);
     setError(null);
     setBatchOverview(null);
@@ -230,7 +230,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
         eventSourceRef.current.close();
         eventSourceRef.current = null;
       }
-      setMemoryOpen(false); setAuthOpen(false); setIsPicking(false);
+      setMemoryOpen(true); setAuthOpen(false); setIsPicking(false);
       setSession(null);
       setError(null);
       setBatchOverview(null);
@@ -597,14 +597,14 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <button type="button" onClick={handleRelaunchBrowser} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"><ExternalLink className="h-4 w-4" />Show browser</button>
-              <button type="button" onClick={() => { setAuthOpen(false); setMemoryOpen(open => !open); }} disabled={!session || isPicking || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM'].includes(session.state)} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-50"><BookmarkPlus className="h-4 w-4" />Remember a field</button>
+              <button type="button" onClick={() => { setAuthOpen(false); setMemoryOpen(true); }} disabled={!session || isPicking || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM'].includes(session.state)} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-50"><BookmarkPlus className="h-4 w-4" />Remember a field</button>
               <button type="button" onClick={() => { setMemoryOpen(false); setAuthOpen(open => !open); }} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"><KeyRound className="h-4 w-4" />Authentication</button>
               <button type="button" onClick={handleScanAndFillPage} disabled={!session || isPicking || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM', 'WAITING_FOR_HUMAN'].includes(session.state)} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"><Sparkles className="h-4 w-4" />{isScanning || isApplyingBatch || session?.state === 'FILLING_FORM' ? 'Filling…' : 'Scan & fill'}</button>
             </div>
           </div>
           <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
           <section className="min-w-0 space-y-5" aria-label="Application fields">
-          {memoryOpen && session && <RememberFieldPanel key={session.sessionId} sessionId={session.sessionId} onClose={() => setMemoryOpen(false)} onPickingChange={setIsPicking} />}
+          {memoryOpen && session && <RememberFieldPanel key={session.sessionId} sessionId={session.sessionId} disabled={isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FORM_DETECTED', 'FILLING_FORM', 'CONTINUING'].includes(session.state)} onClose={() => setMemoryOpen(false)} onPickingChange={setIsPicking} />}
           {authOpen && <AuthenticationPanel sessionId={session?.sessionId} disabled={isPicking || isScanning || isApplyingBatch || !session || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM', 'WAITING_FOR_HUMAN'].includes(session.state)} onClose={() => setAuthOpen(false)} />}
           {learnedToast && (
             <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs flex items-center justify-between gap-2.5 animate-in fade-in duration-150">

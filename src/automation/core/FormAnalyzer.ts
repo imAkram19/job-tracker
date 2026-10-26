@@ -35,6 +35,9 @@ export class FormAnalyzer {
 
       // Heuristic helper to find label text for an element
       function findLabel(el: HTMLElement): string {
+        // Portal question text takes precedence over generic "Type your response" placeholders.
+        const questionLabel = el.closest('.application-question,.custom-question')?.querySelector('.application-label')?.textContent?.trim();
+        if (questionLabel) return questionLabel;
         // 1. Check aria-label
         const ariaLabel = el.getAttribute('aria-label');
         if (ariaLabel && ariaLabel.trim()) return ariaLabel.trim();

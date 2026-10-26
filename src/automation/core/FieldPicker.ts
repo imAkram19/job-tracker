@@ -84,6 +84,9 @@ export class FieldPicker {
           const legend = group?.querySelector('legend, .application-label, label, h4, h5, [class*="label"]') as HTMLElement | null;
           if (legend?.innerText.trim()) return legend.innerText.trim();
         }
+        // Portal question text takes precedence over generic "Type your response" placeholders.
+        const questionLabel = el.closest('.application-question,.custom-question')?.querySelector('.application-label')?.textContent?.trim();
+        if (questionLabel) return questionLabel;
         // 1. Check aria-label
         const ariaLabel = el.getAttribute('aria-label');
         if (ariaLabel && ariaLabel.trim()) return ariaLabel.trim();

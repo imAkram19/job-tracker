@@ -123,7 +123,7 @@ To regression-test the compiled desktop automation, run `node launcher/test-prod
 
 ### Selected question memory
 
-In the desktop application assistant, choose **Remember a field**, then **Choose field in browser**. Hover over the application field in Chromium and click it, return to the assistant, confirm its answer, and select **Save this question**. Escape cancels selection. The default scope is the current website; optionally reuse the exact question on any website. Saved questions can be removed in the same panel.
+In the desktop application assistant, the **Remember a specific question** panel is open by default. Click **Choose a specific field in browser** (use **Remember a field** to reopen the panel if you closed it). Hover over the application field in Chromium and click it, return to the assistant, confirm its answer, and select **Save this question**. Escape cancels selection. The default scope is the current website; optionally reuse the exact question on any website. Saved questions can be removed in the same panel.
 
 Whole-page learning has been removed. Search boxes and sign-in fields are excluded, and editing an answer no longer silently memorizes it. Selected memories match the normalized question and field type; changed dropdown options require review. Custom widgets and embedded forms may still need manual filling.
 
@@ -134,3 +134,5 @@ Choose **Authentication → Add account** to save separate accounts for differen
 Google, LinkedIn, and SSO entries open the portal so you can choose its provider button and complete sign-in and verification yourself. Browser sessions are not persisted across restarts. Existing answer-bank entries are not imported as credentials.
 
 Selected questions and account records live in %LOCALAPPDATA%/AkramJobTracker, outside the repository and cloud QA bank. Passwords use Windows DPAPI encryption bound to the current Windows account. These features use the desktop/local server, not the hosted Vercel page.
+
+Focused local regression checks: run `npx tsx launcher/test-fields.ts`. They verify loopback origin validation, exact option selection, grouped checkboxes, and selected-question memory using synthetic forms with external requests intercepted.

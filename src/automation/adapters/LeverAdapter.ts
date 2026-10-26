@@ -81,11 +81,15 @@ export class LeverAdapter extends BasePlatformAdapter {
 
     // 4. Handle Custom Screening Questions on Lever
     const questionSections = await page.$$('.application-question, .custom-question, .application-field:not(.main-field)');
-    stateManager.log('info', `Found ${questionSections.length} additional question section(s)`);
+    const topLevelSections = [];
+    for (const section of questionSections) {
+      if (!await section.evaluate(el => !!el.parentElement?.closest('.application-question,.custom-question'))) topLevelSections.push(section);
+    }
+    stateManager.log('info', `Found ${topLevelSections.length} additional question section(s)`);
 
     let sectionIndex = 0;
     let fillErrors = 0;
-    for (const section of questionSections) {
+    for (const section of topLevelSections) {
       const sectionId = String(sectionIndex++);
       await section.evaluate((el, id) => el.setAttribute('data-akram-section', id), sectionId);
       // Find question text
@@ -105,7 +109,7 @@ export class LeverAdapter extends BasePlatformAdapter {
             type: textInput.tagName.toLowerCase() === 'textarea' ? 'textarea' : 'text',
             name: textInput.name || textInput.id,
             id: textInput.id || textInput.name,
-            required: textInput.required || el.querySelector('.application-label')?.textContent?.includes('*') || false,
+            required: textInput.required || /[*✱]/.test(el.querySelector('.application-label')?.textContent || '') || false,
             hasValue: hasVal,
           };
         }
@@ -160,6 +164,7 @@ export class LeverAdapter extends BasePlatformAdapter {
       let chosenAnswer = classification.value;
 
       if (!chosenAnswer || classification.confidence === 'LOW') {
+        if (!formField.required) continue;
         // Human-in-the-loop: Prompt the user
         const resolution = await humanManager.promptHuman(formField);
         if (resolution.action === 'ABORT') {

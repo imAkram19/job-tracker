@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { MousePointer2, X, Trash2 } from 'lucide-react';
 import type { PickedField, SelectedAnswer } from '@/automation/core/SelectedAnswerMemory';
 
-export function RememberFieldPanel({ sessionId, onClose, onPickingChange }: {
-  sessionId: string; onClose: () => void; onPickingChange: (active: boolean) => void;
+export function RememberFieldPanel({ sessionId, disabled = false, onClose, onPickingChange }: {
+  sessionId: string; disabled?: boolean; onClose: () => void; onPickingChange: (active: boolean) => void;
 }) {
   const [picking, setPicking] = useState(false);
   const [selected, setSelected] = useState<PickedField | null>(null);
@@ -87,7 +87,7 @@ export function RememberFieldPanel({ sessionId, onClose, onPickingChange }: {
     {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
     {notice && <p role="status" className="text-sm text-blue-700">{notice}</p>}
     <div className="flex flex-wrap items-center gap-3">
-      <button onClick={choose} disabled={busy || picking} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"><MousePointer2 className="h-4 w-4" />{picking ? 'Select a field in Chromium…' : 'Choose field in browser'}</button>
+      <button onClick={choose} disabled={disabled || busy || picking} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"><MousePointer2 className="h-4 w-4" />{picking ? 'Select a field in Chromium…' : 'Choose a specific field in browser'}</button>
       {(picking || selected) && <button onClick={cancel} disabled={busy} className={button}>Cancel selection</button>}
     </div>
     {picking && <p role="status" className="rounded-lg bg-blue-50 p-3 text-sm text-blue-900">Hover to highlight a field, then click it. Return here to save. Press Esc in Chromium to cancel. Search boxes and login fields are excluded.</p>}
