@@ -123,9 +123,11 @@ To regression-test the compiled desktop automation, run `node launcher/test-prod
 
 ### Selected question memory
 
-In the desktop application assistant, the **Remember a specific question** panel is open by default. Click **Choose a specific field in browser** (use **Remember a field** to reopen the panel if you closed it). Hover over the application field in Chromium and click it, return to the assistant, confirm its answer, and select **Save this question**. Escape cancels selection. The default scope is the current website; optionally reuse the exact question on any website. Saved questions can be removed in the same panel.
+In the desktop assistant, click **Choose a specific field in browser**, select a field in Chromium, confirm the answer, and choose **Save question**. New questions default to **For this exact question on any website**.
 
-Whole-page learning has been removed. Search boxes and sign-in fields are excluded, and editing an answer no longer silently memorizes it. Selected memories match the normalized question and field type; changed dropdown options require review. Custom widgets and embedded forms may still need manual filling.
+Saved questions are captures, not active autofill answers. Click **✓ Add** beside a saved question to approve it into **Entered fields**, your persistent answer bank. Scan & fill checks this bank before profile and older answer mappings. Approval makes the exact question available on any website. Existing captures remain saved and wait for your tick; they are not silently approved.
+
+Edit an answer directly in Entered fields to change future autofill. Removing it from Entered fields stops using it while keeping the captured question above. Current application results are separate under **Filled on this page**. Search and login fields are excluded. Dropdown options still need to match, and custom widgets or embedded forms may need manual filling.
 
 ### Portal authentication
 

@@ -16,6 +16,7 @@ export interface SelectedAnswer extends PickedField {
   answer: string;
   scope: 'site' | 'all';
   updatedAt: string;
+  approved?: boolean;
 }
 
 export const normalizeQuestion = (text: string) => text.toLowerCase().replace(/\(required\)|\*/g, '').replace(new RegExp('[^\\p{L}\\p{N}]+', 'gu'), ' ').trim();
@@ -28,22 +29,46 @@ export class SelectedAnswerMemory {
   private file = localDataFile('selected-answers.json');
   public list(): SelectedAnswer[] { return readLocal<SelectedAnswer[]>(this.file, []); }
 
-  public save(field: PickedField, answer: string, scope: 'site' | 'all'): SelectedAnswer {
+  public save(field: PickedField, answer: string, scope: 'site' | 'all' = 'all'): SelectedAnswer {
     if (excludedMemoryField(field.label, field.type, field.name)) throw new Error('Use Authentication for login details. Search boxes cannot be remembered.');
     if (!field.label.trim() || !answer.trim() || answer.length > 10000) throw new Error('Provide a question and an answer (up to 10,000 characters).');
     const entries = this.list();
     const key = normalizeQuestion(field.label);
     const existing = entries.find(item => normalizeQuestion(item.label) === key && item.origin === field.origin && item.type === field.type && item.scope === scope);
-    const record: SelectedAnswer = { ...field, id: existing?.id || randomUUID(), value: '', answer: answer.trim(), scope, updatedAt: new Date().toISOString() };
+    const record: SelectedAnswer = { ...field, id: existing?.id || randomUUID(), value: '', answer: answer.trim(), scope, approved: false, updatedAt: new Date().toISOString() };
     writeLocal(this.file, [...entries.filter(item => item.id !== record.id), record]);
     return record;
   }
 
   public remove(id: string): void { writeLocal(this.file, this.list().filter(item => item.id !== id)); }
 
+  public promote(id: string): void {
+    const entries = this.list();
+    const chosen = entries.find(entry => entry.id === id);
+    if (!chosen) throw new Error('Saved question not found.');
+    if (excludedMemoryField(chosen.label, chosen.type, chosen.name)) throw new Error('Search and authentication fields cannot enter the answer bank.');
+    if (!chosen.answer.trim()) throw new Error('Save an answer before adding it to Entered fields.');
+    // One approved answer per exact question and input type across websites.
+    writeLocal(this.file, entries.map(entry => entry.id === id
+      ? { ...entry, approved: true, scope: 'all', updatedAt: new Date().toISOString() }
+      : normalizeQuestion(entry.label) === normalizeQuestion(chosen.label) && entry.type === chosen.type
+        ? { ...entry, approved: false } : entry));
+  }
+
+  public unapprove(id: string): void {
+    writeLocal(this.file, this.list().map(entry => entry.id === id ? { ...entry, approved: false } : entry));
+  }
+
+  public updateApproved(id: string, answer: string): void {
+    if (!answer.trim() || answer.length > 10000) throw new Error('Provide an answer up to 10,000 characters.');
+    const entries = this.list();
+    if (!entries.some(entry => entry.id === id && entry.approved)) throw new Error('This question is not in Entered fields.');
+    writeLocal(this.file, entries.map(entry => entry.id === id ? { ...entry, answer: answer.trim(), updatedAt: new Date().toISOString() } : entry));
+  }
+
   public find(field: FormField): SelectedAnswer | undefined {
     if (excludedMemoryField(field.label, field.type, field.name)) return;
-    const matches = this.list().filter(item => normalizeQuestion(item.label) === normalizeQuestion(field.label) &&
+    const matches = this.list().filter(item => item.approved === true && normalizeQuestion(item.label) === normalizeQuestion(field.label) &&
       item.type === field.type && (item.scope === 'all' || item.origin === field.pageOrigin));
     const local = matches.filter(item => item.scope === 'site');
     const preferred = local.length ? local : matches;

@@ -37,10 +37,22 @@ async function main() {
  for(let i=0;i<30 && !picker.status().selected;i++) await new Promise(r=>setTimeout(r,50));
  const selected=picker.status().selected!; assert.equal(selected.label,'Availability'); assert.equal(selected.type,'checkbox');
  const temp=fs.mkdtempSync(path.join(os.tmpdir(),'akram-memory-check-')); const old=process.env.LOCALAPPDATA; process.env.LOCALAPPDATA=temp;
- try { const memory=new SelectedAnswerMemory(); const entry=memory.save(selected,'Maybe','site'); assert.equal(memory.find(availability)?.answer,'Maybe'); assert.equal(memory.find({...availability,pageOrigin:'https://another.invalid'}),undefined); memory.remove(entry.id); assert.equal(memory.list().length,0); }
+ try {
+   const memory=new SelectedAnswerMemory(); const entry=memory.save(selected,'Maybe');
+   assert.equal(entry.scope,'all'); assert.equal(memory.find(availability),undefined);
+   memory.promote(entry.id);
+   assert.equal(memory.find(availability)?.answer,'Maybe');
+   assert.equal(new SelectedAnswerMemory().find({...availability,pageOrigin:'https://another.invalid'})?.answer,'Maybe');
+   memory.updateApproved(entry.id,'No'); assert.equal(memory.find(availability)?.answer,'No');
+   const replacement=memory.save({...selected,origin:'https://another.invalid'},'Yes');
+   memory.promote(replacement.id); assert.equal(memory.list().filter(e=>e.approved).length,1);
+   assert.equal(memory.find(availability)?.answer,'Yes');
+   memory.unapprove(replacement.id); assert.equal(memory.find(availability),undefined);
+   memory.remove(entry.id); memory.remove(replacement.id); assert.equal(memory.list().length,0);
+ }
  finally { if(old===undefined) delete process.env.LOCALAPPDATA; else process.env.LOCALAPPDATA=old; }
  await picker.start(page); await page.keyboard.press('Escape'); for(let i=0;i<30&&picker.status().active;i++)await new Promise(r=>setTimeout(r,50)); assert.equal(picker.status().active,false);
- await browser.close(); console.log('PASS picker selection, search exclusion, site-scoped save/recall, deletion and Escape');
+ await browser.close(); console.log('PASS picker selection, search exclusion, approval gating, cross-site persistent recall, editing, replacement and removal, deletion and Escape');
  process.exit(0);
 }
 main().catch(err=>{console.error(err);process.exit(1)});

@@ -1,3 +1,5 @@
+import { FormAnalyzer } from '../core/FormAnalyzer';
+import { SelectedAnswerMemory } from '../core/SelectedAnswerMemory';
 import { fillField } from '../core/FieldFiller';
 import { BasePlatformAdapter } from './BasePlatformAdapter';
 import { FormField } from '../types/automation';
@@ -66,12 +68,17 @@ export class LeverAdapter extends BasePlatformAdapter {
       { selector: 'input[name="location"], input#location', value: `${candidate.city}, ${candidate.state}, ${candidate.country}`, label: 'Current Location' },
     ];
 
+    const answerBank = new SelectedAnswerMemory();
+    const detected = await new FormAnalyzer(page).discoverFields();
     for (const field of standardFields) {
       try {
         const input = page.locator(field.selector).first();
         if ((await input.count()) > 0 && (await input.isVisible())) {
-          await input.fill(field.value);
-          stateManager.recordFilledField(field.label, field.value);
+          const name = await input.getAttribute('name');
+          const discovered = detected.find(item => item.name === name);
+          const value = (discovered && answerBank.find(discovered)?.answer) ?? field.value;
+          await input.fill(value);
+          stateManager.recordFilledField(discovered?.label || field.label, value);
           stateManager.log('info', `Filled ${field.label}: ${field.value}`);
         }
       } catch (err) {
@@ -146,7 +153,7 @@ export class LeverAdapter extends BasePlatformAdapter {
         return null;
       });
 
-      if (!inputInfo || inputInfo.hasValue) continue;
+      if (!inputInfo) continue;
 
       const formField: FormField = {
         pageOrigin: new URL(page.url()).origin,
@@ -158,6 +165,8 @@ export class LeverAdapter extends BasePlatformAdapter {
         options: inputInfo.options,
         selector: '',
       };
+
+      if (inputInfo.hasValue && !answerBank.find(formField)) continue;
 
       // Classify question using knowledge base and candidate profile
       const classification = classifier.classifyAndResolve(formField);

@@ -28,6 +28,7 @@ import { JobItem, JobStatus } from '@/types/job';
 import { AutomationSessionStatus, AutomationState, HumanQuestionRequest } from '@/automation/types/automation';
 import { StatusDropdown } from './StatusDropdown';
 import { RememberFieldPanel } from './RememberFieldPanel';
+import { EnteredFieldsPanel } from './EnteredFieldsPanel';
 import { AuthenticationPanel } from './AuthenticationPanel';
 import type { SelectedAnswer } from '@/automation/core/SelectedAnswerMemory';
 
@@ -92,7 +93,6 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
   const [batchRemember, setBatchRemember] = useState(false);
   const [isApplyingBatch, setIsApplyingBatch] = useState(false);
   const [savedMemories, setSavedMemories] = useState<SelectedAnswer[]>([]);
-  const [savingMemory, setSavingMemory] = useState<string | null>(null);
   const [memoryError, setMemoryError] = useState('');
   const [memoryOpen, setMemoryOpen] = useState(true);
   const [authOpen, setAuthOpen] = useState(false);
@@ -108,17 +108,6 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
       .catch(err => { if (active) setMemoryError(err.message); });
     return () => { active = false; };
   }, [session?.sessionId]);
-
-  async function rememberEnteredField(label: string) {
-    if (!session) return;
-    setSavingMemory(label); setMemoryError('');
-    try {
-      const res = await fetch(`/api/automation/session/${session.sessionId}/respond`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'MEMORY_SAVE_ENTERED', fieldLabel: label }) });
-      const data = await res.json(); if (!res.ok) throw new Error(data.error || 'Unable to save this answer.');
-      setSavedMemories(data.entries);
-    } catch (err) { setMemoryError((err as Error).message); }
-    finally { setSavingMemory(null); }
-  }
 
   // Editable filled fields state
   const [editingFieldLabel, setEditingFieldLabel] = useState<string | null>(null);
@@ -872,119 +861,13 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
             </div>
           )}
 
-          {/* Filled Fields Section */}
-          <div className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
-            <h4 className="text-sm font-semibold text-slate-800 mb-5 flex items-center justify-between">
-              <span className="flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5 text-blue-600" />
-                Entered fields ({deduplicateFields(session?.filledFields || []).length})
-              </span>
-            </h4>
-
-            {memoryError && <p role="alert" className="mb-3 text-sm text-red-700">{memoryError}</p>}
-            <p className="mb-4 -mt-2 text-xs text-slate-500">Click ✓ Remember to save an answer for future applications.</p>
-            {session?.filledFields && deduplicateFields(session.filledFields).length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {deduplicateFields(session.filledFields).map((field, idx) => {
-                  const isEditing = editingFieldLabel === field.label;
-                  const saved = savedMemories.find(entry => entry.label.toLowerCase().trim() === field.label.toLowerCase().trim() && entry.answer === field.value.trim());
-                  return (
-                    <div
-                      key={idx}
-                      className={`p-2.5 rounded-lg border transition text-xs flex flex-col justify-between gap-1.5 ${
-                        isEditing
-                          ? 'bg-blue-50/70 border-blue-300 shadow-2xs'
-                          : 'bg-slate-50 border-slate-200 hover:border-slate-300'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="font-semibold text-slate-700 break-words">
-                          {field.label}
-                        </span>
-                        <div className="flex items-center gap-1 shrink-0">
-                          {!isEditing ? (
-                            <>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setEditingFieldLabel(field.label);
-                                  setEditingFieldValue(field.value);
-                                }}
-                                className="p-1 text-slate-400 hover:text-blue-600 hover:bg-slate-200/80 rounded transition"
-                                title="Edit and refill this field in Chrome"
-                              >
-                                <Pencil className="w-3.5 h-3.5" />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveField(field.label)}
-                                className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition"
-                                title="Remove this field from list"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                            </>
-                          ) : null}
-                          <button type="button" onClick={() => rememberEnteredField(field.label)}
-                            disabled={!!saved || !!savingMemory || isEditing || !field.value.trim() || isPicking || isScanning || isApplyingBatch || ['STARTING','OPENING_APPLICATION','FORM_DETECTED','FILLING_FORM','CONTINUING'].includes(session.state)}
-                            aria-label={saved ? `Saved to memory: ${field.label}` : `Remember ${field.label}`}
-                            title={saved ? `Saved to memory (${saved.scope === 'all' ? 'all websites' : saved.origin})` : 'Save this answer to memory for this website'}
-                            className={`inline-flex items-center gap-1 rounded-md px-2 py-1 font-medium disabled:cursor-default ${saved ? 'bg-emerald-50 text-emerald-700' : 'text-slate-500 hover:bg-blue-50 hover:text-blue-700 disabled:opacity-50'}`}>
-                            <Check className="w-4 h-4" />{saved ? 'Saved' : savingMemory === field.label ? 'Saving…' : 'Remember'}
-                          </button>
-                        </div>
-                      </div>
-
-                      {isEditing ? (
-                        <div className="flex items-center gap-1 mt-1">
-                          <input
-                            type="text"
-                            value={editingFieldValue}
-                            onChange={(e) => setEditingFieldValue(e.target.value)}
-                            className="w-full px-2 py-1 rounded bg-white border border-blue-400 text-xs text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono shadow-2xs"
-                            autoFocus
-                            placeholder="Type new value..."
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                handleSaveEditedField(field.label, editingFieldValue);
-                              } else if (e.key === 'Escape') {
-                                setEditingFieldLabel(null);
-                              }
-                            }}
-                          />
-                          <button
-                            type="button"
-                            disabled={isUpdatingField}
-                            onClick={() => handleSaveEditedField(field.label, editingFieldValue)}
-                            className="p-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white shadow-2xs transition disabled:opacity-50 shrink-0"
-                            title="Save & Refill in Browser"
-                          >
-                            <Check className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setEditingFieldLabel(null)}
-                            className="p-1.5 rounded bg-slate-200 hover:bg-slate-300 text-slate-600 transition shrink-0"
-                            title="Cancel"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      ) : (
-                        <span className="text-sm text-slate-600 break-all">
-                          {field.value || <em className="text-slate-400">Empty</em>}
-                        </span>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="px-6 py-16 rounded-lg bg-slate-50 text-center text-sm text-slate-500">
-                No fields entered yet. Filled answers will appear here as the page is processed.
-              </div>
-            )}
-          </div>
+          {memoryError && <p role="alert" className="text-sm text-red-700">{memoryError}</p>}
+          {session && <EnteredFieldsPanel sessionId={session.sessionId} entries={savedMemories} onEntriesChange={setSavedMemories} />}
+          <details className="rounded-xl border border-slate-200 bg-white p-5">
+            <summary className="cursor-pointer text-sm font-semibold text-slate-700">Filled on this page ({deduplicateFields(session?.filledFields || []).length})</summary>
+            <p className="mt-2 text-xs text-slate-500">Results from the current application. Your reusable answers are in Entered fields above.</p>
+            <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">{deduplicateFields(session?.filledFields || []).map(field => <div key={field.label} className="rounded-lg bg-slate-50 p-3"><p className="text-xs font-semibold text-slate-700">{field.label}</p><p className="mt-1 text-sm text-slate-600 break-words">{field.value}</p></div>)}</div>
+          </details>
 
           </section>
           <aside className="min-w-0 xl:sticky xl:top-0" aria-label="Automation activity">

@@ -1,5 +1,3 @@
-import { FormAnalyzer } from '@/automation/core/FormAnalyzer';
-import { normalizeQuestion } from '@/automation/core/SelectedAnswerMemory';
 import { requireLocalRequest } from '@/automation/core/localRequest';
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/automation/runner';
@@ -42,25 +40,22 @@ export async function POST(
       session.selectedMemory.remove(body.id);
       return NextResponse.json({ entries: session.selectedMemory.list() });
     }
-    if (action === 'MEMORY_SAVE_ENTERED') {
-      if (typeof body.fieldLabel !== 'string') throw new Error('Choose an entered field.');
-      if (session.fieldPicker.status().active || ['STARTING','OPENING_APPLICATION','FORM_DETECTED','FILLING_FORM','CONTINUING'].includes(session.stateManager.getState())) throw new Error('Finish the current scan or selection first.');
-      const entered = session.stateManager.getStatus().filledFields.find(f => f.label === body.fieldLabel);
-      if (!entered || !entered.value.trim()) throw new Error('This field has no entered answer to remember.');
-      const page = await session.browserManager.pickerPage(session.job.applyUrl);
-      const fields = await new FormAnalyzer(page).discoverFields();
-      const matches = fields.filter(f => normalizeQuestion(f.label) === normalizeQuestion(entered.label));
-      if (matches.length !== 1) throw new Error('This question is not unique on the current page. Use Choose a specific field in browser to select it.');
-      const field = matches[0];
-      session.selectedMemory.save({ id: field.id, label: field.label, name: field.name, type: field.type, value: '', origin: field.pageOrigin || new URL(page.url()).origin, options: field.options }, entered.value, 'site');
+    if (['MEMORY_PROMOTE', 'MEMORY_UNAPPROVE', 'MEMORY_UPDATE_APPROVED'].includes(action)) {
+      if (typeof body.id !== 'string') throw new Error('Saved question ID required.');
+      if (action === 'MEMORY_PROMOTE') session.selectedMemory.promote(body.id);
+      else if (action === 'MEMORY_UNAPPROVE') session.selectedMemory.unapprove(body.id);
+      else {
+        if (typeof body.answer !== 'string') throw new Error('Answer required.');
+        session.selectedMemory.updateApproved(body.id, body.answer);
+      }
       return NextResponse.json({ entries: session.selectedMemory.list() });
     }
+    if (action === 'MEMORY_SAVE_ENTERED') return NextResponse.json({ error: 'Use the tick beside a Saved question to add it to Entered fields.' }, { status: 410 });
     if (action === 'MEMORY_SAVE') {
       const selected = session.fieldPicker.status().selected;
       if (!selected || selected.id !== body.selectedId) throw new Error('Select a field again before saving.');
       if (typeof body.answer !== 'string' || !['site', 'all'].includes(body.scope)) throw new Error('Answer and scope required.');
       session.selectedMemory.save(selected, body.answer, body.scope);
-      session.stateManager.recordFilledField(selected.label, body.answer.trim());
       await session.fieldPicker.cancel();
       return NextResponse.json({ entries: session.selectedMemory.list() });
     }
