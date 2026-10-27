@@ -1,4 +1,5 @@
 import { FormAnalyzer } from './FormAnalyzer';
+import { readDropdownOptions } from './DropdownControl';
 import type { FormField } from '../types/automation';
 import { randomUUID } from 'crypto';
 import { Page, Frame } from 'playwright';
@@ -33,8 +34,23 @@ export class FieldPicker {
         let origin: string;
         try { origin = await frame.evaluate(() => self.origin); } catch { return; }
         if (!origin.startsWith('https://') && !origin.startsWith('http://')) return;
+        if (['select', 'combobox'].includes(field.type)) {
+          try {
+            if (field.type === 'combobox') await this.clearOverlays();
+            if (!field.selector) throw new Error('Choose this dropdown again to read its options.');
+            field.options = await readDropdownOptions(frame.locator(field.selector));
+            if (!this.state.active || token !== this.token) return;
+          } catch (err) {
+            if (!this.state.active || token !== this.token) return;
+            await this.cancel();
+            this.state.error = err instanceof Error ? err.message : 'Unable to read dropdown options.';
+            return;
+          }
+        }
         const selected: PickedField = { ...field, id: randomUUID(), origin };
-        await this.cancel();
+        await this.clearOverlays();
+        if (!this.state.active || token !== this.token) return;
+        if (this.timer) clearTimeout(this.timer);
         this.state = { active: false, selected };
       });
       this.boundPages.add(page);
@@ -53,7 +69,12 @@ export class FieldPicker {
 
   public async cancel(): Promise<void> {
     this.state = { active: false, selected: null };
+    this.token = '';
     if (this.timer) clearTimeout(this.timer);
+    await this.clearOverlays();
+  }
+
+  private async clearOverlays(): Promise<void> {
     if (!this.page) return;
     this.page.off('framenavigated', this.onFrame);
     this.page.off('frameattached', this.onFrame);
@@ -72,7 +93,7 @@ export class FieldPicker {
       const outline = document.createElement('div');
       outline.style.cssText = 'position:fixed;z-index:2147483646;pointer-events:none;border:2px solid #2563eb;background:#2563eb18;border-radius:4px;display:none';
       document.documentElement.append(hint, outline);
-      const selector = 'input,textarea,select,[role="combobox"],[role="radio"],[role="checkbox"],[contenteditable="true"]';
+      const selector = 'input,textarea,select,[role="combobox"],[aria-haspopup="listbox"],[role="radio"],[role="checkbox"],[contenteditable="true"]';
       function target(event: Event): HTMLElement | null {
         for (const node of event.composedPath()) {
           if (!(node instanceof HTMLElement)) continue;
@@ -146,7 +167,9 @@ export class FieldPicker {
       }
       function blocked(el: HTMLElement): boolean {
         const input = el as HTMLInputElement;
-        return el.matches(':disabled,[readonly],[aria-disabled="true"]') || ['password','search','file','hidden','submit','button','reset'].includes(input.type) ||
+        const dropdown = el.matches('[role="combobox"],[aria-haspopup="listbox"]');
+        return el.matches(':disabled,[aria-disabled="true"]') || (!dropdown && el.hasAttribute('readonly')) ||
+          ['password','search','file','hidden','submit','reset'].includes(input.type) || (!dropdown && input.type === 'button') ||
           !!el.closest('[role="search"],form:has(input[type="password"])') ||
           /\b(password|passcode|otp|verification code|search|captcha|username|sign in|log in)\b/i.test(`${labelFor(el)} ${input.name || ''}`) ||
           ['current-password','new-password','one-time-code','username'].includes(el.getAttribute('autocomplete') || '');
@@ -167,7 +190,7 @@ export class FieldPicker {
         const label = labelFor(el).replace(/\s+/g, ' ').replace(/[*✱]/g, '').trim();
         if (!label) { hint.textContent = 'This field has no question label. Choose a labelled field.'; return; }
         const rawType = input.type || el.getAttribute('role') || 'text';
-        const type = el.tagName === 'SELECT' ? 'select' : el.tagName === 'TEXTAREA' ? 'textarea' : el.getAttribute('role') === 'combobox' ? 'combobox' : (['email','tel','checkbox','radio','date','number','text'].includes(rawType) ? rawType : 'text');
+        const type = el.tagName === 'SELECT' ? 'select' : el.tagName === 'TEXTAREA' ? 'textarea' : el.matches('[role="combobox"],[aria-haspopup="listbox"]') ? 'combobox' : (['email','tel','checkbox','radio','date','number','text'].includes(rawType) ? rawType : 'text');
         let value = input.value || el.textContent || '';
         let options: string[] | undefined;
         if (el instanceof HTMLSelectElement) { options = Array.from(el.options).filter(o => !o.disabled && o.value).map(o => o.text.trim()); value = el.selectedOptions[0]?.value ? el.selectedOptions[0].text.trim() : ''; }
@@ -182,7 +205,9 @@ export class FieldPicker {
         }
         const known = knownField(el);
         if (known?.options) options = known.options;
-        void (window as any)[binding](token, { label, name: input.name || '', type, value: value.slice(0,10000), options });
+        if (!el.hasAttribute('data-akram-field')) el.setAttribute('data-akram-field', `pick-${token}`);
+        const fieldSelector = `[data-akram-field="${el.getAttribute('data-akram-field')}"]`;
+        void (window as any)[binding](token, { label, name: input.name || '', type, value: value.slice(0,10000), options, selector: fieldSelector });
       };
       const key = (event: KeyboardEvent) => { if (event.key === 'Escape') { stop(event); void (window as any)[binding](token, null); } };
       document.addEventListener('pointermove', move, true);

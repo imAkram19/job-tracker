@@ -43,8 +43,11 @@ export class QuestionClassifier {
     if (field.type === 'file' && !isResumeField(field)) return { isProfileField: false, isScreeningQuestion: false, value: null, confidence: 'LOW' };
     const selected = this.answerManager.findSelected(field);
     if (selected) {
-      const optionExists = !field.options?.length || field.options.includes(selected.answer);
-      return { isProfileField: false, isScreeningQuestion: true, value: optionExists ? selected.answer : null,
+      const normalize = (value: string) => value.replace(/\s+/g, ' ').trim().toLowerCase();
+      const dropdown = ['select', 'combobox'].includes(field.type);
+      const matching = field.options?.filter(option => dropdown ? normalize(option) === normalize(selected.answer) : option === selected.answer);
+      const optionExists = !field.options?.length || matching?.length === 1;
+      return { isProfileField: false, isScreeningQuestion: true, value: optionExists ? (matching?.[0] || selected.answer) : null,
         confidence: optionExists ? 'HIGH' : 'LOW', matchedQuestion: selected.label, fromAnswerBank: true };
     }
     const concept = this.detectConcept(field.label, field.name);

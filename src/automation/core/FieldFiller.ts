@@ -1,5 +1,6 @@
 import type { Locator } from 'playwright';
 import type { InputElementType } from '../types/automation';
+import { fillDropdown } from './DropdownControl';
 
 /** Fill only an unambiguous control/option. Never fall back to the first choice. */
 export async function fillField(locator: Locator, type: InputElementType, answer: string): Promise<void> {
@@ -24,16 +25,7 @@ export async function fillField(locator: Locator, type: InputElementType, answer
   }
   if (count !== 1) throw new Error('Multiple fields match this question. Rescan before filling.');
   if (type === 'combobox') {
-    const controls = await locator.getAttribute('aria-controls');
-    if (!controls || controls.trim().split(/\s+/).length !== 1) throw new Error('This dropdown does not expose a unique option list. Select it manually.');
-    await locator.click({ timeout: 5000 });
-    const editable = await locator.evaluate(el => el instanceof HTMLInputElement && !el.readOnly);
-    if (editable) await locator.fill(answer, { timeout: 5000 });
-    const list = locator.locator('xpath=ancestor::html').locator('[id=' + JSON.stringify(controls) + ']');
-    const option = list.getByRole('option', { name: answer, exact: true });
-    await option.waitFor({ state: 'visible', timeout: 3000 });
-    if (await option.count() !== 1) throw new Error('Dropdown choice is ambiguous. Select it manually.');
-    await option.click({ timeout: 5000 });
+    await fillDropdown(locator, answer);
   } else if (type === 'select') {
     const options = await locator.evaluate(el => Array.from((el as HTMLSelectElement).options).map((o, index) => ({ label: o.text, value: o.value, disabled: o.disabled || (o.parentElement instanceof HTMLOptGroupElement && o.parentElement.disabled), index })));
     const labelled = options.filter(o => !o.disabled && normalize(o.label) === wanted);

@@ -44,7 +44,12 @@ export function RememberFieldPanel({ sessionId, entries, onEntriesChange, disabl
         if (data.picker.error) setError(data.picker.error);
         if (!data.picker.active) {
           setPicking(false); onPickingChange(false);
-          if (data.picker.selected) { setSelected(data.picker.selected); setAnswer(data.picker.selected.value || ''); setScope('all'); }
+          if (data.picker.selected) {
+            const field: PickedField = data.picker.selected;
+            setSelected(field);
+            setAnswer(['select', 'combobox'].includes(field.type) ? (field.options?.includes(field.value) ? field.value : '') : field.value || '');
+            setScope('all');
+          }
           else setNotice('Selection cancelled or timed out. Choose a field to try again.');
           return;
         }
@@ -94,6 +99,7 @@ export function RememberFieldPanel({ sessionId, entries, onEntriesChange, disabl
     {picking && <p role="status" className="rounded-lg bg-blue-50 p-3 text-sm text-blue-900">Hover to highlight a field, then click it. Return here to save. Press Esc in Chromium to cancel. Search boxes and login fields are excluded.</p>}
     {selected && <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-3">
       <div><p className="text-xs font-medium text-slate-500">Selected question · {selected.origin}</p><p className="mt-1 text-sm font-semibold text-slate-900 break-words">{selected.label}</p></div>
+      {['select', 'combobox'].includes(selected.type) && <p className="text-sm text-blue-700">Dropdown detected · {selected.options?.length || 0} options. Choose the option you want the assistant to select in future applications.</p>}
       <label className="block text-sm font-medium text-slate-700">Answer to remember
         {selected.options?.length ? <select className="mt-1 w-full rounded-lg border border-slate-300 bg-white p-2" value={answer} onChange={e => setAnswer(e.target.value)}><option value="">Choose an answer</option>{selected.options.map((option, i) => <option key={i} value={option}>{option}</option>)}</select> : <textarea className="mt-1 w-full rounded-lg border border-slate-300 bg-white p-2" rows={2} value={answer} maxLength={10000} onChange={e => setAnswer(e.target.value)} />}
       </label>

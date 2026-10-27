@@ -37,7 +37,7 @@ export class FormAnalyzer {
       for (let i = 0; i < roots.length; i++) {
         for (const el of Array.from(roots[i].querySelectorAll('*'))) if (el.shadowRoot) roots.push(el.shadowRoot);
       }
-      const selector = 'input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]),textarea,select,[role="combobox"]';
+      const selector = 'input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]),textarea,select,[role="combobox"],[aria-haspopup="listbox"]';
       const elements = roots.flatMap(root => Array.from(root.querySelectorAll<HTMLElement>(selector)));
       function visible(el: HTMLElement): boolean {
         for (let node: HTMLElement | null = el; node;) {
@@ -47,7 +47,10 @@ export class FormAnalyzer {
         }
         return el.getClientRects().length > 0;
       }
-      function enabled(el: HTMLElement): boolean { return !el.matches(':disabled,[disabled],[readonly],[aria-disabled="true"],[aria-readonly="true"]'); }
+      function enabled(el: HTMLElement): boolean {
+        return !el.matches(':disabled,[disabled],[aria-disabled="true"]') &&
+          (el.matches('[role="combobox"],[aria-haspopup="listbox"]') || !el.matches('[readonly],[aria-readonly="true"]'));
+      }
       function labelText(el: Element): string {
         const clone = el.cloneNode(true) as Element;
         clone.querySelectorAll('input,textarea,select,button,[role="listbox"],[hidden],script,style').forEach(child => child.remove());
@@ -84,7 +87,7 @@ export class FormAnalyzer {
       for (const el of elements) {
         if (seen.has(el) || !eligible(el)) continue;
         let type = el instanceof HTMLSelectElement ? 'select' : el instanceof HTMLTextAreaElement ? 'textarea' :
-          el.getAttribute('role') === 'combobox' ? 'combobox' : (el as HTMLInputElement).type || 'text';
+          el.matches('[role="combobox"],[aria-haspopup="listbox"]') ? 'combobox' : (el as HTMLInputElement).type || 'text';
         if (!['select','textarea','combobox','radio','checkbox','file','email','tel','number','date'].includes(type)) type = 'text';
         const input = el as HTMLInputElement;
         const choices = ['radio','checkbox'].includes(type) && input.name ? elements.filter(other => {

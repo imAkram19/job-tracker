@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "apply": "tsx src/automation/cli.ts",
-    "test:autofill": "tsx launcher/test-autofill-edges.ts && tsx launcher/test-fields.ts"
+    "test:autofill": "tsx launcher/test-autofill-edges.ts && tsx launcher/test-fields.ts",
+    "test:dropdowns": "tsx launcher/test-dropdown-memory.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.6",
