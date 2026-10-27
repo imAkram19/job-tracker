@@ -25,7 +25,7 @@ export interface JobItem {
   experience: string;
   salary: string;
   employmentType: string;
-  datePosted: string; // ISO date format YYYY-MM-DD
+  datePosted: string; // ISO date YYYY-MM-DD, or "Not disclosed" when the source omits it
   source: string;
   applyUrl: string;
   assessment: 'Ready to apply' | 'Needs review';

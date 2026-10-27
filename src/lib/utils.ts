@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatRelativeDate(dateString?: string | null): string {
+  if (dateString === "Not disclosed") return "Date not disclosed";
   if (!dateString) return "Recently";
   try {
     const postDate = new Date(dateString);
