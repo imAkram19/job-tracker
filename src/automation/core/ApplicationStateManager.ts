@@ -62,7 +62,7 @@ export class ApplicationStateManager extends EventEmitter {
     this.emit('fieldsDetected', fields);
   }
 
-  public recordFilledField(label: string, value: string): void {
+  public recordFilledField(label: string, value: string, field?: FormField): void {
     const existingIndex = this.filledFields.findIndex(
       (f) => f.label.toLowerCase().trim() === label.toLowerCase().trim()
     );
@@ -72,6 +72,7 @@ export class ApplicationStateManager extends EventEmitter {
       this.filledFields.push({ label, value });
     }
     this.emit('fieldFilled', { label, value });
+    if (field) this.emit('rememberableFieldFilled', { field, value });
   }
 
   public removeFilledField(label: string): void {

@@ -48,7 +48,16 @@ async function main() {
    memory.promote(replacement.id); assert.equal(memory.list().filter(e=>e.approved).length,1);
    assert.equal(memory.find(availability)?.answer,'Yes');
    memory.unapprove(replacement.id); assert.equal(memory.find(availability),undefined);
-   memory.remove(entry.id); memory.remove(replacement.id); assert.equal(memory.list().length,0);
+   memory.rememberFilled(availability,'Maybe');
+   assert.equal(memory.find({...availability,pageOrigin:'https://future.invalid'})?.answer,'Maybe');
+   assert.equal(memory.list().filter(e=>e.approved).length,1);
+   memory.rememberFilled(availability,'No');
+   assert.equal(memory.find(availability)?.answer,'No');
+   assert.equal(memory.list().filter(e=>e.approved).length,1);
+   memory.rememberFilled({...availability,label:'Search jobs',type:'search' as any},'private search');
+   assert.equal(memory.list().filter(e=>e.approved).length,1);
+   for (const saved of memory.list()) memory.remove(saved.id);
+   assert.equal(memory.list().length,0);
  }
  finally { if(old===undefined) delete process.env.LOCALAPPDATA; else process.env.LOCALAPPDATA=old; }
  await picker.start(page); await page.keyboard.press('Escape'); for(let i=0;i<30&&picker.status().active;i++)await new Promise(r=>setTimeout(r,50)); assert.equal(picker.status().active,false);

@@ -55,6 +55,24 @@ export class SelectedAnswerMemory {
         ? { ...entry, approved: false } : entry));
   }
 
+  public rememberFilled(field: FormField, answer: string): void {
+    if (excludedMemoryField(field.label, field.type, field.name) || !normalizeQuestion(field.label) ||
+        !answer.trim() || answer.length > 10000) return;
+    const entries = this.list();
+    const key = normalizeQuestion(field.label);
+    const matches = (entry: SelectedAnswer) => normalizeQuestion(entry.label) === key && entry.type === field.type;
+    const existing = entries.find(entry => entry.approved && matches(entry)) ||
+      entries.find(entry => !entry.approved && matches(entry) && entry.origin === field.pageOrigin);
+    if (existing?.approved && existing.answer === answer && existing.scope === 'all') return;
+    const record: SelectedAnswer = {
+      id: existing?.id || randomUUID(), label: field.label, name: field.name, type: field.type,
+      value: '', origin: field.pageOrigin || '', options: field.options,
+      answer: answer.trim(), scope: 'all', approved: true, updatedAt: new Date().toISOString(),
+    };
+    writeLocal(this.file, [...entries.filter(entry => entry.id !== record.id).map(entry =>
+      matches(entry) ? { ...entry, approved: false } : entry), record]);
+  }
+
   public unapprove(id: string): void {
     writeLocal(this.file, this.list().map(entry => entry.id === id ? { ...entry, approved: false } : entry));
   }

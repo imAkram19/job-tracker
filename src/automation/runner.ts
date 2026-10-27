@@ -44,6 +44,10 @@ export class AutomationSession {
     this.browserManager = new BrowserManager(this.stateManager);
     this.answerManager = new AnswerManager();
     this.humanManager = new HumanInteractionManager(this.stateManager, this.answerManager);
+    this.stateManager.on('rememberableFieldFilled', ({ field, value }) => {
+      try { this.selectedMemory.rememberFilled(field, value); }
+      catch (err) { this.stateManager.log('warn', `Could not remember ${field.label}: ${err}`); }
+    });
   }
 
   public async run(options: AutomationRunOptions = {}): Promise<boolean> {
@@ -267,7 +271,7 @@ export class AutomationSession {
 
       try {
         await fillField(fieldLocator(page, field), field.type, answerToFill);
-        this.stateManager.recordFilledField(field.label, answerToFill);
+        this.stateManager.recordFilledField(field.label, answerToFill, field);
         filledCount++;
       } catch (err) {
         errorCount++;
@@ -281,15 +285,17 @@ export class AutomationSession {
   }
 
   public async updateFieldValue(fieldLabel: string, newValue: string, refillInBrowser = true): Promise<boolean> {
+    let matchedField;
     if (refillInBrowser) {
       const page = await this.browserManager.ensureActivePage(this.job.applyUrl);
       const { FormAnalyzer } = await import('./core/FormAnalyzer');
       const fields = await new FormAnalyzer(page).discoverFields();
       const matches = fields.filter(f => f.label.toLowerCase().trim() === fieldLabel.toLowerCase().trim());
       if (matches.length !== 1) throw new Error('No unique question matches this edit. Rescan the page.');
-      await fillField(fieldLocator(page, matches[0]), matches[0].type, newValue);
+      matchedField = matches[0];
+      await fillField(fieldLocator(page, matchedField), matchedField.type, newValue);
     }
-    this.stateManager.recordFilledField(fieldLabel, newValue);
+    this.stateManager.recordFilledField(fieldLabel, newValue, matchedField);
     this.stateManager.log('success', `Updated "${fieldLabel}"`);
     return true;
   }

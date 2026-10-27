@@ -180,6 +180,21 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
       // Open SSE connection
       const sse = new EventSource(`/api/automation/session/${data.sessionId}/stream`);
       eventSourceRef.current = sse;
+      let memoryRefreshTimer: ReturnType<typeof setTimeout>;
+      const refreshMemories = () => {
+        clearTimeout(memoryRefreshTimer);
+        memoryRefreshTimer = setTimeout(() => {
+          if (eventSourceRef.current !== sse) return;
+          fetch(`/api/automation/session/${data.sessionId}/respond`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'MEMORY_LIST' }),
+          }).then(async response => {
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Could not refresh Entered fields.');
+            if (eventSourceRef.current === sse) setSavedMemories(result.entries);
+          }).catch(err => { if (eventSourceRef.current === sse) setMemoryError(err.message); });
+        }, 250);
+      };
 
       sse.addEventListener('status', (e) => {
         setError(null);
@@ -206,6 +221,7 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
 
       sse.addEventListener('fieldFilled', (e) => {
         const field = JSON.parse(e.data);
+        refreshMemories();
         setSession((prev) => {
           if (!prev) return null;
           const existingIdx = prev.filledFields.findIndex(

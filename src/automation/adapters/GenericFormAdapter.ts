@@ -71,7 +71,7 @@ export class GenericFormAdapter extends BasePlatformAdapter {
         if (chosenAnswer) {
           try {
             await fillField(fieldLocator(page, field), field.type, chosenAnswer);
-            stateManager.recordFilledField(field.label, chosenAnswer);
+            stateManager.recordFilledField(field.label, chosenAnswer, field);
             stateManager.log('info', `Filled ${field.label}`);
           } catch (fillErr) {
             fillErrors++;
