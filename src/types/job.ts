@@ -21,7 +21,7 @@ export interface JobItem {
   title: string;
   category: JobCategory;
   location: string;
-  workMode: 'Onsite' | 'Hybrid' | 'Remote';
+  workMode: 'Onsite' | 'Hybrid' | 'Remote' | 'Not disclosed';
   experience: string;
   salary: string;
   employmentType: string;
