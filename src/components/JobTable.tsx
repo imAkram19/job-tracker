@@ -18,6 +18,10 @@ interface JobTableProps {
   onUpdateStatus: (jobId: string, status: JobStatus) => void;
   onOpenNotes: (job: JobItem) => void;
   onAutoApply?: (job: JobItem) => void;
+  hasMore?: boolean;
+  isLoadingMore?: boolean;
+  onLoadMore?: () => void;
+  totalCount?: number;
 }
 
 export const JobTable: React.FC<JobTableProps> = ({
@@ -26,7 +30,29 @@ export const JobTable: React.FC<JobTableProps> = ({
   onUpdateStatus,
   onOpenNotes,
   onAutoApply,
+  hasMore,
+  isLoadingMore,
+  onLoadMore,
+  totalCount,
 }) => {
+  const sentinelRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!hasMore || !onLoadMore) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          onLoadMore();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+    return () => observer.disconnect();
+  }, [hasMore, onLoadMore]);
+
   if (jobs.length === 0) {
     return (
       <div className="text-center py-16 px-4 rounded-xl bg-white border border-[rgba(17,24,39,0.08)]">
@@ -58,6 +84,8 @@ export const JobTable: React.FC<JobTableProps> = ({
               comments: '',
             };
 
+            const isNoLink = userTrack.status === 'No link' || !job.applyUrl;
+
             return (
               <tr 
                 key={job.id} 
@@ -84,11 +112,24 @@ export const JobTable: React.FC<JobTableProps> = ({
                   </div>
                 </td>
 
-                {/* 2. Role & Domain */}
+                {/* 2. Role & Domain (Title as clickable hyperlink) */}
                 <td className="py-3 px-4">
-                  <div className="font-normal text-[#111827] text-xs leading-snug">
-                    {job.title}
-                  </div>
+                  {isNoLink ? (
+                    <div className="font-medium text-[#111827] text-xs leading-snug">
+                      {job.title}
+                    </div>
+                  ) : (
+                    <a
+                      href={job.applyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-[#111827] hover:text-[#2563eb] text-xs leading-snug inline-flex items-center gap-1 group/title transition-colors hover:underline underline-offset-2"
+                      title={`Open job posting for ${job.title} at ${job.company}`}
+                    >
+                      <span>{job.title}</span>
+                      <ExternalLink className="w-3 h-3 text-[#9ca3af] group-hover/title:text-[#2563eb] transition-colors shrink-0" />
+                    </a>
+                  )}
                   
                   <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
                     {/* Domain badge */}
@@ -138,7 +179,7 @@ export const JobTable: React.FC<JobTableProps> = ({
                     )}
 
                     {/* Direct Apply Button */}
-                    {userTrack.status === 'No link' ? (
+                    {isNoLink ? (
                       <span className="inline-flex items-center h-7 px-2 rounded-md text-xs text-[#6b7487] bg-[#f5f7fa] border border-[rgba(17,24,39,0.08)] shrink-0">
                         No link
                       </span>
@@ -167,6 +208,28 @@ export const JobTable: React.FC<JobTableProps> = ({
           })}
         </tbody>
       </table>
+
+      {/* Lazy Load Sentinel & Load More Footer */}
+      {hasMore && (
+        <div 
+          ref={sentinelRef}
+          className="p-3 text-center bg-[#f8fafc] border-t border-[rgba(17,24,39,0.08)] flex items-center justify-center gap-3"
+        >
+          <button
+            onClick={onLoadMore}
+            className="text-xs font-medium text-[#2563eb] hover:text-[#1d4ed8] bg-white border border-[rgba(17,24,39,0.12)] hover:border-[#2563eb] px-4 py-1.5 rounded-lg shadow-sm transition-all flex items-center gap-2"
+          >
+            {isLoadingMore ? (
+              <>
+                <div className="w-2 h-2 rounded-full bg-[#2563eb] animate-ping" />
+                <span>Loading more roles...</span>
+              </>
+            ) : (
+              <span>Load more roles ({jobs.length} of {totalCount || 'many'})</span>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

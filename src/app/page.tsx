@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import rawJobsData from '@/data/jobs.json';
 import { JobItem, JobStatus, TrackingState, UserJobTracking } from '@/types/job';
 import { 
@@ -17,6 +17,12 @@ import { NotesModal } from '@/components/NotesModal';
 import { CandidateModal } from '@/components/CandidateModal';
 import { ExportImportModal } from '@/components/ExportImportModal';
 import { ApplicationAutomationModal } from '@/components/ApplicationAutomationModal';
+import { 
+  SkeletonStatsDashboard, 
+  SkeletonFilterControls, 
+  SkeletonJobTable, 
+  SkeletonJobCardList 
+} from '@/components/SkeletonLoader';
 
 function parseJobDate(d?: string): number {
   if (!d) return 0;
@@ -25,6 +31,7 @@ function parseJobDate(d?: string): number {
 }
 
 const initialJobs: JobItem[] = rawJobsData as JobItem[];
+const PAGE_SIZE = 50;
 
 export default function Home() {
   const [jobs, setJobs] = useState<JobItem[]>(initialJobs);
@@ -38,6 +45,10 @@ export default function Home() {
   const [categoryFilter, setCategoryFilter] = useState('ALL');
   const [locationFilter, setLocationFilter] = useState('ALL');
   const [sortOption, setSortOption] = useState<SortOption>('date-desc');
+
+  // Progressive / Lazy Loading pagination state
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   // Modals state
   const [selectedJobForNotes, setSelectedJobForNotes] = useState<JobItem | null>(null);
@@ -62,6 +73,11 @@ export default function Home() {
     }
     initData();
   }, []);
+
+  // Reset lazy load visible count whenever search or filters change
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [searchQuery, statusFilter, categoryFilter, locationFilter, sortOption]);
 
   // Update Status handler
   const handleUpdateStatus = async (jobId: string, newStatus: JobStatus) => {
@@ -158,6 +174,21 @@ export default function Home() {
     return result;
   }, [jobs, tracking, searchQuery, statusFilter, categoryFilter, locationFilter, sortOption]);
 
+  // Sliced jobs for progressive lazy rendering
+  const visibleJobs = useMemo(() => {
+    return filteredAndSortedJobs.slice(0, visibleCount);
+  }, [filteredAndSortedJobs, visibleCount]);
+
+  // Handler for lazy loading more jobs
+  const handleLoadMore = useCallback(() => {
+    if (visibleCount >= filteredAndSortedJobs.length || isLoadingMore) return;
+    setIsLoadingMore(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, filteredAndSortedJobs.length));
+      setIsLoadingMore(false);
+    }, 120);
+  }, [visibleCount, filteredAndSortedJobs.length, isLoadingMore]);
+
   const filterCounts = useMemo(() => {
     const status: Record<string, number> = { ALL: jobs.length };
     const category: Record<string, number> = { ALL: jobs.length };
@@ -194,46 +225,71 @@ export default function Home() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
         
-        {/* Stats Dashboard */}
-        <StatsDashboard jobs={jobs} tracking={tracking} />
+        {isLoading || !isMounted ? (
+          /* High-End Skeleton Structure before everything loads up */
+          <>
+            <SkeletonStatsDashboard />
+            <SkeletonFilterControls />
+            <div className="hidden md:block">
+              <SkeletonJobTable rows={8} />
+            </div>
+            <div className="block md:hidden">
+              <SkeletonJobCardList cards={5} />
+            </div>
+          </>
+        ) : (
+          /* Live Dashboard with Lazy Progressive Reloading & Interactive Hyperlinks */
+          <>
+            {/* Stats Dashboard */}
+            <StatsDashboard jobs={jobs} tracking={tracking} />
 
-        {/* Filter & Sorting Controls */}
-        <FilterControls
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          statusFilter={statusFilter}
-          onStatusFilterChange={setStatusFilter}
-          categoryFilter={categoryFilter}
-          onCategoryFilterChange={setCategoryFilter}
-          locationFilter={locationFilter}
-          onLocationFilterChange={setLocationFilter}
-          sortOption={sortOption}
-          onSortChange={setSortOption}
-          totalFiltered={filteredAndSortedJobs.length}
-          totalCount={jobs.length}
-          filterCounts={filterCounts}
-        />
+            {/* Filter & Sorting Controls */}
+            <FilterControls
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              statusFilter={statusFilter}
+              onStatusFilterChange={setStatusFilter}
+              categoryFilter={categoryFilter}
+              onCategoryFilterChange={setCategoryFilter}
+              locationFilter={locationFilter}
+              onLocationFilterChange={setLocationFilter}
+              sortOption={sortOption}
+              onSortChange={setSortOption}
+              totalFiltered={filteredAndSortedJobs.length}
+              totalCount={jobs.length}
+              filterCounts={filterCounts}
+            />
 
-        {/* View Switching: Desktop Table vs Mobile Cards */}
-        <div className="hidden md:block">
-          <JobTable
-            jobs={filteredAndSortedJobs}
-            tracking={tracking}
-            onUpdateStatus={handleUpdateStatus}
-            onOpenNotes={handleOpenNotes}
-            onAutoApply={(job) => setAutomationJob(job)}
-          />
-        </div>
+            {/* View Switching: Desktop Table vs Mobile Cards */}
+            <div className="hidden md:block">
+              <JobTable
+                jobs={visibleJobs}
+                tracking={tracking}
+                onUpdateStatus={handleUpdateStatus}
+                onOpenNotes={handleOpenNotes}
+                onAutoApply={(job) => setAutomationJob(job)}
+                hasMore={visibleCount < filteredAndSortedJobs.length}
+                isLoadingMore={isLoadingMore}
+                onLoadMore={handleLoadMore}
+                totalCount={filteredAndSortedJobs.length}
+              />
+            </div>
 
-        <div className="block md:hidden">
-          <JobCardList
-            jobs={filteredAndSortedJobs}
-            tracking={tracking}
-            onUpdateStatus={handleUpdateStatus}
-            onOpenNotes={handleOpenNotes}
-            onAutoApply={(job) => setAutomationJob(job)}
-          />
-        </div>
+            <div className="block md:hidden">
+              <JobCardList
+                jobs={visibleJobs}
+                tracking={tracking}
+                onUpdateStatus={handleUpdateStatus}
+                onOpenNotes={handleOpenNotes}
+                onAutoApply={(job) => setAutomationJob(job)}
+                hasMore={visibleCount < filteredAndSortedJobs.length}
+                isLoadingMore={isLoadingMore}
+                onLoadMore={handleLoadMore}
+                totalCount={filteredAndSortedJobs.length}
+              />
+            </div>
+          </>
+        )}
 
       </main>
 
