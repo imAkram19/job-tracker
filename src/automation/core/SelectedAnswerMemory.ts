@@ -21,7 +21,11 @@ export interface SelectedAnswer extends PickedField {
 }
 
 export const normalizeQuestion = (text: string) => text.toLowerCase().replace(/\(required\)|\*/g, '').replace(new RegExp('[^\\p{L}\\p{N}]+', 'gu'), ' ').trim();
-const sameType = (a: string, b: string) => a === b || (['select', 'combobox'].includes(a) && ['select', 'combobox'].includes(b));
+const sameType = (a: string, b: string) =>
+  !a || !b || a === b ||
+  (['text', 'textarea', 'email', 'tel', 'string', 'unknown', ''].includes(a) && ['text', 'textarea', 'email', 'tel', 'string', 'unknown', ''].includes(b)) ||
+  (['select', 'combobox', 'radio'].includes(a) && ['select', 'combobox', 'radio'].includes(b)) ||
+  (['text', 'textarea', ''].includes(a) && ['select', 'combobox', 'radio', 'checkbox'].includes(b));
 export function excludedMemoryField(label: string, type = '', name = ''): boolean {
   return ['password', 'search', 'file', 'hidden', 'submit', 'button'].includes(type.toLowerCase()) ||
     /\b(password|passcode|otp|verification code|one time code|search|captcha|authentication|login|log in|sign in|username)\b/i.test(`${label} ${name}`);

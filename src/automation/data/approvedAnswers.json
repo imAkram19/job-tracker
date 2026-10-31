@@ -1895,5 +1895,421 @@
     "answer": "Any Shift works",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793426188222_kemb",
+    "questionKeywords": [
+      "first",
+      "name"
+    ],
+    "normalizedQuestion": "First Name",
+    "answer": "Mohammad",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_6mws",
+    "questionKeywords": [
+      "last",
+      "name"
+    ],
+    "normalizedQuestion": "Last Name",
+    "answer": "Akram",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_pvjt",
+    "questionKeywords": [
+      "country"
+    ],
+    "normalizedQuestion": "Country",
+    "answer": "India",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_h165",
+    "questionKeywords": [
+      "location",
+      "city"
+    ],
+    "normalizedQuestion": "Location (City)",
+    "answer": "Hyderabad",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_4uu1",
+    "questionKeywords": [
+      "degree"
+    ],
+    "normalizedQuestion": "Degree",
+    "answer": "Master's Degree",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_okgt",
+    "questionKeywords": [
+      "linkedin",
+      "profile"
+    ],
+    "normalizedQuestion": "LinkedIn Profile",
+    "answer": "https://www.linkedin.com/in/akram19",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_kkam",
+    "questionKeywords": [
+      "what",
+      "your",
+      "current",
+      "most",
+      "recent"
+    ],
+    "normalizedQuestion": "What is your current (or most recent) title?",
+    "answer": "Social Media",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_zwae",
+    "questionKeywords": [
+      "full",
+      "name"
+    ],
+    "normalizedQuestion": "Full Name",
+    "answer": "Mohammad Akram",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_8tdo",
+    "questionKeywords": [
+      "alternate",
+      "email"
+    ],
+    "normalizedQuestion": "Alternate Email Id",
+    "answer": "iamakram1902@gmail.com",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_ggoj",
+    "questionKeywords": [
+      "alternate",
+      "mobile"
+    ],
+    "normalizedQuestion": "Alternate Mobile No.",
+    "answer": "8686080807",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_726z",
+    "questionKeywords": [
+      "present",
+      "city"
+    ],
+    "normalizedQuestion": "Present City",
+    "answer": "Warangal",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_1dpa",
+    "questionKeywords": [
+      "permanent",
+      "city"
+    ],
+    "normalizedQuestion": "Permanent City",
+    "answer": "Warangal",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_alr7",
+    "questionKeywords": [
+      "your",
+      "name"
+    ],
+    "normalizedQuestion": "Your name",
+    "answer": "Mohammad Akram",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_v3um",
+    "questionKeywords": [
+      "phone",
+      "optional"
+    ],
+    "normalizedQuestion": "Phone optional",
+    "answer": "8686080807",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_hgxm",
+    "questionKeywords": [
+      "linkedin",
+      "optional"
+    ],
+    "normalizedQuestion": "LinkedIn optional",
+    "answer": "https://www.linkedin.com/in/akram19",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_okk8",
+    "questionKeywords": [
+      "portfolio",
+      "github",
+      "optional"
+    ],
+    "normalizedQuestion": "Portfolio or GitHub optional",
+    "answer": "https://github.com/imAkram19",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_97sw",
+    "questionKeywords": [
+      "https",
+      "linkedin"
+    ],
+    "normalizedQuestion": "https://linkedin.com/in/...",
+    "answer": "https://www.linkedin.com/in/akram19",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_cpqn",
+    "questionKeywords": [
+      "name",
+      "first",
+      "name",
+      "required"
+    ],
+    "normalizedQuestion": "Name First Name Required",
+    "answer": "Mohammad",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_3b0l",
+    "questionKeywords": [
+      "name",
+      "last",
+      "name",
+      "required"
+    ],
+    "normalizedQuestion": "Name Last Name Required",
+    "answer": "Akram",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_91dn",
+    "questionKeywords": [
+      "email",
+      "required"
+    ],
+    "normalizedQuestion": "Email Required",
+    "answer": "iamakram1902@gmail.com",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_ginq",
+    "questionKeywords": [
+      "phone",
+      "required"
+    ],
+    "normalizedQuestion": "Phone Required",
+    "answer": "8686080807",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_38yx",
+    "questionKeywords": [
+      "current",
+      "address",
+      "city",
+      "required"
+    ],
+    "normalizedQuestion": "Current Address City Required",
+    "answer": "Warangal",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_78k1",
+    "questionKeywords": [
+      "current",
+      "address",
+      "state",
+      "region",
+      "province"
+    ],
+    "normalizedQuestion": "Current Address State/Region/Province Required",
+    "answer": "Telangana",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_vwj8",
+    "questionKeywords": [
+      "current",
+      "address",
+      "postal",
+      "code"
+    ],
+    "normalizedQuestion": "Current Address Postal Code",
+    "answer": "506002",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_i7bo",
+    "questionKeywords": [
+      "earliest",
+      "availability",
+      "join",
+      "required"
+    ],
+    "normalizedQuestion": "Earliest Availability to Join Required",
+    "answer": "Immediate Joiner",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_nbus",
+    "questionKeywords": [
+      "enter",
+      "your",
+      "email"
+    ],
+    "normalizedQuestion": "Enter your email",
+    "answer": "iamakram1902@gmail.com",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_pife",
+    "questionKeywords": [
+      "email",
+      "addresssingle",
+      "line",
+      "text",
+      "single"
+    ],
+    "normalizedQuestion": "2.Email AddressSingle line text. Single line text.",
+    "answer": "iamakram1902@gmail.com",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_xpyz",
+    "questionKeywords": [
+      "phone",
+      "numbersingle",
+      "line",
+      "text",
+      "single"
+    ],
+    "normalizedQuestion": "3.Phone NumberSingle line text. Single line text.",
+    "answer": "8686080807",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_nq00",
+    "questionKeywords": [
+      "portfolio",
+      "resume",
+      "linkmulti",
+      "line",
+      "text"
+    ],
+    "normalizedQuestion": "12.Portfolio or Resume LinkMulti Line Text. Multi Line Text.",
+    "answer": "D:\\Azhar\\Projects\\Akram_Job\\resumes\\Mohammad_Akram_Resume.pdf",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_33ee",
+    "questionKeywords": [
+      "mobile"
+    ],
+    "normalizedQuestion": "Mobile",
+    "answer": "8686080807",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_76bj",
+    "questionKeywords": [
+      "state",
+      "state"
+    ],
+    "normalizedQuestion": "State State",
+    "answer": "Telangana",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_sy5a",
+    "questionKeywords": [
+      "city"
+    ],
+    "normalizedQuestion": "City",
+    "answer": "Warangal",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_2cvb",
+    "questionKeywords": [
+      "pincode"
+    ],
+    "normalizedQuestion": "PinCode",
+    "answer": "506002",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_67us",
+    "questionKeywords": [
+      "state"
+    ],
+    "normalizedQuestion": "State",
+    "answer": "Telangana",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_cpjo",
+    "questionKeywords": [
+      "email",
+      "address"
+    ],
+    "normalizedQuestion": "Email Address",
+    "answer": "iamakram1902@gmail.com",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793426188222_7a23",
+    "questionKeywords": [
+      "address"
+    ],
+    "normalizedQuestion": "Address",
+    "answer": "11-23-1189, LB Nagar",
+    "confidence": "HIGH",
+    "notes": "Imported from browser field memory"
   }
 ]
