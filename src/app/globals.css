@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 215 25% 97%;
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
@@ -16,64 +16,73 @@
     --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96%;
+    --secondary: 216 20% 94%;
     --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 216 20% 94%;
+    --muted-foreground: 218 14% 47%;
 
-    --accent: 210 40% 96%;
+    --accent: 216 20% 94%;
     --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 221 83% 53%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
-}
 
-@layer base {
   * {
-    @apply border-border;
+    border-color: rgba(17, 24, 39, 0.08);
   }
+
   body {
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f8fafc;
-    color: #0f172a;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f5f7fa;
+    color: #111827;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Custom scrollbar for light theme */
+/* Tabular figures for data tables, metrics, and timestamps */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quiet, unobtrusive scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: #d1d5db;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #9ca3af;
 }
 
-.clean-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+/* Subtle, quiet card utility following 4px grid & hairlines */
+.unslop-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 12px;
 }
 
-.clean-card-hover {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+.unslop-card-interactive {
+  background-color: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 12px;
+  transition: border-color 150ms ease-out, background-color 150ms ease-out;
 }
-.clean-card-hover:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.07);
+.unslop-card-interactive:hover {
+  border-color: rgba(17, 24, 39, 0.16);
+  background-color: #fdfdfd;
 }

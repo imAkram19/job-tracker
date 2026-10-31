@@ -15,78 +15,53 @@ export const StatusDropdown: React.FC<StatusDropdownProps> = ({
   onChange,
   className = '',
 }) => {
-  const getStatusConfig = (status: JobStatus) => {
+  const getStatusDot = (status: JobStatus) => {
     switch (status) {
-      case 'Review':
-        return {
-          dot: 'bg-indigo-500 ring-indigo-100',
-          style: 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100/70',
-        };
-      case 'Applied':
-        return {
-          dot: 'bg-blue-500 ring-blue-100',
-          style: 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100/70',
-        };
-      case 'Interviewing':
-        return {
-          dot: 'bg-purple-500 ring-purple-100',
-          style: 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100/70',
-        };
       case 'Offer':
-        return {
-          dot: 'bg-emerald-500 ring-emerald-100',
-          style: 'bg-emerald-50 text-emerald-800 border-emerald-300 font-semibold hover:bg-emerald-100/70',
-        };
+        return 'bg-[#16a34a]';
+      case 'Interviewing':
+        return 'bg-[#2563eb]';
+      case 'Applied':
+        return 'bg-[#2563eb]';
+      case 'Review':
+        return 'bg-[#d97706]';
       case 'Rejected':
-        return {
-          dot: 'bg-rose-500 ring-rose-100',
-          style: 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100/70',
-        };
+        return 'bg-[#dc2626]';
       case 'Archived':
-        return {
-          dot: 'bg-slate-400 ring-slate-100',
-          style: 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200/70',
-        };
       case 'No link':
-        return {
-          dot: 'bg-slate-500 ring-slate-100',
-          style: 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200/70',
-        };
+        return 'bg-[#9ca3af]';
       case 'Not Applied':
       default:
-        return {
-          dot: 'bg-amber-500 ring-amber-100',
-          style: 'bg-amber-50/80 text-amber-800 border-amber-200 hover:bg-amber-100/70',
-        };
+        return 'bg-[#cbd5e1]';
     }
   };
 
-  const config = getStatusConfig(currentStatus);
+  const dotColor = getStatusDot(currentStatus);
 
   return (
     <div className={`relative inline-block ${className}`}>
       <div className="relative flex items-center">
-        {/* Status dot */}
+        {/* Crisp status dot */}
         <span 
-          className={`absolute left-2.5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full ring-2 pointer-events-none transition-colors ${config.dot}`} 
+          className={`absolute left-2.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full pointer-events-none ${dotColor}`} 
         />
         
         <select
           value={currentStatus}
           onChange={(e) => onChange(e.target.value as JobStatus)}
-          className={`w-full appearance-none pl-6 pr-7 py-1.5 rounded-lg text-xs font-medium border cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition shadow-sm ${config.style}`}
+          className="w-full appearance-none pl-6 pr-6 h-7 rounded-md text-xs font-normal text-[#111827] bg-white hover:bg-[#f5f7fa] border border-[rgba(17,24,39,0.08)] cursor-pointer focus:outline-none focus:border-[#2563eb] transition-colors"
         >
-          <option value="Not Applied">Not Applied</option>
+          <option value="Not Applied">Not applied</option>
           <option value="Review">Review</option>
-          <option value="No link">No link</option>
           <option value="Applied">Applied</option>
           <option value="Interviewing">Interviewing</option>
           <option value="Offer">Offer</option>
           <option value="Rejected">Rejected</option>
+          <option value="No link">No link</option>
           <option value="Archived">Archived</option>
         </select>
         
-        <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+        <ChevronDown className="w-3 h-3 text-[#6b7487] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
       </div>
     </div>
   );

@@ -43,8 +43,8 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
   filterCounts,
 }) => {
   const statusTabs = [
-    { id: 'ALL', label: 'All Jobs' },
-    { id: 'Not Applied', label: 'Not Applied' },
+    { id: 'ALL', label: 'All roles' },
+    { id: 'Not Applied', label: 'Not applied' },
     { id: 'Review', label: 'Review' },
     { id: 'Applied', label: 'Applied' },
     { id: 'Interviewing', label: 'Interviewing' },
@@ -70,25 +70,25 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
     sortOption !== 'date-desc';
 
   return (
-    <div className="space-y-3 mb-5">
+    <div className="space-y-2.5 mb-5">
       
       {/* Top Bar: Search Input + Sort Selection */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
         
         {/* Search Input */}
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Search className="w-3.5 h-3.5 text-[#6b7487] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search company, job title, tech stack (Next.js, Python, React...)"
-            className="w-full pl-9 pr-8 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 shadow-2xs transition"
+            placeholder="Search by role, company, or tech stack"
+            className="w-full pl-8 pr-8 h-9 rounded-lg bg-white border border-[rgba(17,24,39,0.08)] text-xs text-[#111827] placeholder-[#6b7487] focus:outline-none focus:border-[#2563eb] transition-colors"
           />
           {searchQuery && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#6b7487] hover:text-[#111827]"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -97,23 +97,23 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
 
         {/* Date Sort Dropdown */}
         <div className="flex items-center gap-2">
-          <div className="relative min-w-[210px]">
-            <ArrowUpDown className="w-3.5 h-3.5 text-blue-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <div className="relative min-w-[190px]">
+            <ArrowUpDown className="w-3.5 h-3.5 text-[#6b7487] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <select
               value={sortOption}
               onChange={(e) => onSortChange(e.target.value as SortOption)}
-              className="w-full appearance-none pl-8 pr-7 py-2 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 cursor-pointer shadow-2xs transition"
+              className="w-full appearance-none pl-8 pr-7 h-9 rounded-lg bg-white border border-[rgba(17,24,39,0.08)] text-xs font-normal text-[#111827] focus:outline-none focus:border-[#2563eb] cursor-pointer transition-colors"
             >
-              <option value="date-desc">Newest Posted First</option>
-              <option value="date-asc">Oldest Posted First</option>
-              <option value="rank-asc">Match Rank (1 - 22)</option>
+              <option value="date-desc">Newest posted</option>
+              <option value="date-asc">Oldest posted</option>
+              <option value="rank-asc">Match rank</option>
             </select>
           </div>
 
           {hasActiveFilters && (
             <button
               onClick={clearAllFilters}
-              className="px-2.5 py-2 rounded-lg text-xs font-medium text-slate-500 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 transition"
+              className="h-9 px-3 rounded-lg text-xs font-normal text-[#6b7487] hover:text-[#111827] hover:bg-[#eceff4] border border-[rgba(17,24,39,0.08)] transition-colors"
               title="Reset all filters"
             >
               Reset
@@ -123,23 +123,30 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
       </div>
 
       {/* Filter Tabs & Selectors */}
-      <div className="flex flex-wrap items-center justify-between gap-2.5 pt-1">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-0.5">
         
-        {/* Status Filter Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5">
-          {statusTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => onStatusFilterChange(tab.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition ${
-                statusFilter === tab.id
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 shadow-2xs'
-              }`}
-            >
-              {tab.label} ({filterCounts.status[tab.id] || 0})
-            </button>
-          ))}
+        {/* Status Filter Tabs */}
+        <div className="flex items-center gap-1 overflow-x-auto pb-0.5">
+          {statusTabs.map((tab) => {
+            const count = filterCounts.status[tab.id] || 0;
+            const isActive = statusFilter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => onStatusFilterChange(tab.id)}
+                className={`h-8 px-2.5 rounded-lg text-xs whitespace-nowrap transition-colors flex items-center gap-1.5 ${
+                  isActive
+                    ? 'bg-[#111827] text-white font-medium'
+                    : 'bg-white hover:bg-[#f5f7fa] text-[#4b5565] border border-[rgba(17,24,39,0.08)] font-normal'
+                }`}
+              >
+                <span>{tab.label}</span>
+                <span className={`text-[11px] font-mono tabular-nums ${isActive ? 'text-slate-300' : 'text-[#6b7487]'}`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Dropdowns for Domain & Location */}
@@ -148,29 +155,29 @@ export const FilterControls: React.FC<FilterControlsProps> = ({
           <select
             value={categoryFilter}
             onChange={(e) => onCategoryFilterChange(e.target.value)}
-            className="flex-1 sm:flex-initial text-xs py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
+            className="flex-1 sm:flex-initial h-8 text-xs px-2.5 rounded-lg bg-white border border-[rgba(17,24,39,0.08)] text-[#4b5565] focus:outline-none focus:border-[#2563eb] cursor-pointer"
           >
-            <option value="ALL">All Domains ({filterCounts.category.ALL || 0})</option>
-            <option value="Frontend & Full-Stack">Frontend & Full-Stack ({filterCounts.category['Frontend & Full-Stack'] || 0})</option>
-            <option value="Backend & Full-Stack">Backend & Full-Stack ({filterCounts.category['Backend & Full-Stack'] || 0})</option>
-            <option value="QA & Testing">QA & Testing ({filterCounts.category['QA & Testing'] || 0})</option>
-            <option value="Support & Trainee">Support & Trainee ({filterCounts.category['Support & Trainee'] || 0})</option>
+            <option value="ALL">All domains ({filterCounts.category.ALL || 0})</option>
+            <option value="Frontend & Full-Stack">Frontend & full-stack ({filterCounts.category['Frontend & Full-Stack'] || 0})</option>
+            <option value="Backend & Full-Stack">Backend & full-stack ({filterCounts.category['Backend & Full-Stack'] || 0})</option>
+            <option value="QA & Testing">QA & testing ({filterCounts.category['QA & Testing'] || 0})</option>
+            <option value="Support & Trainee">Support & trainee ({filterCounts.category['Support & Trainee'] || 0})</option>
           </select>
 
           {/* Location Filter */}
           <select
             value={locationFilter}
             onChange={(e) => onLocationFilterChange(e.target.value)}
-            className="flex-1 sm:flex-initial text-xs py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
+            className="flex-1 sm:flex-initial h-8 text-xs px-2.5 rounded-lg bg-white border border-[rgba(17,24,39,0.08)] text-[#4b5565] focus:outline-none focus:border-[#2563eb] cursor-pointer"
           >
-            <option value="ALL">All Locations ({filterCounts.location.ALL || 0})</option>
+            <option value="ALL">All locations ({filterCounts.location.ALL || 0})</option>
             <option value="Bengaluru">Bengaluru ({filterCounts.location.Bengaluru || 0})</option>
             <option value="Hyderabad">Hyderabad ({filterCounts.location.Hyderabad || 0})</option>
             <option value="Pune">Pune ({filterCounts.location.Pune || 0})</option>
           </select>
 
-          <span className="text-xs text-slate-400 hidden lg:inline font-mono">
-            {totalFiltered} of {totalCount}
+          <span className="text-xs text-[#6b7487] hidden lg:inline font-mono tabular-nums">
+            {totalFiltered}/{totalCount}
           </span>
         </div>
 

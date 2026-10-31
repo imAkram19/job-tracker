@@ -122,20 +122,6 @@
     "confidence": "HIGH"
   },
   {
-    "id": "ans_1792945325643",
-    "questionKeywords": [
-      "password",
-      "create",
-      "password",
-      "protect",
-      "access"
-    ],
-    "normalizedQuestion": "Set a Password Create a password to protect and access your account",
-    "answer": "Akram@786",
-    "confidence": "HIGH",
-    "notes": "Provided by user during automation"
-  },
-  {
     "id": "ans_1792945338640",
     "questionKeywords": [
       "desired",
@@ -220,20 +206,6 @@
     "notes": "Provided by user during automation"
   },
   {
-    "id": "ans_1792947152129",
-    "questionKeywords": [
-      "this",
-      "notify",
-      "that",
-      "personal",
-      "data"
-    ],
-    "normalizedQuestion": "This is to notify you that personal data about you has been collected by Endpoint Clinical L.P. (“Endpoint”), which is located 8045 Arco Corporate Drive, Suite 250, Raleigh, NC 27617 and can be contacted by emailing compliance@Endpointclinical.com, because Endpoint wishes to evaluate your candidacy for employment. Your personal data was either obtained from an application via a job board or website, publicly available sources (e.g. LinkedIn) or provided to Endpoint by someone who referred you for potential employment. Your personal data will be processed for the purposes of managing Endpoint’s recruitment related activities, which include setting up and conducting interviews and tests for applicants, evaluating and assessing the results thereto, and as is otherwise needed in the recruitment and hiring processes. Such processing is legally permissible under Art. 6(1)(f) of Regulation (EU) 2016/679 (General Data Protection Regulation) as necessary for the purposes of the legitimate interests pursued by Endpoint, which are the solicitation, evaluation, and selection of applicants for employment. Your personal data has been shared with Lever, Inc., a cloud services provider located in the United States of America and engaged by Endpoint to help manage its recruitment and hiring process on Endpoint’s behalf. Accordingly, if you are located outside of the United States, your personal data has been transferred to the United States. Because the European Union Commission has determined that United States data privacy laws do not ensure an adequate level of protection for personal data collected from EU data subjects, the transfer was subject to appropriate additional safeguards under the EU-US Privacy Shield Framework. You can obtain a copy of the standard contractual clauses by contacting us at compliance@Endpointclinical.com. Your personal data will be retained by Endpoint for two (2) years after notifying you of the outcome of the recruitment exercise. Under the GDPR, you have the right to request access to your personal data, to request that your personal data be rectified or erased, and to request that processing of your personal data be restricted. You also have to right to data portability. In addition, you may lodge a complaint with an EU supervisory authority.✱",
-    "answer": "Acknowledge/Confirm",
-    "confidence": "HIGH",
-    "notes": "Provided by user during automation"
-  },
-  {
     "id": "ans_1792947165536",
     "questionKeywords": [
       "depending",
@@ -269,7 +241,19 @@
     "notes": "Provided by user during automation"
   },
   {
-    "id": "ans_1792949550561",
+    "id": "ans_1792949723137",
+    "questionKeywords": [
+      "upload",
+      "profile",
+      "image"
+    ],
+    "normalizedQuestion": "Upload profile image",
+    "answer": "C:\\fakepath\\Mohammad_Akram_Resume.pdf",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1792955714426",
     "questionKeywords": [
       "email"
     ],
@@ -279,7 +263,7 @@
     "notes": "Provided by user during automation"
   },
   {
-    "id": "ans_1792949550562",
+    "id": "ans_1792955714437",
     "questionKeywords": [
       "phone"
     ],
@@ -289,14 +273,1626 @@
     "notes": "Provided by user during automation"
   },
   {
-    "id": "ans_1792949723137",
-    "questionKeywords": [
-      "upload",
-      "profile",
-      "image"
-    ],
-    "normalizedQuestion": "Upload profile image",
-    "answer": "C:\\fakepath\\Mohammad_Akram_Resume.pdf",
+    "id": "ans_1793042235797",
+    "questionKeywords": [],
+    "normalizedQuestion": "To the best of your knowledge, do you have any family members / relatives or personal relationships at Okta or at any suppliers, partners, or vendors that have a business relationship with Okta? (For purposes of this question, a “family member / relative or personal relationship” is defined as close personal friends (including sexual and/or romantic relationships), close relatives (spouse, partner, children, cousins, aunts, uncles, nieces, nephews, grandparents or grandchildren), someone who lives in your household, or anyone else with whom you have a close enough personal relationship or connection that it could improperly bias your conduct or decision making or be perceived to be capable of impacting your conduct or decision making.",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793042243962",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have any outside business activity(ies) (advisory, consulting, or board roles, or side businesses) that you would continue engaging in or plan to engage in if you joined Okta in this role?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793042248545",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you been employed by Okta, Inc. or any of its subsidiaries in the past?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793042349552",
+    "questionKeywords": [],
+    "normalizedQuestion": "I acknowledge",
+    "answer": "yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793082107253",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you currently work for, or have you previously worked for Zscaler?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793082115625",
+    "questionKeywords": [],
+    "normalizedQuestion": "Current Title",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793082993352",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you opt-in to receive WhatsApp messages from Stripe Recruiting?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793083227701",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously worked for JLL or any of our subsidiary companies?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793083228184",
+    "questionKeywords": [],
+    "normalizedQuestion": "Address Line 1",
+    "answer": "11-23-1189/A/1, Warnangal",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084140394",
+    "questionKeywords": [],
+    "normalizedQuestion": "URL",
+    "answer": "https://iam-akram-portfolio.vercel.app/",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084257423",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please provide your desired salary.",
+    "answer": "350000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084336904",
+    "questionKeywords": [],
+    "normalizedQuestion": "communicationConsent",
+    "answer": "Yes - I consent to receiving text messages",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084337256",
+    "questionKeywords": [],
+    "normalizedQuestion": "Field 13",
+    "answer": "January",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084337368",
+    "questionKeywords": [],
+    "normalizedQuestion": "Field 14",
+    "answer": "2027",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084337482",
+    "questionKeywords": [],
+    "normalizedQuestion": "Field 15",
+    "answer": "January",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084337561",
+    "questionKeywords": [],
+    "normalizedQuestion": "Field 16",
+    "answer": "2027",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084338165",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you consider yourself a member of the Lesbian, Gay or Bisexual (LGB) community?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084338501",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you identify as a military veteran or service member?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793084339001",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you been diagnosed with any disability or impairment?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793086442639",
+    "questionKeywords": [],
+    "normalizedQuestion": "If you are offered, by when can you join?",
+    "answer": "Immediately",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793086442727",
+    "questionKeywords": [],
+    "normalizedQuestion": "If available immediately, what was your last working day in the previous organisation?",
+    "answer": "N/A – Fresher, no previous organisation",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793086540547",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you come to know about Plane?",
+    "answer": "Company Website — if you found it on Plane’s careers page.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793086540642",
+    "questionKeywords": [],
+    "normalizedQuestion": "Why are you a good fit for the role?",
+    "answer": "I have a strong foundation in JavaScript, TypeScript, React.js, Node.js, and databases, along with hands-on experience building responsive web applications. I am a quick learner, enjoy solving problems, and am eager to contribute to real-world projects while learning from experienced team members. I believe my technical skills and willingness to learn make me a good fit for this role.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793086540814",
+    "questionKeywords": [],
+    "normalizedQuestion": "If selected, will you be able to relocate to Hyderabad (Telangana) and work from the office 5 days a week?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793086740059",
+    "questionKeywords": [],
+    "normalizedQuestion": "Why would you like to work with us and in this role?",
+    "answer": "Most of my experience comes from working on personal development projects, where I manage my tasks independently and use online resources to solve problems. I find that breaking work into smaller tasks, keeping track of progress, and communicating clearly are effective ways to stay productive. One challenge is getting help when I'm stuck on a problem, so I try to debug it myself, research possible solutions, and ask specific questions when needed. I'm comfortable adapting to remote work and open to learning better ways to collaborate with a team.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793086740227",
+    "questionKeywords": [],
+    "normalizedQuestion": "Where did you hear about this vacancy?",
+    "answer": "Supabase platform / Newsletter",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793091243534",
+    "questionKeywords": [],
+    "normalizedQuestion": "Mention your previous company?",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793091321013",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your full-time experience?",
+    "answer": "Not currently employed",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793091326051",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your current annual compensation in INR?",
+    "answer": "Not currently employed",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793092314684",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously worked for Everpure (formerly Pure Storage)?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793092328664",
+    "questionKeywords": [],
+    "normalizedQuestion": "Acknowledge/Confirm",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793092334516",
+    "questionKeywords": [],
+    "normalizedQuestion": "Does the deemed export rule affect your employment by Everpure?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793093151933",
+    "questionKeywords": [],
+    "normalizedQuestion": "This is a 5 day work from office from HSR Layout, BLR. Would that be comfortable for you?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097414432",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you comfortable with working from Bangalore?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097418137",
+    "questionKeywords": [],
+    "normalizedQuestion": "Would you be open to work from office 5 days a week?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097423137",
+    "questionKeywords": [],
+    "normalizedQuestion": "Expected CTC",
+    "answer": "< 10 LPA",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097560237",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you related to anyone who currently works at Weave? If so, please list their name! (Please note this is not for referrals. If you would like to be referred, please reach out to the Weave employee directly)",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097560336",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you a previous Weave employee?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097561049",
+    "questionKeywords": [],
+    "normalizedQuestion": "Still Student?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097561729",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your current total compensation (CTC)",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097561825",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your expected total compensation (CTC) for your next role?",
+    "answer": "350000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562022",
+    "questionKeywords": [],
+    "normalizedQuestion": "American Indian or Alaska Native",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562106",
+    "questionKeywords": [],
+    "normalizedQuestion": "Black/of African origin",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562186",
+    "questionKeywords": [],
+    "normalizedQuestion": "East Asian (For example - Chinese, Korean, Japanese)",
+    "answer": "NO",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562259",
+    "questionKeywords": [],
+    "normalizedQuestion": "Hispanic, Latinx or Spanish origin",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562333",
+    "questionKeywords": [],
+    "normalizedQuestion": "Middle Eastern or North African",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562417",
+    "questionKeywords": [],
+    "normalizedQuestion": "Native Hawaiian or Other Pacific Islander",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562504",
+    "questionKeywords": [],
+    "normalizedQuestion": "South Asian (For example, Bangladeshi, Bhutanese, Indian)",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562637",
+    "questionKeywords": [],
+    "normalizedQuestion": "Southeast Asian (For example, Filipino, Indonesian, Vietnamese)",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562722",
+    "questionKeywords": [],
+    "normalizedQuestion": "Non-Hispanic White or Caucasian",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097562798",
+    "questionKeywords": [],
+    "normalizedQuestion": "I prefer to self describe",
+    "answer": "NO",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793097970648",
+    "questionKeywords": [],
+    "normalizedQuestion": "How would you describe your English skills?",
+    "answer": "proficient",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793098018393",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many hours per week can you commit to this freelance engagement?",
+    "answer": "21–30 hours",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793098026070",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you comfortable working as an independent freelancer/contractor for the project duration, based on the agreed engagement terms?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793098036063",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you find about Lingaro?",
+    "answer": "Lingaro Recruiter",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793098597901",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which location are you applying for?",
+    "answer": "Bangalore, Karnataka",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099629578",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently on \"layoff\" status and subject to recall by another organization?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099633697",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you entered into a non-disclosure or non-compete agreement or understanding of any previous employer?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099639047",
+    "questionKeywords": [],
+    "normalizedQuestion": "Desired CTC",
+    "answer": "350000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099641761",
+    "questionKeywords": [],
+    "normalizedQuestion": "This is to notify you that personal data about you has been collected by Endpoint Clinical L.P. (“Endpoint”), which is located 8045 Arco Corporate Drive, Suite 250, Raleigh, NC 27617 and can be contacted by emailing compliance@Endpointclinical.com, because Endpoint wishes to evaluate your candidacy for employment. Your personal data was either obtained from an application via a job board or website, publicly available sources (e.g. LinkedIn) or provided to Endpoint by someone who referred you for potential employment. Your personal data will be processed for the purposes of managing Endpoint’s recruitment related activities, which include setting up and conducting interviews and tests for applicants, evaluating and assessing the results thereto, and as is otherwise needed in the recruitment and hiring processes. Such processing is legally permissible under Art. 6(1)(f) of Regulation (EU) 2016/679 (General Data Protection Regulation) as necessary for the purposes of the legitimate interests pursued by Endpoint, which are the solicitation, evaluation, and selection of applicants for employment. Your personal data has been shared with Lever, Inc., a cloud services provider located in the United States of America and engaged by Endpoint to help manage its recruitment and hiring process on Endpoint’s behalf. Accordingly, if you are located outside of the United States, your personal data has been transferred to the United States. Because the European Union Commission has determined that United States data privacy laws do not ensure an adequate level of protection for personal data collected from EU data subjects, the transfer was subject to appropriate additional safeguards under the EU-US Privacy Shield Framework. You can obtain a copy of the standard contractual clauses by contacting us at compliance@Endpointclinical.com. Your personal data will be retained by Endpoint for two (2) years after notifying you of the outcome of the recruitment exercise. Under the GDPR, you have the right to request access to your personal data, to request that your personal data be rectified or erased, and to request that processing of your personal data be restricted. You also have to right to data portability. In addition, you may lodge a complaint with an EU supervisory authority.",
+    "answer": "Acknowledge/Confirm",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099810718",
+    "questionKeywords": [],
+    "normalizedQuestion": "Country or Region",
+    "answer": "India",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099811568",
+    "questionKeywords": [],
+    "normalizedQuestion": "I have a preferred name",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099812036",
+    "questionKeywords": [],
+    "normalizedQuestion": "Phone Device Type",
+    "answer": "Mobile",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099812146",
+    "questionKeywords": [],
+    "normalizedQuestion": "Country Phone Code",
+    "answer": "India (+91)",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099812483",
+    "questionKeywords": [],
+    "normalizedQuestion": "How Did You Hear About Us?",
+    "answer": "Cisco Careers Site",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099812652",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you ever been issued a Cisco Employee ID or Cisco Email Address?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099812900",
+    "questionKeywords": [],
+    "normalizedQuestion": "I acknowledge & agree to my personal data to be collected and processed in support of my application as per Cisco's Candidate Privacy & Privacy Statements.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099940985",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is the highest level of education you have completed?",
+    "answer": "Master's Degree (MS/MA/etc)",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099941100",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently pursuing further education (e.g., post-secondary education)?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099941201",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you applying for an Internship/Co-Op?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099941317",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is the earliest date you could start?",
+    "answer": "Immediate",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793099941416",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you applying for a Full-Time role?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793100984884",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of hands-on Data Engineering experience do you have?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101009577",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you at least 18 years of age?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101012987",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you been previously employed at Cohere Health or ZignaAI?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101016100",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do any of your current or former family members work at Cohere Health?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101029667",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your legal mailing address?",
+    "answer": "iamakram1902@gmail.com",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101332195",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please confirm whether any of the below applies to you. Select all that apply. Note: This information will only be used to ensure compliance with U.S. sanctions and export controls.",
+    "answer": "None of the above",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101340495",
+    "questionKeywords": [],
+    "normalizedQuestion": "If you selected a response to the prior question other than “none of the above,” please confirm whether any of the following also applies to you. Select all that apply.",
+    "answer": "None of these apply to me",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101345655",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you currently or have you previously worked for Databricks in the past?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101605028",
+    "questionKeywords": [],
+    "normalizedQuestion": "Race",
+    "answer": "Asian (Not Hispanic or Latino)",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101605191",
+    "questionKeywords": [],
+    "normalizedQuestion": "Veteran Status",
+    "answer": "I am not a protected veteran",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101824087",
+    "questionKeywords": [],
+    "normalizedQuestion": "Cerebras products, software, source code, technology, and/or services are subject to the U.S. Export Administration Regulations (EAR). Access to controlled source code and technology by our employees may require prior authorization. Cerebras can be required to perform an export compliance assessment to review if an individual is a U.S. person, or may require a license from the U.S. Government in order to release source code and technology to employees who are not U.S. persons. In order to comply with these regulations (and for no other reason), we are asking you to confirm citizenship and permanent residency as defined below. Please check the field that applies to you:",
+    "answer": "I am not a U.S. person, and I am not a current citizen or permanent resident of Cuba, Iran, North Korea, or Syria.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101962677",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your Preferred Pronoun?",
+    "answer": "He, Him",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101962904",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about Fivetran + dbt Labs?",
+    "answer": "Chatgpt",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101963623",
+    "questionKeywords": [],
+    "normalizedQuestion": "If you were referred for this role, please share the name of the employee that referred you",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101963736",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently or have you ever provided services to Fivetran (or any of its global subsidiaries or affiliated entities) as a consultant or independent contractor, or through an employment agency or placement firm of any kind?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793101965689",
+    "questionKeywords": [],
+    "normalizedQuestion": "By submitting this application, I acknowledge that I have read and understand Fivetran's Applicant Privacy Notice regarding the collection, use, and sharing of my personal information for recruitment and hiring purposes.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102484452",
+    "questionKeywords": [],
+    "normalizedQuestion": "He/him",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102621106",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about ElevenLabs?",
+    "answer": "Social media (LinkedIn, Instagram, X etc)",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102840351",
+    "questionKeywords": [],
+    "normalizedQuestion": "Preferred First & Last Name",
+    "answer": "Mohammad Akram",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102842348",
+    "questionKeywords": [],
+    "normalizedQuestion": "What's your favorite junk food?",
+    "answer": "EVERYTHING",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102842441",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you legally authorized to work in the United States?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102842750",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you able to work from San Francisco, CA?",
+    "answer": "Yes, and I currently live in the SF Bay Area.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102842896",
+    "questionKeywords": [],
+    "normalizedQuestion": "We use Metaview, an AI notetaking tool, to streamline interviews by recoding and summarizing discussions, enabling interviewers to be fully present without manual notetaking. With your approval, it silently records notes during interviews. Can Metaview transcribe all your interviews?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843044",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about this opportunity?",
+    "answer": "Company website",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843182",
+    "questionKeywords": [],
+    "normalizedQuestion": "Anything else? (Optional)",
+    "answer": "NOTHING",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843270",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your current age?",
+    "answer": "Under 30",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843565",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you identify as transgender?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843689",
+    "questionKeywords": [],
+    "normalizedQuestion": "Bisexual",
+    "answer": "NO",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843767",
+    "questionKeywords": [],
+    "normalizedQuestion": "Lesbian",
+    "answer": "NO",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843855",
+    "questionKeywords": [],
+    "normalizedQuestion": "Gay",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102843946",
+    "questionKeywords": [],
+    "normalizedQuestion": "Queer",
+    "answer": "NO",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102844050",
+    "questionKeywords": [],
+    "normalizedQuestion": "Heterosexual / straight",
+    "answer": "Straight",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102844078",
+    "questionKeywords": [],
+    "normalizedQuestion": "How do you identify your sexual orientation? Please select all that apply.",
+    "answer": "I prefer not to answer",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102844097",
+    "questionKeywords": [],
+    "normalizedQuestion": "Asian or Asian American",
+    "answer": "Asian",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793102844232",
+    "questionKeywords": [],
+    "normalizedQuestion": "Person with disability",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793103482777",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about Twilio?",
+    "answer": "Careers Website",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793103543769",
+    "questionKeywords": [],
+    "normalizedQuestion": "Acknowledge",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793103547695",
+    "questionKeywords": [],
+    "normalizedQuestion": "Voluntary Self-Identification of Gender",
+    "answer": "Male",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793103553110",
+    "questionKeywords": [],
+    "normalizedQuestion": "By checking this box, I consent to Twilio collecting, storing, and processing my responses to the demographic data surveys above.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793104305402",
+    "questionKeywords": [],
+    "normalizedQuestion": "What kind of agreement do you prefer?",
+    "answer": "permanent",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105091016",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have consistent internet access?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105093509",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have consistent access to power/electricity?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105097366",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have consistent phone/mobile/cellular access",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105100118",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have access to a remote work environment that will allow me to work effectively during my working hours. This includes attending meetings, communicating via Slack and email, as well as other activities that are required as part of this role.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105102771",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you currently live in India?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105107351",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you fluent and able to conduct business in the English Language (both spoken and written)?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105109846",
+    "questionKeywords": [],
+    "normalizedQuestion": "I acknowledge that I do not have permission from JumpCloud or any individual JumpCloud employee to record or transcribe any part of the interview process and by extension to share that recording or transcription in any forum.",
+    "answer": "Yes, I acknowledge this.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105112664",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing to work a shift schedule approximately 1pm–10pm IST on a consistent basis?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105553644",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which company are you currently working in?",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105558463",
+    "questionKeywords": [],
+    "normalizedQuestion": "This is a 1-year contractual position. Are you open to this engagement type?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105562089",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have experience working with AI/model inventories, metadata management, or model documentation repositories?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105568056",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which AI governance frameworks/regulations have you worked with directly? (e.g., NIST AI RMF, EU AI Act, ISO/IEC 42001, FS AI RMF)",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105573365",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of hands-on experience do you have in AI governance, AI risk management, model governance, or Responsible AI specifically (not general IT/data governance)",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105578333",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you partnered with functions like TPRM, Enterprise Risk, or Technology Risk in a prior role?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105582908",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your current fixed/variable compensation breakdown?",
+    "answer": "N?A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105603876",
+    "questionKeywords": [],
+    "normalizedQuestion": "This role requires working from the office 5 days a week. Are you able to commit to this arrangement?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105673823",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of relevant professional experience do you have?",
+    "answer": "1-2 years",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793105673985",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your desired salary range?",
+    "answer": "350000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793107091438",
+    "questionKeywords": [],
+    "normalizedQuestion": "Field 17",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793107563787",
+    "questionKeywords": [],
+    "normalizedQuestion": "Current Designation",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793107917882",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about Decagon?",
+    "answer": "ChatGPT",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793107994170",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please describe your customer-facing experience in internships or full-time roles that you’ve held (be detailed and specific)",
+    "answer": "I have not yet held a formal customer-facing role through an internship or full-time position. However, through my academic and personal web development projects, I have developed skills in understanding requirements, troubleshooting technical issues, and explaining technical concepts clearly. I am comfortable communicating with others, listening to their needs, and working toward practical solutions. I am eager to apply these skills in a professional environment and gain hands-on experience supporting customers and resolving their technical issues.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793107997532",
+    "questionKeywords": [],
+    "normalizedQuestion": "Can you work from the Bengaluru office a minimum of 3 days/week?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108001330",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you comfortable traveling onsite to meet with customers?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108009728",
+    "questionKeywords": [],
+    "normalizedQuestion": "When are you available to start?",
+    "answer": "Immediately",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108126675",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of professional experience do you have in DevOps or Infrastructure Engineering?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108129733",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of professional experience do you have in DevOps or Infrastructure Engineering? Select...",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108131925",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you worked in production environments using AWS, Kubernetes (EKS), and Terraform?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108136656",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you proficient in automation and CI/CD specifically using Python/Bash and Jenkins (or similar tools)?",
+    "answer": "NO",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108144757",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have experience managing Linux systems and monitoring with tools like ELK, Prometheus, or New Relic?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108147541",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you able to work from our Bangalore office for a minimum of three days per week?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108304855",
+    "questionKeywords": [],
+    "normalizedQuestion": "Legal First and Last Name",
+    "answer": "Mohammad Akram",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108305361",
+    "questionKeywords": [],
+    "normalizedQuestion": "Current or Most Recent Employer",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108305653",
+    "questionKeywords": [],
+    "normalizedQuestion": "Will you now or will you in the future require employment visa sponsorship?",
+    "answer": "No, I do not require sponsorship to work in the country where this role is located",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108305821",
+    "questionKeywords": [],
+    "normalizedQuestion": "I consent",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108305955",
+    "questionKeywords": [],
+    "normalizedQuestion": "Harvey follows a hybrid in-office model — we’re in the office three days a week, which gives us the best of both worlds: focused collaboration and flexibility. Are you excited and able to join us in person on those days?",
+    "answer": "Yes, I’m able to work from the office 3 days a week",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108424652",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you open to relocation to Pune? (Yes/No)",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108429526",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have any relatives or close family members currently employed with Druva?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108633770",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have a relative/ family member working currently in Groww?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108636890",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously been employed by Groww in any capacity (e.g., full-time, intern, contractor)?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108639659",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you provide your consent for us to conduct your background verification (BGV) and reference checks?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108647063",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please mention name of your current organisation.",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108651154",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please provide a brief description of your current role.",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108701388",
+    "questionKeywords": [],
+    "normalizedQuestion": "As part of our commitment to creating a diverse and inclusive workplace, we invite you to voluntarily disclose your gender. This information is collected for record-keeping and statistical purposes only and will not be used in any hiring decisions or affect your job application process in any way. Please note that Meesho is an Equal Opportunity Employer, and all applicants will be considered for employment without regard to gender, race, ethnicity, disability, or any other characteristic protected by law. Your response will be kept confidential and will only be accessible to limited authorized personnel on need to know basis. Please select the option that best describes your gender:",
+    "answer": "Male",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108707519",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you based out at the location mentioned which is mentioned in the Job Posting",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108720051",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you get to know about this role?",
+    "answer": "Meesho Job Site",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793108844042",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is you CTC?",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109049252",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of professional experience do you have in SDET or QA Automation?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109053044",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of professional experience do you have in SDET or QA Automation? Select...",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109534413",
+    "questionKeywords": [],
+    "normalizedQuestion": "If you answered \"yes\" to the above, what is the name of the employee? If you answered \"no\", please type \"N/A.\"",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109593553",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of years of expereince you have in Payroll",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109599094",
+    "questionKeywords": [],
+    "normalizedQuestion": "Where are you staying in Hyderabad? Mention full address.",
+    "answer": "Uppal",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109925030",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which of these tools have you used in your work?",
+    "answer": "Tableau",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109928206",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you hold any HubSpot or Salesforce certifications or badges? Please list them.",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109932952",
+    "questionKeywords": [],
+    "normalizedQuestion": "This is an in-person role based at our office in Nacharam, Hyderabad, and requires working from the office all 5 days of the week. Are you able to work from the office all 5 days?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109937688",
+    "questionKeywords": [],
+    "normalizedQuestion": "This role works from 11am IST onward, with some evening overlap with US Eastern and Pacific hours. Are you comfortable with this schedule?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793109997244",
+    "questionKeywords": [],
+    "normalizedQuestion": "I understand that if I receive an offer of employment from Cohere Health company, a background check will be performed on my behalf.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793110041467",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of hands-on Mac and/or PC desktop support experience?",
+    "answer": "1",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793110044830",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing/able to work shifts overlapping with US business hours?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793110049059",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you configured or troubleshot enterprise wireless devices (iOS/Android)?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793110055335",
+    "questionKeywords": [],
+    "normalizedQuestion": "I understand that if I receive an offer of employment from ZignaAI, a Cohere Health company, a background check will be performed on my behalf.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793110353346",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing and able to work night shifts (24x7 support environment)?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793110356593",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you worked with international/global customers (US, UK, etc.) in a support role? If yes, please specify the regions.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111246285",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing to work from office 5 days a week?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111456991",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you hold Active Elastic Certified Engineer certification",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111457576",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you open to travel 60 % of time",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111458344",
+    "questionKeywords": [],
+    "normalizedQuestion": "Will you require Elastic's sponsorship to continue or extend your work authorization status?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111458944",
+    "questionKeywords": [],
+    "normalizedQuestion": "In what countries do you have the unrestricted right to work?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111459058",
+    "questionKeywords": [],
+    "normalizedQuestion": "Gender Pronouns (She/Her/Hers, He/Him/His, They/Them/Theirs, etc.)",
+    "answer": "He/Him",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111459176",
+    "questionKeywords": [],
+    "normalizedQuestion": "By selecting 'I acknowledge' and submitting this application, you confirm that you have read Elastic's Candidate Privacy Statement and understand how your data will be processed to evaluate your candidacy. In jurisdictions where consent is legally required, your submission constitutes express consent to the processing of your personal data for recruitment purposes.",
+    "answer": "YEs",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111459876",
+    "questionKeywords": [],
+    "normalizedQuestion": "How should we communicate with you?",
+    "answer": "Phone Call",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111632211",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you ever been employed by Stripe or a Stripe affiliate?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793111761991",
+    "questionKeywords": [],
+    "normalizedQuestion": "Field 12",
+    "answer": "Other",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362080468",
+    "questionKeywords": [],
+    "normalizedQuestion": "SourceID",
+    "answer": "Direct WalkIN",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081031",
+    "questionKeywords": [],
+    "normalizedQuestion": "Father’s Name",
+    "answer": "Mohammad Yakub Pasha",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081134",
+    "questionKeywords": [],
+    "normalizedQuestion": "Father’s Occupation",
+    "answer": "Business",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081232",
+    "questionKeywords": [],
+    "normalizedQuestion": "Mother’s Name",
+    "answer": "Shaik Khathun",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081357",
+    "questionKeywords": [],
+    "normalizedQuestion": "Mother’s Occupation",
+    "answer": "House Wife",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081548",
+    "questionKeywords": [],
+    "normalizedQuestion": "dobD",
+    "answer": "19",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081641",
+    "questionKeywords": [],
+    "normalizedQuestion": "dobM",
+    "answer": "Feb",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081731",
+    "questionKeywords": [],
+    "normalizedQuestion": "dobY",
+    "answer": "2002",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081848",
+    "questionKeywords": [],
+    "normalizedQuestion": "Passport",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362081949",
+    "questionKeywords": [],
+    "normalizedQuestion": "Marital",
+    "answer": "Single",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362082042",
+    "questionKeywords": [],
+    "normalizedQuestion": "nexpYear",
+    "answer": "0 Yr",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362082134",
+    "questionKeywords": [],
+    "normalizedQuestion": "nexpMonth",
+    "answer": "0 Mo",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362092391",
+    "questionKeywords": [],
+    "normalizedQuestion": "nperiod",
+    "answer": "Immediate",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362092496",
+    "questionKeywords": [],
+    "normalizedQuestion": "Present Address",
+    "answer": "11-23-1189/A/1, Warangal",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362092679",
+    "questionKeywords": [],
+    "normalizedQuestion": "Permanent Address",
+    "answer": "11-23-1189/A/1, Warangal",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362459435",
+    "questionKeywords": [],
+    "normalizedQuestion": "Current Address Street Address",
+    "answer": "11-23-1189/A/1, Warangal",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362459568",
+    "questionKeywords": [],
+    "normalizedQuestion": "Current Address Address Line 2",
+    "answer": "11-23-1189/A/1, Warangal",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793362460616",
+    "questionKeywords": [],
+    "normalizedQuestion": "Preferred Shift Required",
+    "answer": "Any Shift works",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
   }

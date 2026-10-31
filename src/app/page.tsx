@@ -184,7 +184,7 @@ export default function Home() {
   }, [jobs, tracking]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#f5f7fa] text-[#111827] selection:bg-[#2563eb] selection:text-white">
       {/* Top Header */}
       <Header
         onOpenDossier={() => setIsDossierOpen(true)}
@@ -192,7 +192,7 @@ export default function Home() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
         
         {/* Stats Dashboard */}
         <StatsDashboard jobs={jobs} tracking={tracking} />
@@ -238,33 +238,33 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-5 text-center text-xs text-slate-500 mt-8">
+      <footer className="border-t border-[rgba(17,24,39,0.08)] bg-white py-4 text-xs text-[#6b7487] mt-8">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p>
-            Curated for <span className="text-slate-800 font-semibold">Mohammad Akram</span> (MCA 2024–2026) • All jobs permanent full-time
+            Curated for <span className="text-[#111827] font-medium">Mohammad Akram</span> (MCA 2024–2026) • Permanent technology roles
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setIsDossierOpen(true)}
-              className="hover:text-slate-800 transition"
+              className="hover:text-[#111827] transition-colors"
             >
-              Application Cheat Sheet
+              Candidate dossier
             </button>
-            <span>•</span>
+            <span className="text-[#9ca3af]">•</span>
             <button
               onClick={() => setIsExportOpen(true)}
-              className="hover:text-slate-800 transition"
+              className="hover:text-[#111827] transition-colors"
             >
-              Export CSV
+              Export dataset
             </button>
-            <span>•</span>
+            <span className="text-[#9ca3af]">•</span>
             <a
               href="https://github.com/imAkram19/job-tracker"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-600 transition"
+              className="hover:text-[#111827] transition-colors"
             >
-              GitHub Repo ↗
+              Repository
             </a>
           </div>
         </div>

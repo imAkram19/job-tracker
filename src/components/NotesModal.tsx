@@ -58,36 +58,36 @@ export const NotesModal: React.FC<NotesModalProps> = ({
     setTimeout(() => {
       setIsSavedNotice(false);
       onClose();
-    }, 700);
+    }, 600);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px]">
       <div 
-        className="w-full max-w-lg rounded-xl bg-white border border-slate-200 shadow-xl overflow-hidden flex flex-col"
+        className="w-full max-w-lg rounded-xl bg-white border border-[rgba(17,24,39,0.08)] shadow-lg overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 py-3.5 border-b border-slate-200 flex items-start justify-between bg-slate-50/70">
+        <div className="px-5 py-3.5 border-b border-[rgba(17,24,39,0.08)] flex items-start justify-between bg-white">
           <div className="space-y-0.5">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-mono">
+              <span className="text-[11px] px-1.5 py-0.5 rounded bg-[#f5f7fa] text-[#4b5565] border border-[rgba(17,24,39,0.08)] font-mono tabular-nums">
                 #{job.rank}
               </span>
-              <h3 className="text-sm font-bold text-slate-900">
+              <h3 className="text-sm font-semibold text-[#111827]">
                 {job.company}
               </h3>
               {status === 'Review' && (
                 <ReviewBadge size="xs" />
               )}
             </div>
-            <p className="text-xs text-slate-500 font-medium">{job.title}</p>
+            <p className="text-xs text-[#6b7487]">{job.title}</p>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+            className="p-1 rounded-md text-[#6b7487] hover:text-[#111827] hover:bg-[#f5f7fa] transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
@@ -95,21 +95,21 @@ export const NotesModal: React.FC<NotesModalProps> = ({
         <div className="p-5 space-y-4 overflow-y-auto max-h-[70vh]">
           
           {/* Quick Details Bar */}
-          <div className="grid grid-cols-2 gap-2 p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+          <div className="grid grid-cols-2 gap-2 p-3 rounded-lg bg-[#f8fafc] border border-[rgba(17,24,39,0.08)] text-xs">
             <div>
-              <span className="text-slate-400 block text-[11px]">Location & Mode</span>
-              <span className="text-slate-700 font-medium">{job.location} • {job.workMode}</span>
+              <span className="text-[#6b7487] block text-[11px]">Location and mode</span>
+              <span className="text-[#111827] font-normal">{job.location} • {job.workMode}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px]">Salary / CTC</span>
-              <span className="text-emerald-700 font-medium font-mono">{job.salary}</span>
+              <span className="text-[#6b7487] block text-[11px]">Compensation</span>
+              <span className="text-[#111827] font-mono tabular-nums">{job.salary}</span>
             </div>
           </div>
 
           {/* Status Selection */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Application Status
+            <label className="block text-xs font-normal text-[#4b5565] mb-1.5">
+              Application status
             </label>
             <StatusDropdown currentStatus={status} onChange={setStatus} className="w-full" />
           </div>
@@ -117,28 +117,28 @@ export const NotesModal: React.FC<NotesModalProps> = ({
           {/* Comments / Notes Textarea */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-                <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
-                Notes & Recruiter Follow-up
+              <label className="text-xs font-normal text-[#4b5565] flex items-center gap-1.5">
+                <MessageSquare className="w-3.5 h-3.5 text-[#6b7487]" />
+                Notes and recruiter follow-up
               </label>
-              <span className="text-[11px] text-slate-400">Auto-saved to Supabase</span>
+              <span className="text-[11px] text-[#6b7487] font-mono">Syncs to database</span>
             </div>
             <textarea
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               rows={4}
-              placeholder="e.g. Applied on LinkedIn. Sent message to recruiter Rohit. Technical assessment due next Monday."
-              className="w-full p-3 rounded-lg bg-white border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition leading-relaxed shadow-2xs"
+              placeholder="e.g. Applied via career portal. Sent message to hiring lead. Technical assessment due next Monday"
+              className="w-full p-2.5 rounded-lg bg-white border border-[rgba(17,24,39,0.08)] text-xs text-[#111827] placeholder-[#6b7487] focus:outline-none focus:border-[#2563eb] transition-colors leading-relaxed"
             />
           </div>
 
           {/* Alignment & Flag Note */}
           {job.notes && (
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
-                Scraped Notes & Match Details:
+            <div className="p-3 rounded-lg bg-[#f8fafc] border border-[rgba(17,24,39,0.08)]">
+              <span className="text-[10px] text-[#6b7487] block mb-1">
+                Role details and scraped match
               </span>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-[#4b5565] leading-relaxed">
                 {job.notes.replace(/<[^>]*>?/gm, '')}
               </p>
             </div>
@@ -146,42 +146,42 @@ export const NotesModal: React.FC<NotesModalProps> = ({
 
           {/* Direct Apply Link */}
           <div className="pt-1 flex items-center justify-between text-xs">
-            <span className="text-slate-400">Source: {job.source}</span>
+            <span className="text-[#6b7487]">Source: {job.source}</span>
             <a
               href={job.applyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline font-medium"
+              className="inline-flex items-center gap-1 text-[#2563eb] hover:underline font-normal"
             >
-              Open Application Page <ExternalLink className="w-3 h-3" />
+              Open application portal <ExternalLink className="w-3 h-3" />
             </a>
           </div>
 
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-3 border-t border-slate-200 bg-slate-50/70 flex items-center justify-between">
-          <span className="text-[11px] text-slate-400">
+        <div className="px-5 py-3 border-t border-[rgba(17,24,39,0.08)] bg-white flex items-center justify-between">
+          <span className="text-[11px] text-[#6b7487] font-mono tabular-nums">
             {trackingItem?.updatedAt ? `Last saved: ${new Date(trackingItem.updatedAt).toLocaleTimeString()}` : ''}
           </span>
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-200 transition"
+              className="h-8 px-3 rounded-lg text-xs font-normal text-[#4b5565] hover:text-[#111827] hover:bg-[#f5f7fa] border border-[rgba(17,24,39,0.08)] transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm flex items-center gap-1.5"
+              className="h-8 px-3.5 rounded-lg text-xs font-medium bg-[#2563eb] hover:bg-[#1d4ed8] text-white transition-colors flex items-center gap-1.5"
             >
               {isSavedNotice ? (
                 <>
                   <Check className="w-3.5 h-3.5" />
-                  <span>Saved!</span>
+                  <span>Saved</span>
                 </>
               ) : (
-                <span>Save Notes</span>
+                <span>Save notes</span>
               )}
             </button>
           </div>

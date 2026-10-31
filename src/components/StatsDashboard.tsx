@@ -1,12 +1,6 @@
 'use client';
 
 import React from 'react';
-import { 
-  Send, 
-  Sparkles, 
-  Award, 
-  Flame 
-} from 'lucide-react';
 import { JobItem, TrackingState } from '@/types/job';
 
 interface StatsDashboardProps {
@@ -52,85 +46,78 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({ jobs, tracking }
   const progressPercent = Math.min(Math.round((appliedCount / targetDailyGoal) * 100), 100);
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 my-5">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 my-5">
       
-      {/* 1. Total Jobs */}
-      <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs hover:border-slate-300 transition">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-medium text-slate-500">Total Scraped Jobs</span>
-          <div className="p-1.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-100">
-            <Sparkles className="w-3.5 h-3.5" />
-          </div>
-        </div>
-        <div className="flex items-baseline gap-2 flex-wrap">
-          <span className="text-2xl font-bold text-slate-900">{totalJobs}</span>
-          <span className="text-[11px] text-emerald-600 font-medium">
-            +{freshJobsCount} fresh
+      {/* 1. Total Openings */}
+      <div className="p-4 rounded-xl bg-white border border-[rgba(17,24,39,0.08)]">
+        <div className="text-xs font-normal text-[#6b7487] mb-1">Total Openings</div>
+        <div className="flex items-baseline gap-2">
+          <span className="text-2xl font-semibold text-[#111827] tabular-nums tracking-tight">
+            {totalJobs}
           </span>
-          {reviewCount > 0 && (
-            <span className="text-[10px] text-indigo-700 font-semibold bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">
-              {reviewCount} in review
-            </span>
-          )}
+          <span className="text-xs text-[#16a34a] font-normal tabular-nums">
+            +{freshJobsCount} new
+          </span>
         </div>
-        <p className="text-[11px] text-slate-400 mt-0.5">Verified permanent roles</p>
+        <div className="text-[11px] text-[#6b7487] mt-1">
+          {actionableJobs} active roles across India
+        </div>
       </div>
 
-      {/* 2. Applications Sent */}
-      <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs hover:border-slate-300 transition">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-medium text-slate-500">Applications Sent</span>
-          <div className="p-1.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-100">
-            <Send className="w-3.5 h-3.5" />
-          </div>
-        </div>
+      {/* 2. Applications Sent (Primary Focus) */}
+      <div className="p-4 rounded-xl bg-white border border-[rgba(17,24,39,0.08)]">
+        <div className="text-xs font-normal text-[#6b7487] mb-1">Applications Sent</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-bold text-blue-600">{appliedCount}</span>
-          <span className="text-[11px] text-slate-400">/ {actionableJobs} total</span>
+          <span className="text-2xl font-semibold text-[#2563eb] tabular-nums tracking-tight">
+            {appliedCount}
+          </span>
+          <span className="text-xs text-[#6b7487] tabular-nums">
+            of {actionableJobs}
+          </span>
         </div>
-        <div className="mt-2 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+        <div className="mt-2 w-full bg-[#f5f7fa] h-1 rounded-full overflow-hidden">
           <div 
-            className="bg-blue-600 h-full rounded-full transition-all duration-500" 
+            className="bg-[#2563eb] h-full rounded-full transition-all duration-300" 
             style={{ width: `${Math.round((appliedCount / (actionableJobs || 1)) * 100)}%` }}
           />
         </div>
       </div>
 
-      {/* 3. In Interview / Offer */}
-      <div className="p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs hover:border-slate-300 transition">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-medium text-slate-500">Interview / Offer</span>
-          <div className="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100">
-            <Award className="w-3.5 h-3.5" />
-          </div>
-        </div>
+      {/* 3. Pipeline Active (Interview / Offer) */}
+      <div className="p-4 rounded-xl bg-white border border-[rgba(17,24,39,0.08)]">
+        <div className="text-xs font-normal text-[#6b7487] mb-1">Active Pipeline</div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-bold text-emerald-600">
+          <span className="text-2xl font-semibold text-[#111827] tabular-nums tracking-tight">
             {interviewingCount + offerCount}
           </span>
-          <span className="text-[11px] text-slate-500">
-            ({interviewingCount} rounds, {offerCount} offers)
-          </span>
+          {offerCount > 0 && (
+            <span className="text-xs text-[#16a34a] font-medium tabular-nums">
+              {offerCount} offer
+            </span>
+          )}
         </div>
-        <p className="text-[11px] text-slate-400 mt-0.5">High conversion pipeline</p>
+        <div className="text-[11px] text-[#6b7487] mt-1 tabular-nums">
+          {interviewingCount} in interview rounds
+        </div>
       </div>
 
-      {/* 4. Daily Target Goal */}
-      <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50/70 to-slate-50 border border-blue-200/80 shadow-xs">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-semibold text-blue-900 flex items-center gap-1.5">
-            <Flame className="w-3.5 h-3.5 text-amber-500" />
-            Today's Target
-          </span>
-          <span className="text-xs font-bold text-blue-700">{progressPercent}%</span>
+      {/* 4. Daily Cadence */}
+      <div className="p-4 rounded-xl bg-white border border-[rgba(17,24,39,0.08)]">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-xs font-normal text-[#6b7487]">Daily Target</span>
+          <span className="text-xs font-mono text-[#4b5565] tabular-nums">{progressPercent}%</span>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-bold text-slate-900">{appliedCount}</span>
-          <span className="text-[11px] text-slate-500">of {targetDailyGoal} daily target</span>
+          <span className="text-2xl font-semibold text-[#111827] tabular-nums tracking-tight">
+            {appliedCount}
+          </span>
+          <span className="text-xs text-[#6b7487] tabular-nums">
+            of {targetDailyGoal} today
+          </span>
         </div>
-        <div className="mt-2 w-full bg-slate-200/80 h-1.5 rounded-full overflow-hidden">
+        <div className="mt-2 w-full bg-[#f5f7fa] h-1 rounded-full overflow-hidden">
           <div 
-            className="bg-blue-600 h-full rounded-full transition-all duration-500" 
+            className="bg-[#111827] h-full rounded-full transition-all duration-300" 
             style={{ width: `${progressPercent}%` }}
           />
         </div>

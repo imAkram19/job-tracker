@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookmarkCheck } from 'lucide-react';
+import { Bookmark } from 'lucide-react';
 
 interface ReviewBadgeProps {
   className?: string;
@@ -11,9 +11,9 @@ export const ReviewBadge: React.FC<ReviewBadgeProps> = ({
   size = 'xs'
 }) => {
   const sizeClasses = {
-    xs: 'px-2 py-0.5 text-[10px] gap-1',
-    sm: 'px-2.5 py-0.5 text-[11px] gap-1.5',
-    md: 'px-3 py-1 text-xs gap-1.5',
+    xs: 'px-1.5 py-0.5 text-[10px] gap-1',
+    sm: 'px-2 py-0.5 text-[11px] gap-1',
+    md: 'px-2.5 py-1 text-xs gap-1.5',
   };
 
   const iconSizes = {
@@ -24,10 +24,10 @@ export const ReviewBadge: React.FC<ReviewBadgeProps> = ({
 
   return (
     <span
-      className={`inline-flex items-center font-semibold rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/90 shadow-2xs tracking-wide uppercase ${sizeClasses[size]} ${className}`}
+      className={`inline-flex items-center font-normal rounded-md bg-[#fffbeb] text-[#92400e] border border-[rgba(217,119,6,0.2)] ${sizeClasses[size]} ${className}`}
       title="Job marked for review"
     >
-      <BookmarkCheck className={`${iconSizes[size]} text-indigo-600 shrink-0`} />
+      <Bookmark className={`${iconSizes[size]} text-[#d97706] shrink-0`} />
       <span>Review</span>
     </span>
   );

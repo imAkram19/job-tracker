@@ -494,52 +494,56 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
     switch (state) {
       case 'WAITING_FOR_HUMAN':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300 animate-pulse">
-            <HelpCircle className="w-3.5 h-3.5" />
-            Human Input Required
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#fffbeb] text-[#92400e] border border-[rgba(217,119,6,0.25)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706]" />
+            Action required
           </span>
         );
       case 'PAGE_PAUSED':
       case 'READY_FOR_REVIEW':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            Check current page
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#f0fdf4] text-[#166534] border border-[rgba(22,163,74,0.2)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a]" />
+            Review in browser
           </span>
         );
       case 'NEEDS_ATTENTION':
-        return <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800"><AlertCircle className="h-3.5 w-3.5" />Page needs attention</span>;
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#fffbeb] text-[#92400e] border border-[rgba(217,119,6,0.25)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706]" />
+            Needs attention
+          </span>
+        );
       case 'FILLING_FORM':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-300">
-            <Bot className="w-3.5 h-3.5 animate-spin" />
-            Filling Form Fields...
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#eff6ff] text-[#1e40af] border border-[rgba(37,99,235,0.2)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb]" />
+            Filling fields
           </span>
         );
       case 'OPENING_APPLICATION':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-300">
-            <Clock className="w-3.5 h-3.5" />
-            Opening Browser & Page...
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-normal bg-[#f5f7fa] text-[#4b5565] border border-[rgba(17,24,39,0.08)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#6b7280]" />
+            Opening portal
           </span>
         );
       case 'FAILED':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800 border border-red-300">
-            <AlertCircle className="w-3.5 h-3.5" />
-            Failed / Paused
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#fef2f2] text-[#991b1b] border border-[rgba(220,38,38,0.2)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#dc2626]" />
+            Stopped
           </span>
         );
       case 'SKIPPED':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-300">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-normal bg-[#f5f7fa] text-[#4b5565] border border-[rgba(17,24,39,0.08)]">
             Skipped
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-300">
-            <Bot className="w-3.5 h-3.5" />
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-normal bg-[#f5f7fa] text-[#4b5565] border border-[rgba(17,24,39,0.08)]">
             {state}
           </span>
         );
@@ -554,82 +558,82 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 sm:px-8 py-5 shrink-0 border-b border-slate-200 bg-white flex flex-wrap items-center gap-x-6 gap-y-4">
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-xs">
-              <Bot className="w-5 h-5" />
+        <div className="px-5 sm:px-8 py-3.5 shrink-0 border-b border-[rgba(17,24,39,0.08)] bg-white flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#eceff4] text-[#111827] border border-[rgba(17,24,39,0.08)] flex items-center justify-center shrink-0">
+              <Bot className="w-4 h-4" />
             </div>
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <h3 id="assistant-title" className="text-lg sm:text-xl font-semibold tracking-tight text-slate-900">
+                <h3 id="assistant-title" className="text-base font-semibold tracking-tight text-[#111827]">
                   Application assistant
                 </h3>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-semibold">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#f5f7fa] text-[#4b5565] border border-[rgba(17,24,39,0.08)] tabular-nums">
                   Job #{job.rank || job.id}
                 </span>
               </div>
-              <p className="mt-1 text-sm text-slate-500 break-words">
+              <p className="text-xs text-[#6b7487] break-words">
                 {job.title} • {job.company}
               </p>
             </div>
           </div>
           {/* Status Bar */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 min-w-0 xl:ml-auto">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 min-w-0 xl:ml-auto">
             <div className="space-y-0.5 min-w-0">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                Automation Status
+              <span className="text-[10px] text-[#6b7487] block">
+                Automation status
               </span>
               <div>
                 {session ? getStateBadge(session.state) : (
-                  <span className="text-xs text-slate-500 font-medium">Initializing Playwright...</span>
+                  <span className="text-xs text-[#6b7487] font-mono">Initializing Playwright…</span>
                 )}
               </div>
             </div>
 
             {/* In-Modal Application Status Dropdown */}
             <div className="space-y-0.5 min-w-[130px]">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                Application Status
+              <span className="text-[10px] text-[#6b7487] block">
+                Application status
               </span>
               <StatusDropdown
                 currentStatus={status}
                 onChange={handleLocalStatusChange}
-                className="w-full text-xs shadow-2xs"
+                className="w-full text-xs"
               />
             </div>
 
             <div className="text-left">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                Submission
+              <span className="text-[10px] text-[#6b7487] block">
+                Submission policy
               </span>
-              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Manual submission
+              <span className="inline-flex items-center gap-1 text-xs text-[#4b5565] bg-[#f5f7fa] px-2 py-0.5 rounded border border-[rgba(17,24,39,0.08)]">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#16a34a]" />
+                Manual submit
               </span>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition"
+            className="p-1 rounded-md text-[#6b7487] hover:text-[#111827] hover:bg-[#f5f7fa] transition-colors"
             title="Close assistant" aria-label="Close assistant"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 min-h-0 overflow-y-auto bg-slate-50 px-5 py-6 sm:px-8 space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex-1 min-h-0 overflow-y-auto bg-[#f5f7fa] px-5 py-5 sm:px-8 space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h4 className="text-base font-semibold text-slate-900">Current application page</h4>
-              <p className="mt-1 text-xs text-slate-500">Review your answers and continue in the browser.</p>
+              <h4 className="text-sm font-semibold text-[#111827]">Application workbench</h4>
+              <p className="mt-0.5 text-xs text-[#6b7487]">Review field answers and interact with the Chromium window.</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <button type="button" onClick={handleRelaunchBrowser} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"><ExternalLink className="h-4 w-4" />Show browser</button>
-              <button type="button" onClick={() => { setAuthOpen(false); setMemoryOpen(true); }} disabled={!session || isPicking || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM'].includes(session.state)} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-50"><BookmarkPlus className="h-4 w-4" />Remember a field</button>
-              <button type="button" onClick={() => { setMemoryOpen(false); setAuthOpen(open => !open); }} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"><KeyRound className="h-4 w-4" />Authentication</button>
-              <button type="button" onClick={handleScanAndFillPage} disabled={!session || isPicking || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM', 'WAITING_FOR_HUMAN'].includes(session.state)} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"><Sparkles className="h-4 w-4" />{isScanning || isApplyingBatch || session?.state === 'FILLING_FORM' ? 'Filling…' : 'Scan & fill'}</button>
+              <button type="button" onClick={handleRelaunchBrowser} className="inline-flex items-center gap-1.5 h-8 rounded-lg border border-[rgba(17,24,39,0.08)] bg-white px-3 text-xs font-normal text-[#4b5565] hover:bg-[#f5f7fa] transition-colors"><ExternalLink className="h-3.5 w-3.5 text-[#6b7487]" />Show browser</button>
+              <button type="button" onClick={() => { setAuthOpen(false); setMemoryOpen(true); }} disabled={!session || isPicking || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM'].includes(session.state)} className="inline-flex items-center gap-1.5 h-8 rounded-lg border border-[rgba(17,24,39,0.08)] bg-white px-3 text-xs font-normal text-[#4b5565] hover:bg-[#f5f7fa] disabled:opacity-40 transition-colors"><BookmarkPlus className="h-3.5 w-3.5 text-[#6b7487]" />Remember field</button>
+              <button type="button" onClick={() => { setMemoryOpen(false); setAuthOpen(open => !open); }} className="inline-flex items-center gap-1.5 h-8 rounded-lg border border-[rgba(17,24,39,0.08)] bg-white px-3 text-xs font-normal text-[#4b5565] hover:bg-[#f5f7fa] transition-colors"><KeyRound className="h-3.5 w-3.5 text-[#6b7487]" />Portal login</button>
+              <button type="button" onClick={handleScanAndFillPage} disabled={!session || isPicking || isScanning || isApplyingBatch || ['STARTING', 'OPENING_APPLICATION', 'FILLING_FORM', 'WAITING_FOR_HUMAN'].includes(session.state)} className="inline-flex items-center gap-1.5 h-8 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] px-3.5 text-xs font-medium text-white disabled:opacity-40 transition-colors"><Bot className="h-3.5 w-3.5" />{isScanning || isApplyingBatch || session?.state === 'FILLING_FORM' ? 'Filling…' : 'Scan & fill'}</button>
             </div>
           </div>
           <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-6 items-start">
@@ -679,41 +683,41 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
 
           {/* WHOLE-PAGE BATCH FIELD REVIEW CARD */}
           {batchOverview && batchOverview.unresolved.length > 0 && (
-            <div className="p-4 rounded-xl bg-gradient-to-br from-indigo-50/90 to-blue-50/90 border-2 border-indigo-300 shadow-md space-y-4 animate-in zoom-in-95 duration-150">
-              <div className="flex items-center justify-between pb-1 border-b border-indigo-200">
-                <div className="flex items-center gap-2 text-indigo-900 font-bold text-xs uppercase tracking-wide">
-                  <Sparkles className="w-4 h-4 text-indigo-600" />
-                  Whole-Page Batch Review ({batchOverview.autoMappedCount} auto-mapped, {batchOverview.unresolved.length} questions need your review)
+            <div className="p-4 rounded-xl bg-white border border-[rgba(17,24,39,0.12)] space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-[rgba(17,24,39,0.06)]">
+                <div className="flex items-center gap-2 text-[#111827] font-medium text-xs">
+                  <Bot className="w-3.5 h-3.5 text-[#2563eb]" />
+                  Whole-page review ({batchOverview.autoMappedCount} mapped, {batchOverview.unresolved.length} pending)
                 </div>
                 <button
                   type="button"
                   onClick={() => setBatchOverview(null)}
-                  className="text-xs text-indigo-500 hover:text-indigo-800 font-medium"
+                  className="text-xs text-[#6b7487] hover:text-[#111827] transition-colors"
                 >
                   Dismiss
                 </button>
               </div>
 
-              <p className="text-[11px] text-slate-600">
-                The assistant inspected the entire page. Confirm or select your preferred answers below. Clicking <strong>Confirm & Fill All</strong> will apply them in Chrome, attach your resume, and remember your choices for future jobs.
+              <p className="text-xs text-[#6b7487]">
+                Confirm or select your answers below. Clicking <strong>Confirm and fill</strong> applies them directly to the page.
               </p>
 
-              <div className="space-y-3.5 space-y-3">
+              <div className="space-y-2.5">
                 {batchOverview.unresolved.map((field) => (
-                  <div key={field.id} className="p-3 rounded-lg bg-white border border-indigo-200/80 shadow-2xs space-y-2">
+                  <div key={field.id} className="p-3 rounded-lg bg-[#f8fafc] border border-[rgba(17,24,39,0.08)] space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-bold text-slate-800">
+                      <span className="text-xs font-medium text-[#111827]">
                         {field.label}
-                        {field.required && <span className="text-red-500 ml-1">*</span>}
+                        {field.required && <span className="text-[#dc2626] ml-1">*</span>}
                       </span>
-                      <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white text-[#6b7487] border border-[rgba(17,24,39,0.08)]">
                         {field.type}
                       </span>
                     </div>
 
                     {/* Options pills for dropdown/radio */}
                     {field.options && field.options.length > 0 ? (
-                      <div className="space-y-1.5">
+                      <div className="space-y-1">
                         <div className="flex flex-wrap gap-1.5">
                           {field.options.map((opt, optIdx) => {
                             const isSelected = batchAnswers[field.id] === opt;
@@ -722,10 +726,10 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                                 key={optIdx}
                                 type="button"
                                 onClick={() => setBatchAnswers((prev) => ({ ...prev, [field.id]: opt }))}
-                                className={`px-2.5 py-1 rounded-md text-xs font-medium border transition ${
+                                className={`px-2.5 py-1 rounded-md text-xs transition-colors ${
                                   isSelected
-                                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-2xs'
-                                    : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
+                                    ? 'bg-[#111827] text-white border border-[#111827] font-medium'
+                                    : 'bg-white text-[#4b5565] border border-[rgba(17,24,39,0.08)] hover:bg-[#f5f7fa]'
                                 }`}
                               >
                                 {opt}
@@ -742,40 +746,40 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                           const val = e.target.value;
                           setBatchAnswers((prev) => ({ ...prev, [field.id]: val }));
                         }}
-                        placeholder={`Enter value for ${field.label}...`}
-                        className="w-full px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder={`Enter value for ${field.label}`}
+                        className="w-full h-8 px-2.5 rounded-md bg-white border border-[rgba(17,24,39,0.08)] text-xs text-[#111827] focus:outline-none focus:border-[#2563eb]"
                       />
                     )}
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 border-t border-indigo-200">
-                <label className="flex items-center gap-2 text-xs text-slate-700 cursor-pointer">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2 border-t border-[rgba(17,24,39,0.06)]">
+                <label className="flex items-center gap-2 text-xs text-[#4b5565] cursor-pointer">
                   <input
                     type="checkbox"
                     checked={batchRemember}
                     onChange={(e) => setBatchRemember(e.target.checked)}
-                    className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    className="rounded border-[rgba(17,24,39,0.16)] text-[#2563eb] focus:ring-0"
                   />
-                  <span>Save answers to Knowledge Base for future applications</span>
+                  <span>Save answers to knowledge base</span>
                 </label>
 
                 <button
                   type="button"
                   onClick={handleConfirmBatch}
                   disabled={isApplyingBatch}
-                  className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full sm:w-auto h-8 px-3.5 rounded-lg text-xs font-medium bg-[#2563eb] hover:bg-[#1d4ed8] text-white transition-colors flex items-center justify-center gap-1.5 disabled:opacity-40"
                 >
                   {isApplyingBatch ? (
                     <>
-                      <Bot className="w-3.5 h-3.5 animate-spin" />
-                      <span>Filling Page Fields...</span>
+                      <Bot className="w-3.5 h-3.5" />
+                      <span>Filling fields…</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>Confirm & Fill All Page Fields</span>
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Confirm and fill</span>
                     </>
                   )}
                 </button>
@@ -785,35 +789,35 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
 
           {/* HUMAN IN THE LOOP PROMPT CARD */}
           {session?.state === 'WAITING_FOR_HUMAN' && session.pendingQuestion && (
-            <div className="p-4 rounded-xl bg-amber-50/90 border-2 border-amber-300 shadow-sm space-y-3 animate-in zoom-in-95 duration-150">
-              <div className="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wide">
-                <HelpCircle className="w-4 h-4 text-amber-600" />
-                Human Input Required
+            <div className="p-4 rounded-xl bg-[#fffbeb] border border-[rgba(217,119,6,0.25)] space-y-3">
+              <div className="flex items-center gap-2 text-[#92400e] font-medium text-xs">
+                <HelpCircle className="w-4 h-4 text-[#d97706]" />
+                Human input required
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-slate-800 mb-1">
-                  Question from Application:
+                <p className="text-xs text-[#4b5565] mb-1">
+                  Question from application:
                 </p>
-                <div className="p-2.5 rounded-lg bg-white border border-amber-200 text-xs font-medium text-slate-900">
+                <div className="p-2.5 rounded-lg bg-white border border-[rgba(217,119,6,0.2)] text-xs font-medium text-[#111827]">
                   "{session.pendingQuestion.question}"
                 </div>
               </div>
 
               {/* Options pills if select/radio */}
               {session.pendingQuestion.options && session.pendingQuestion.options.length > 0 ? (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-medium text-slate-600">Select an option:</span>
+                <div className="space-y-1">
+                  <span className="text-[11px] text-[#6b7487]">Select option:</span>
                   <div className="flex flex-wrap gap-1.5">
                     {session.pendingQuestion.options.map((opt, i) => (
                       <button
                         key={i}
                         type="button"
                         onClick={() => setHumanAnswer(opt)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
+                        className={`px-2.5 py-1 rounded-md text-xs transition-colors ${
                           humanAnswer === opt
-                            ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                            : 'bg-white text-slate-700 border-slate-300 hover:border-slate-400'
+                            ? 'bg-[#111827] text-white border border-[#111827] font-medium'
+                            : 'bg-white text-[#4b5565] border border-[rgba(17,24,39,0.08)] hover:bg-[#f5f7fa]'
                         }`}
                       >
                         {opt}
@@ -823,13 +827,13 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-slate-600">Your Answer:</label>
+                  <label className="text-[11px] text-[#6b7487]">Your answer:</label>
                   <input
                     type="text"
                     value={humanAnswer}
                     onChange={(e) => setHumanAnswer(e.target.value)}
-                    placeholder="Type your answer here..."
-                    className="w-full px-3 py-2 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Type your answer"
+                    className="w-full h-8 px-2.5 rounded-md bg-white border border-[rgba(17,24,39,0.08)] text-xs text-[#111827] focus:outline-none focus:border-[#2563eb]"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && humanAnswer.trim()) {
                         handleSendAnswer('CONTINUE');
@@ -840,12 +844,12 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
               )}
 
               <div className="flex items-center justify-between pt-1">
-                <label className="flex items-center gap-2 text-[11px] text-slate-600 cursor-pointer">
+                <label className="flex items-center gap-2 text-xs text-[#4b5565] cursor-pointer">
                   <input
                     type="checkbox"
                     checked={rememberAnswer}
                     onChange={(e) => setRememberAnswer(e.target.checked)}
-                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-[rgba(17,24,39,0.16)] text-[#2563eb] focus:ring-0"
                   />
                   <span>Save answer for future applications</span>
                 </label>
@@ -853,17 +857,17 @@ export const ApplicationAutomationModal: React.FC<ApplicationAutomationModalProp
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleSendAnswer('SKIP_FIELD')}
-                    className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition"
+                    className="h-8 px-3 rounded-lg text-xs text-[#6b7487] hover:text-[#111827] hover:bg-white/60 transition-colors"
                   >
-                    Skip Question
+                    Skip question
                   </button>
                   <button
                     disabled={!humanAnswer.trim() || isSubmittingAnswer}
                     onClick={() => handleSendAnswer('CONTINUE')}
-                    className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 disabled:opacity-50"
+                    className="h-8 px-3.5 rounded-lg text-xs font-medium bg-[#2563eb] hover:bg-[#1d4ed8] text-white transition-colors flex items-center gap-1.5 disabled:opacity-40"
                   >
-                    <span>Submit & Continue</span>
-                    <Send className="w-3.5 h-3.5" />
+                    <span>Submit and continue</span>
+                    <Send className="w-3 h-3" />
                   </button>
                 </div>
               </div>

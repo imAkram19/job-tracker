@@ -5,9 +5,6 @@ import {
   ExternalLink, 
   Clock, 
   MapPin, 
-  Briefcase, 
-  Building2,
-  CalendarDays,
   Bot
 } from 'lucide-react';
 import { JobItem, JobStatus, TrackingState } from '@/types/job';
@@ -32,29 +29,29 @@ export const JobTable: React.FC<JobTableProps> = ({
 }) => {
   if (jobs.length === 0) {
     return (
-      <div className="text-center py-16 px-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-        <p className="text-sm font-semibold text-slate-700">No matching jobs found</p>
-        <p className="text-xs text-slate-400 mt-1">Try adjusting your search terms or filters.</p>
+      <div className="text-center py-16 px-4 rounded-xl bg-white border border-[rgba(17,24,39,0.08)]">
+        <p className="text-sm font-medium text-[#111827]">No matching roles found</p>
+        <p className="text-xs text-[#6b7487] mt-1">Try adjusting your search terms or filters.</p>
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-xl border border-[rgba(17,24,39,0.08)] bg-white">
       <table className="w-full text-left border-collapse text-xs" suppressHydrationWarning>
         
-        {/* Table Head */}
+        {/* Table Head: Sentence case, calm neutral, no uppercase tracking */}
         <thead>
-          <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-            <th className="py-3 px-4 min-w-[200px]">Company & Date Posted</th>
-            <th className="py-3 px-4 min-w-[280px]">Role & Domain</th>
-            <th className="py-3 px-4 min-w-[130px]">Salary / CTC</th>
-            <th className="py-3 px-4 min-w-[210px]">Your Status & Link</th>
+          <tr className="border-b border-[rgba(17,24,39,0.08)] bg-[#f8fafc] text-[#4b5565] font-normal text-xs">
+            <th className="py-2.5 px-4 min-w-[200px]">Company and date</th>
+            <th className="py-2.5 px-4 min-w-[280px]">Role and domain</th>
+            <th className="py-2.5 px-4 min-w-[130px]">Compensation</th>
+            <th className="py-2.5 px-4 min-w-[210px]">Status and actions</th>
           </tr>
         </thead>
 
         {/* Table Body */}
-        <tbody className="divide-y divide-slate-100 text-slate-700" suppressHydrationWarning>
+        <tbody className="divide-y divide-[rgba(17,24,39,0.06)] text-[#111827]" suppressHydrationWarning>
           {jobs.map((job) => {
             const userTrack = tracking[job.id] || {
               status: 'Not Applied',
@@ -64,85 +61,85 @@ export const JobTable: React.FC<JobTableProps> = ({
             return (
               <tr 
                 key={job.id} 
-                className="hover:bg-slate-50/70 transition-colors group"
+                className="hover:bg-[#fbfcfd] transition-colors group"
               >
                 {/* 1. Company & Date Posted */}
-                <td className="py-3.5 px-4">
+                <td className="py-3 px-4">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="font-semibold text-slate-900 text-[13px] group-hover:text-blue-600 transition-colors leading-snug">
+                    <span className="font-medium text-[#111827] text-xs leading-snug">
                       {job.company}
                     </span>
                     {userTrack.status === 'Review' && (
                       <ReviewBadge size="xs" />
                     )}
                   </div>
-                  <div className="flex items-center gap-1.5 mt-1 text-[11px] text-slate-500">
-                    <span className="inline-flex items-center gap-1 font-medium text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded text-[10px] border border-blue-100">
-                      <Clock className="w-2.5 h-2.5 text-blue-500" />
+                  <div className="flex items-center gap-1.5 mt-1 text-[11px] text-[#6b7487]">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-normal">
+                      <Clock className="w-3 h-3 text-[#6b7487]" />
                       {formatRelativeDate(job.datePosted)}
                     </span>
-                    <span className="text-slate-400 font-mono text-[10px]">
-                      {job.datePosted}
+                    <span className="text-[#9ca3af] font-mono text-[10px] tabular-nums">
+                      • {job.datePosted}
                     </span>
                   </div>
                 </td>
 
                 {/* 2. Role & Domain */}
-                <td className="py-3.5 px-4">
-                  <div className="font-medium text-slate-900 text-[13px] leading-snug">
+                <td className="py-3 px-4">
+                  <div className="font-normal text-[#111827] text-xs leading-snug">
                     {job.title}
                   </div>
                   
                   <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
                     {/* Domain badge */}
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                    <span className="px-2 py-0.5 rounded-md text-[11px] font-normal bg-[#f5f7fa] text-[#4b5565] border border-[rgba(17,24,39,0.08)]">
                       {job.category}
                     </span>
 
                     {/* Location & Mode */}
-                    <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 font-normal">
-                      <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
-                      {job.location} • <span className="font-medium text-slate-600">{job.workMode}</span>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-[#6b7487] font-normal">
+                      <MapPin className="w-3 h-3 text-[#9ca3af] shrink-0" />
+                      {job.location} • {job.workMode}
                     </span>
 
-                    {/* Experience pill */}
-                    <span className="text-[10px] text-slate-400 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200">
+                    {/* Experience indicator */}
+                    <span className="text-[10px] text-[#6b7487] font-mono bg-white px-1.5 py-0.5 rounded border border-[rgba(17,24,39,0.08)]">
                       {job.experience}
                     </span>
                   </div>
                 </td>
 
                 {/* 3. Salary / CTC */}
-                <td className="py-3.5 px-4">
-                  <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-medium font-mono bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <td className="py-3 px-4">
+                  <span className="inline-block px-2 py-0.5 rounded-md text-[11px] font-normal font-mono bg-[#f5f7fa] text-[#111827] border border-[rgba(17,24,39,0.08)] tabular-nums">
                     {job.salary}
                   </span>
                 </td>
 
                 {/* 4. Your Status & Apply Link */}
-                <td className="py-3.5 px-4">
-                  <div className="flex items-center gap-2">
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-1.5">
                     <StatusDropdown
                       currentStatus={userTrack.status}
                       onChange={(newStatus) => onUpdateStatus(job.id, newStatus)}
-                      className="min-w-[130px]"
+                      className="min-w-[125px]"
                     />
                     
                     {/* Automation Trigger for this specific job */}
                     {onAutoApply && userTrack.status !== 'No link' && (
                       <button
                         onClick={() => onAutoApply(job)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white transition shadow-xs hover:shadow active:scale-95 shrink-0"
+                        className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md text-xs font-medium bg-[#2563eb] hover:bg-[#1d4ed8] text-white transition-colors shrink-0"
                         title="Auto-fill this application with Playwright"
                       >
                         <Bot className="w-3.5 h-3.5" />
-                        <span>Auto Fill</span>
+                        <span>Auto fill</span>
                       </button>
                     )}
 
                     {/* Direct Apply Button */}
                     {userTrack.status === 'No link' ? (
-                      <span className="inline-flex items-center px-2 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-500 border border-slate-200 shrink-0">
+                      <span className="inline-flex items-center h-7 px-2 rounded-md text-xs text-[#6b7487] bg-[#f5f7fa] border border-[rgba(17,24,39,0.08)] shrink-0">
                         No link
                       </span>
                     ) : (
@@ -150,8 +147,8 @@ export const JobTable: React.FC<JobTableProps> = ({
                         href={job.applyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition shadow-2xs shrink-0"
-                        title="Open job link manually in new tab"
+                        className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-white hover:bg-[#f5f7fa] text-[#4b5565] hover:text-[#111827] border border-[rgba(17,24,39,0.08)] transition-colors shrink-0"
+                        title="Open job link in new tab"
                       >
                         <ExternalLink className="w-3 h-3" />
                       </a>
@@ -159,8 +156,8 @@ export const JobTable: React.FC<JobTableProps> = ({
                   </div>
                   
                   {userTrack.status === 'Applied' && userTrack.appliedDate && (
-                    <span className="text-[10px] text-slate-400 block mt-1 font-mono">
-                      Applied: {new Date(userTrack.appliedDate).toLocaleDateString()}
+                    <span className="text-[10px] text-[#6b7487] block mt-1 font-mono tabular-nums">
+                      Applied {new Date(userTrack.appliedDate).toLocaleDateString()}
                     </span>
                   )}
                 </td>

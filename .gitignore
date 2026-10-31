@@ -22,7 +22,9 @@ logs/
 
 # Agents & MCP internal folders
 .agents/
+.claude/
 .playwright-mcp/
+*.backup.json
 
 # Private Documents & Raw Files
 *.csv

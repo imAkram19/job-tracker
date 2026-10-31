@@ -6,7 +6,6 @@ import {
   Check, 
   FileText, 
   Github, 
-  Database, 
   DownloadCloud
 } from 'lucide-react';
 import { isSupabaseConfigured } from '@/lib/supabase';
@@ -25,12 +24,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDossier, onOpenExport }) =
   const copyPitch = () => {
     navigator.clipboard.writeText(pitchText);
     setCopiedPitch(true);
-    setTimeout(() => setCopiedPitch(false), 2500);
+    setTimeout(() => setCopiedPitch(false), 2000);
   };
 
   return (
-    // Non-sticky header that scrolls naturally with page
-    <header className="border-b border-slate-200/90 bg-white">
+    <header className="border-b border-[rgba(17,24,39,0.08)] bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
         
         {/* Main Row */}
@@ -38,56 +36,52 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDossier, onOpenExport }) =
           
           {/* Left: Branding & Profile */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs font-bold text-sm shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-[#eceff4] border border-[rgba(17,24,39,0.08)] flex items-center justify-center text-[#111827] font-medium text-xs tracking-tight shrink-0">
               JT
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+                <h1 className="text-sm sm:text-base font-semibold text-[#111827] tracking-tight">
                   Job Tracker
                 </h1>
-                <span className="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-medium">
+                <span className="text-[11px] px-2 py-0.5 rounded-md bg-[#eceff4] text-[#4b5565] border border-[rgba(17,24,39,0.08)] font-normal">
                   Mohammad Akram
                 </span>
               </div>
-              <p className="text-xs text-slate-500 font-normal hidden sm:block">
-                Permanent Full-Time Tech Openings • MCA 2026
+              <p className="text-xs text-[#6b7487] font-normal hidden sm:block">
+                Permanent full-time technology roles • MCA 2026
               </p>
             </div>
           </div>
 
-          {/* Right: Actions & Badges */}
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+          {/* Right: Actions & Signature Telemetry Status */}
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end pt-2 sm:pt-0 border-t sm:border-t-0 border-[rgba(17,24,39,0.06)]">
             
-            {/* Supabase status badge */}
+            {/* Signature Live status dot */}
             <div 
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border shrink-0 ${
-                isSupabaseConfigured 
-                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
-                  : 'bg-amber-50 text-amber-700 border-amber-200'
-              }`}
+              className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-mono border border-[rgba(17,24,39,0.08)] bg-[#f5f7fa] text-[#4b5565] shrink-0"
               title={isSupabaseConfigured ? "Connected to Supabase PostgreSQL cloud sync" : "Running on LocalStorage fallback"}
             >
-              <Database className="w-3.5 h-3.5 text-emerald-600" />
+              <span className={`w-1.5 h-1.5 rounded-full ${isSupabaseConfigured ? 'bg-emerald-500' : 'bg-amber-500'}`} />
               <span className="hidden xs:inline">{isSupabaseConfigured ? 'Supabase Synced' : 'Local Storage'}</span>
               <span className="xs:hidden">{isSupabaseConfigured ? 'Synced' : 'Local'}</span>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               {/* Copy Pitch Button */}
               <button
                 onClick={copyPitch}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition active:scale-95 shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-[#f5f7fa] hover:bg-[#eceff4] text-[#4b5565] hover:text-[#111827] border border-[rgba(17,24,39,0.08)] transition-colors"
                 title="Copy 60-second elevator pitch"
               >
                 {copiedPitch ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-700 font-medium">Copied!</span>
+                    <span className="text-emerald-700 font-medium">Copied</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-500" />
+                    <Copy className="w-3.5 h-3.5 text-[#6b7487]" />
                     <span className="hidden xs:inline">Copy Pitch</span>
                     <span className="xs:hidden">Pitch</span>
                   </>
@@ -97,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDossier, onOpenExport }) =
               {/* Dossier Modal Button */}
               <button
                 onClick={onOpenDossier}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm active:scale-95"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#2563eb] hover:bg-[#1d4ed8] text-white transition-colors"
               >
                 <FileText className="w-3.5 h-3.5" />
                 <span>Dossier</span>
@@ -106,10 +100,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDossier, onOpenExport }) =
               {/* Export Modal Button */}
               <button
                 onClick={onOpenExport}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 transition shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-white hover:bg-[#f5f7fa] text-[#4b5565] hover:text-[#111827] border border-[rgba(17,24,39,0.08)] transition-colors"
                 title="Export applications or backup"
               >
-                <DownloadCloud className="w-3.5 h-3.5 text-slate-500" />
+                <DownloadCloud className="w-3.5 h-3.5 text-[#6b7487]" />
                 <span className="hidden sm:inline">Export</span>
               </button>
 
@@ -118,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDossier, onOpenExport }) =
                 href="https://github.com/imAkram19/job-tracker"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-200 transition shadow-2xs shrink-0"
+                className="p-1.5 rounded-lg bg-white hover:bg-[#f5f7fa] text-[#6b7487] hover:text-[#111827] border border-[rgba(17,24,39,0.08)] transition-colors shrink-0"
                 title="GitHub Repo"
               >
                 <Github className="w-3.5 h-3.5" />

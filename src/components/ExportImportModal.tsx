@@ -8,8 +8,7 @@ import {
   FileSpreadsheet, 
   Check, 
   AlertCircle,
-  Filter,
-  CheckCircle2
+  Filter
 } from 'lucide-react';
 import { JobItem, TrackingState } from '@/types/job';
 
@@ -160,7 +159,7 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
           setImportSuccess(false);
           onClose();
         }, 1200);
-      } catch (err) {
+      } catch {
         setImportError('Failed to parse backup JSON file');
       }
     };
@@ -168,37 +167,37 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/40 backdrop-blur-[2px]">
       <div 
-        className="w-full max-w-lg rounded-2xl bg-white border border-slate-200 shadow-xl overflow-hidden flex flex-col max-h-[92vh]"
+        className="w-full max-w-lg rounded-xl bg-white border border-[rgba(17,24,39,0.08)] shadow-lg overflow-hidden flex flex-col max-h-[92vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
+        <div className="px-5 py-3.5 border-b border-[rgba(17,24,39,0.08)] flex items-center justify-between bg-white">
           <div className="flex items-center gap-2">
-            <FileSpreadsheet className="w-4 h-4 text-blue-600" />
-            <h3 className="text-sm font-bold text-slate-900">Export & Download Options</h3>
+            <FileSpreadsheet className="w-4 h-4 text-[#2563eb]" />
+            <h3 className="text-sm font-semibold text-[#111827]">Export and backup options</h3>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+            className="p-1 rounded-md text-[#6b7487] hover:text-[#111827] hover:bg-[#f5f7fa] transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Modal Body */}
         <div className="p-5 space-y-4 overflow-y-auto">
           
-          {/* Mobile Filter Options Section */}
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+          {/* Scope selection */}
+          <div className="p-3.5 rounded-xl bg-[#f8fafc] border border-[rgba(17,24,39,0.08)] space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
-                <Filter className="w-3.5 h-3.5 text-blue-600" />
-                Select What to Export
+              <label className="text-xs font-medium text-[#4b5565] flex items-center gap-1.5">
+                <Filter className="w-3.5 h-3.5 text-[#6b7487]" />
+                Dataset scope
               </label>
-              <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
-                {jobsToExport.length} jobs selected
+              <span className="text-[11px] font-mono tabular-nums px-2 py-0.5 rounded-md bg-white border border-[rgba(17,24,39,0.08)] text-[#111827]">
+                {jobsToExport.length} selected
               </span>
             </div>
 
@@ -207,71 +206,71 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
               <button
                 type="button"
                 onClick={() => setScope('all')}
-                className={`p-2.5 rounded-lg border text-left transition font-medium ${
+                className={`p-2.5 rounded-lg border text-left transition-colors ${
                   scope === 'all'
-                    ? 'bg-blue-50 text-blue-800 border-blue-300 ring-1 ring-blue-300'
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100/70'
+                    ? 'bg-white border-[#111827] text-[#111827]'
+                    : 'bg-white text-[#4b5565] border-[rgba(17,24,39,0.08)] hover:bg-[#f5f7fa]'
                 }`}
               >
-                <div className="font-semibold text-slate-900">All Jobs</div>
-                <div className="text-[10px] text-slate-500 mt-0.5">All 22 scraped listings</div>
+                <div className="font-medium text-[#111827]">All roles</div>
+                <div className="text-[11px] text-[#6b7487] mt-0.5 font-mono tabular-nums">{jobs.length} total listings</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setScope('applied')}
-                className={`p-2.5 rounded-lg border text-left transition font-medium ${
+                className={`p-2.5 rounded-lg border text-left transition-colors ${
                   scope === 'applied'
-                    ? 'bg-blue-50 text-blue-800 border-blue-300 ring-1 ring-blue-300'
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100/70'
+                    ? 'bg-white border-[#111827] text-[#111827]'
+                    : 'bg-white text-[#4b5565] border-[rgba(17,24,39,0.08)] hover:bg-[#f5f7fa]'
                 }`}
               >
-                <div className="font-semibold text-slate-900">Applied Only</div>
-                <div className="text-[10px] text-slate-500 mt-0.5">Applied & Interviewing</div>
+                <div className="font-medium text-[#111827]">Applied only</div>
+                <div className="text-[11px] text-[#6b7487] mt-0.5">Applied and interview</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setScope('not-applied')}
-                className={`p-2.5 rounded-lg border text-left transition font-medium ${
+                className={`p-2.5 rounded-lg border text-left transition-colors ${
                   scope === 'not-applied'
-                    ? 'bg-blue-50 text-blue-800 border-blue-300 ring-1 ring-blue-300'
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100/70'
+                    ? 'bg-white border-[#111827] text-[#111827]'
+                    : 'bg-white text-[#4b5565] border-[rgba(17,24,39,0.08)] hover:bg-[#f5f7fa]'
                 }`}
               >
-                <div className="font-semibold text-slate-900">Pending Only</div>
-                <div className="text-[10px] text-slate-500 mt-0.5">Unapplied jobs to-do</div>
+                <div className="font-medium text-[#111827]">Pending only</div>
+                <div className="text-[11px] text-[#6b7487] mt-0.5">Unapplied roles to-do</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setScope('filtered')}
-                className={`p-2.5 rounded-lg border text-left transition font-medium ${
+                className={`p-2.5 rounded-lg border text-left transition-colors ${
                   scope === 'filtered'
-                    ? 'bg-blue-50 text-blue-800 border-blue-300 ring-1 ring-blue-300'
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100/70'
+                    ? 'bg-white border-[#111827] text-[#111827]'
+                    : 'bg-white text-[#4b5565] border-[rgba(17,24,39,0.08)] hover:bg-[#f5f7fa]'
                 }`}
               >
-                <div className="font-semibold text-slate-900">Screen Filtered</div>
-                <div className="text-[10px] text-slate-500 mt-0.5">Current screen search</div>
+                <div className="font-medium text-[#111827]">Current filter</div>
+                <div className="text-[11px] text-[#6b7487] mt-0.5">Matching active view</div>
               </button>
             </div>
 
             {/* Optional Domain Filter */}
-            <div className="pt-2">
-              <label className="block text-[11px] font-medium text-slate-500 mb-1">
-                Filter by Tech Domain (Optional):
+            <div className="pt-1">
+              <label className="block text-[11px] text-[#6b7487] mb-1">
+                Filter by domain (optional)
               </label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full text-xs py-1.5 px-3 rounded-lg bg-white border border-slate-200 text-slate-700 focus:outline-none focus:border-blue-500"
+                className="w-full h-8 text-xs px-2.5 rounded-lg bg-white border border-[rgba(17,24,39,0.08)] text-[#111827] focus:outline-none focus:border-[#2563eb]"
               >
-                <option value="ALL">All Domains (No Domain Filter)</option>
-                <option value="Frontend & Full-Stack">Frontend & Full-Stack</option>
-                <option value="Backend & Full-Stack">Backend & Full-Stack</option>
-                <option value="QA & Testing">QA & Testing</option>
-                <option value="Support & Trainee">Support & Trainee</option>
+                <option value="ALL">All domains</option>
+                <option value="Frontend & Full-Stack">Frontend & full-stack</option>
+                <option value="Backend & Full-Stack">Backend & full-stack</option>
+                <option value="QA & Testing">QA & testing</option>
+                <option value="Support & Trainee">Support & trainee</option>
               </select>
             </div>
           </div>
@@ -281,29 +280,29 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
             <button
               onClick={handleExportCSV}
               disabled={jobsToExport.length === 0}
-              className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium text-xs transition flex items-center justify-center gap-2 shadow-sm active:scale-95"
+              className="w-full h-9 px-4 rounded-lg bg-[#2563eb] hover:bg-[#1d4ed8] disabled:opacity-40 text-white font-medium text-xs transition-colors flex items-center justify-center gap-2"
             >
-              <Download className="w-4 h-4" />
-              <span>Download CSV Spreadsheet ({jobsToExport.length} rows)</span>
+              <Download className="w-3.5 h-3.5" />
+              <span>Download CSV spreadsheet ({jobsToExport.length} rows)</span>
             </button>
 
             <button
               onClick={handleExportJSON}
               disabled={jobsToExport.length === 0}
-              className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-50 text-slate-700 font-medium text-xs border border-slate-200 transition flex items-center justify-center gap-2 active:scale-95"
+              className="w-full h-9 px-4 rounded-lg bg-white hover:bg-[#f5f7fa] disabled:opacity-40 text-[#111827] font-normal text-xs border border-[rgba(17,24,39,0.08)] transition-colors flex items-center justify-center gap-2"
             >
-              <Download className="w-4 h-4 text-slate-500" />
-              <span>Export Full JSON Backup</span>
+              <Download className="w-3.5 h-3.5 text-[#6b7487]" />
+              <span>Export full JSON backup</span>
             </button>
           </div>
 
           {/* Restore / Import Section */}
-          <div className="pt-3 border-t border-slate-200">
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-              Restore from Backup
+          <div className="pt-3 border-t border-[rgba(17,24,39,0.08)]">
+            <label className="block text-xs font-normal text-[#4b5565] mb-1.5">
+              Restore from backup file
             </label>
-            <label className="flex items-center justify-center gap-2 p-3 rounded-xl border border-dashed border-slate-300 hover:border-slate-400 bg-slate-50 text-xs text-slate-600 cursor-pointer transition">
-              <Upload className="w-4 h-4 text-slate-400" />
+            <label className="flex items-center justify-center gap-2 p-3 rounded-lg border border-dashed border-[rgba(17,24,39,0.16)] hover:border-[#111827] bg-[#f8fafc] text-xs text-[#4b5565] cursor-pointer transition-colors">
+              <Upload className="w-3.5 h-3.5 text-[#6b7487]" />
               <span>Upload backup JSON file to restore</span>
               <input
                 type="file"
@@ -313,13 +312,13 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
               />
             </label>
             {importSuccess && (
-              <p className="text-xs text-emerald-600 mt-2 flex items-center gap-1 font-medium">
+              <p className="text-xs text-[#16a34a] mt-2 flex items-center gap-1">
                 <Check className="w-3.5 h-3.5" />
-                Data restored successfully!
+                Data restored successfully
               </p>
             )}
             {importError && (
-              <p className="text-xs text-rose-600 mt-2 flex items-center gap-1 font-medium">
+              <p className="text-xs text-[#dc2626] mt-2 flex items-center gap-1">
                 <AlertCircle className="w-3.5 h-3.5" />
                 {importError}
               </p>
@@ -329,10 +328,10 @@ export const ExportImportModal: React.FC<ExportImportModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-3 border-t border-slate-200 bg-slate-50/70 flex justify-end">
+        <div className="px-5 py-3 border-t border-[rgba(17,24,39,0.08)] bg-white flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-200 transition"
+            className="h-8 px-3.5 rounded-lg text-xs font-normal text-[#4b5565] hover:text-[#111827] hover:bg-[#f5f7fa] border border-[rgba(17,24,39,0.08)] transition-colors"
           >
             Close
           </button>
