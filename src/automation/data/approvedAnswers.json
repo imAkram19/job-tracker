@@ -2311,5 +2311,125 @@
     "answer": "11-23-1189, LB Nagar",
     "confidence": "HIGH",
     "notes": "Imported from browser field memory"
+  },
+  {
+    "id": "ans_1793508142450",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have an active offer deadline or another recruiting-process deadline we should be aware of? If yes, please share the deadline date and any relevant context.",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793508149124",
+    "questionKeywords": [],
+    "normalizedQuestion": "When are you available to start full-time?",
+    "answer": "Q4 2026 (October - December)",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793508154276",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently eligible to work in India?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793508175539",
+    "questionKeywords": [],
+    "normalizedQuestion": "Who is your current or previous employer?",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793508184027",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your current or previous job title?",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793515000283",
+    "questionKeywords": [],
+    "normalizedQuestion": "What makes you most interested in this opportunity?",
+    "answer": "I am interested in this opportunity because it offers a chance to apply my technical knowledge, learn new skills, and take on meaningful challenges. I am eager to work with a team, contribute to the organization's goals, and continue developing my professional skills. I see this as a valuable opportunity to learn, grow, and build a successful career.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793518051412",
+    "questionKeywords": [],
+    "normalizedQuestion": "If yes, please confirm which type of Visa would be required",
+    "answer": "NO",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793518057831",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you Hispanic/Latino?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793518194669",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently located in Singapore?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793518680762",
+    "questionKeywords": [],
+    "normalizedQuestion": "What's the name you'd prefer us to use throughout the interview process?",
+    "answer": "Akram",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793519261804",
+    "questionKeywords": [],
+    "normalizedQuestion": "Where do you currently reside?",
+    "answer": "Hyderabad",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793519266657",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have any familial or close personal relationships with a current Zeta employee?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793519270845",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you able to work in the United States?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793520269046",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously worked for Salesforce as an employee or contractor, or are you a current Salesforce contractor? If \"Yes\" please provide at least one piece of information below, as accurately as possible. CURRENT EMPLOYEES: Please apply internally.",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793520421290",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you open to relocating to Pune?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]

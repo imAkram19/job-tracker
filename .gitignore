@@ -51,3 +51,14 @@ next-env.d.ts
 # OS Files
 .DS_Store
 Thumbs.db
+
+# Videos & Motion projects
+walkthrough-video/
+walkthrough/
+launch-motion/
+launchvideo/
+launch-video/
+*.mp4
+*.webm
+*.mov
+.hyperframes/

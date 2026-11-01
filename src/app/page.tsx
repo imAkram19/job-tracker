@@ -132,12 +132,12 @@ export default function Home() {
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
         q === '' ||
-        job.company.toLowerCase().includes(q) ||
-        job.title.toLowerCase().includes(q) ||
-        job.notes.toLowerCase().includes(q) ||
-        job.category.toLowerCase().includes(q) ||
-        job.location.toLowerCase().includes(q) ||
-        job.source.toLowerCase().includes(q);
+        (job.company || '').toLowerCase().includes(q) ||
+        (job.title || '').toLowerCase().includes(q) ||
+        (job.notes || '').toLowerCase().includes(q) ||
+        (job.category || '').toLowerCase().includes(q) ||
+        (job.location || '').toLowerCase().includes(q) ||
+        (job.source || '').toLowerCase().includes(q);
 
       const jobTrack = tracking[job.id] || { status: 'Not Applied' };
       const currentStatus = jobTrack.status || 'Not Applied';
