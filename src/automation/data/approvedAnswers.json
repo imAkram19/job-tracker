@@ -2431,5 +2431,213 @@
     "answer": "Yes",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793595670093",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your desired salary? (lakhs per annum)",
+    "answer": "4",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793595681079",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you based in Bangalore?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793595692698",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which environments have you personally installed or troubleshot software in? Select all that apply",
+    "answer": "Windows",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793595764551",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing to work four days per week in our San Francisco office?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597186580",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you 18 years of age or older?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597190658",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently employed by a client, partner, or competitor of Addepar?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597195050",
+    "questionKeywords": [],
+    "normalizedQuestion": "Job Applicant Data Privacy Notice",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597200093",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you comfortable working in EST shift from 6:30PM to 3:30AM IST?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597250837",
+    "questionKeywords": [],
+    "normalizedQuestion": "Can you commit to working from the Pune Baner office 2 days per week (Hybrid)?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597254872",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing to work in EMEA Shift (12:30 pm IST) ?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597287302",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your CTC expectation?",
+    "answer": "350000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597345930",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have contact center/BPO experience?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793597349533",
+    "questionKeywords": [],
+    "normalizedQuestion": "If you have contact center/BPO experience, how long is your experience working on contact center/BPO?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793598136991",
+    "questionKeywords": [],
+    "normalizedQuestion": "I Agree",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793598141356",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you been involved in procurement or contract award activities involving Zscaler as a government employee or official?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793598147001",
+    "questionKeywords": [],
+    "normalizedQuestion": "Sex",
+    "answer": "male",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793598152342",
+    "questionKeywords": [],
+    "normalizedQuestion": "By checking this box, I consent to Zscaler collecting, storing, and processing my responses to the demographic data surveys above.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793604941918",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you comfortable working in a hybrid position?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793604942094",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you able to commute to our Dallas, Texas location?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793604942263",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you legally authorized to work for any employers in the United States?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793604942405",
+    "questionKeywords": [],
+    "normalizedQuestion": "Will you need now or in the future, any type of sponsorship?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793605006018",
+    "questionKeywords": [],
+    "normalizedQuestion": "Why do you want to join Figma?",
+    "answer": "Career Growth",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793605014661",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you ever worked for Figma before, as an employee or a contractor/consultant?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793605065814",
+    "questionKeywords": [],
+    "normalizedQuestion": "I acknowledge that I have read Rubrik’s Candidate Privacy Notice and understand that the information I submit as part of this application will be used in accordance with this policy.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793605070689",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently or have you ever been employed by Rubrik or contracted to provide services to Rubrik?",
+    "answer": "I have never been employed by Rubrik or contracted to provide services to Rubrik",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793605186781",
+    "questionKeywords": [],
+    "normalizedQuestion": "The shift days and hours for this role will be from Wednesday to Sunday, 11.30pm IST - 8.30am IST. Are you comfortable working with this shift for this role?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
