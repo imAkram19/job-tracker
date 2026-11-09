@@ -2639,5 +2639,245 @@
     "answer": "Yes",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793612336870",
+    "questionKeywords": [],
+    "normalizedQuestion": "Preferred Location",
+    "answer": "Warangal, Telangana, India",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793616653038",
+    "questionKeywords": [],
+    "normalizedQuestion": "I have read and accept the Terms of Service and the Privacy Policy.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793616802031",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you a former employee (including as a co-op/intern, but not as a contingent worker) of GE Vernova (including Renewable Energy, Power Portfolio, GE Digital, Gas Power), the General Electric Company, or one of either company’s affiliates or subsidiaries.",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793627778470",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which programming languages have you used professionally?",
+    "answer": "Python",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793627909008",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously worked at or consulted for GitLab?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793627981990",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently based in Bangalore?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793627986585",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have experience in Release & deployments for enterprise SaaS applications such as Salesforce, Zuora or Business Systems?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628040675",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please explain any employment gaps in your work history. If none, say “N/A.”",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628299292",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about this job? (If through one of our current employees, please share their name and your relationship with them.)",
+    "answer": "Careers Website",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628310283",
+    "questionKeywords": [],
+    "normalizedQuestion": "Why are you interested in this role at YipitData? What about this job opportunity compels you?",
+    "answer": "I am interested in this role because it offers an opportunity to work with data, technology, and problem-solving. I enjoy learning how technology can turn information into useful insights and support better business decisions. I am also attracted by the opportunity to work with a team, learn new tools, take on challenging tasks, and develop my skills. As an MCA graduate, I am eager to contribute with my technical knowledge, curiosity, and willingness to learn while growing professionally at YipitData.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628357027",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please rank the top 3 skill sets that you'd like to further develop at YipitData.",
+    "answer": "Data Analysis & Research – Developing skills in analyzing data, identifying patterns, and generating meaningful insights.    Technical & Programming Skills – Improving Python, SQL, data processing, and automation.    Business & Analytical Problem-Solving – Understanding business needs and using data to support better decisions.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628389130",
+    "questionKeywords": [],
+    "normalizedQuestion": "Why are you looking for a new opportunity at this time?",
+    "answer": "I am looking for a stable, long-term opportunity where I can build my career, continuously improve my skills, and take on meaningful responsibilities. I want to settle into a professional environment where I can contribute consistently, learn from experienced people, and grow along with the organization. I am now looking for the right opportunity to establish myself and build a successful career.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628392665",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your minimum required yearly salary (in INR) to consider this position?",
+    "answer": "400000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628596569",
+    "questionKeywords": [],
+    "normalizedQuestion": "Would you be open to working from our Pune office?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793628920810",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you able to work from our Hyderabad office 3 days per week?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793629013086",
+    "questionKeywords": [],
+    "normalizedQuestion": "I consent to the collection of my demographic data",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793629015454",
+    "questionKeywords": [],
+    "normalizedQuestion": "By checking this box, I consent to Deliveroo collecting, storing, and processing my responses to the demographic data surveys above.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793629545404",
+    "questionKeywords": [],
+    "normalizedQuestion": "Preferred Name",
+    "answer": "Akram",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793629548675",
+    "questionKeywords": [],
+    "normalizedQuestion": "Will you now or in the future require employment sponsorship?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793629551812",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you ever worked at MongoDB before?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793629567143",
+    "questionKeywords": [],
+    "normalizedQuestion": "By checking this box, I consent to MongoDB collecting, storing, and processing my responses to the demographic data surveys above.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793630531842",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have hands-on experience owning end-to-end data and AI architectures in production (including ingestion, Spark transformation, cloud storage, orchestration, and ML/AI integration) within a consultative or customer-facing role? Please summarize your most relevant project.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793630748879",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you worked on developer-facing SaaS products or do you have at least 2+ years of software programming experience?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793630751310",
+    "questionKeywords": [],
+    "normalizedQuestion": "Would you be open to relocating to Bangalore?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793630760405",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please provide the range of salary you seeking in LPA",
+    "answer": "4-5",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793630762754",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have any current offers you are considering?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1793686157071",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously worked for Target as a team member?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794033437901",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you now or have you previously worked for CrowdStrike, Inc. or any of its subsidiaries?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794202759800",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously been employed by HP? If you are currently employed by HP, please use the internal Job Searcher site to apply for this role.",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794204072975",
+    "questionKeywords": [],
+    "normalizedQuestion": "Were you ever employed by Genpact?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]

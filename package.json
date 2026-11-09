@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "apply": "tsx src/automation/cli.ts",
+    "test": "npm run test:api && npm run test:autofill && npm run test:dropdowns",
+    "test:api": "tsx launcher/test-api-edges.ts",
     "test:autofill": "tsx launcher/test-autofill-edges.ts && tsx launcher/test-fields.ts",
     "test:dropdowns": "tsx launcher/test-dropdown-memory.ts"
   },
