@@ -2879,5 +2879,109 @@
     "answer": "No",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794291441866",
+    "questionKeywords": [],
+    "normalizedQuestion": "Current firm you're part of?",
+    "answer": "Not Applicable (Fresher)",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794292039057",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about this job? (If through one of our current employees, please share their names and your relationship to them.)",
+    "answer": "LinkedIn",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794292051448",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please explain any gaps in your work history. If none, please say N/A.",
+    "answer": "N/A",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794292086417",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your minimum required base salary in USD, to consider this position? Please specify whether the number that you’ve shared refers to base salary or total comp.",
+    "answer": "USD 5,000 per annum",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794292089833",
+    "questionKeywords": [],
+    "normalizedQuestion": "1) I authorize YipitData to contact the references listed and any other relevant parties to obtain information regarding my qualifications, work history, and any other information relevant to this application. I understand that this information will be used solely for the purpose of determining my eligibility for employment. 2) I warrant that the information I have provided in this application and in any accompanying documents is true, accurate, and complete to the best of my knowledge. I further confirm that the information provided meets the requirements for the reference checks. 3) I acknowledge that YipitData reserves the right to withdraw any offer of employment or unilaterally terminate the employment relationship if any information provided is found to be false, misleading, or inaccurate.",
+    "answer": "yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794293798093",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you a previous Employee of PayPal or any of its subsidiaries?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794294866470",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is the source of your right to work where this role is listed?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794295896888",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you subject to any agreement or obligation with a current or former employer, including a non-compete or non-solicitation agreement, that may restrict your ability to join Commvault or perform this role?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794296060509",
+    "questionKeywords": [],
+    "normalizedQuestion": "Select region",
+    "answer": "Telangana",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794306616968",
+    "questionKeywords": [],
+    "normalizedQuestion": "Home Address",
+    "answer": "11-23-1189/A/1, LB Nagar",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794306719050",
+    "questionKeywords": [],
+    "normalizedQuestion": "Notice Period",
+    "answer": "Immediate",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794306719239",
+    "questionKeywords": [],
+    "normalizedQuestion": "wpforms[fields][45][]",
+    "answer": "Technical troubleshooting",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794306719500",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you come across this vacancy?",
+    "answer": "Instagram",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
