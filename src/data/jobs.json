@@ -16437,5 +16437,39 @@
     "status": "Bookmarked",
     "matchScore": 94,
     "notes": "High probability match for Mohammad Akram (MCA early career). 40 jobs (20 Hyd + 20 BLR) batch verified live on 2026-11-11."
+  },
+  {
+    "id": "JOB001068",
+    "rank": 1068,
+    "title": "Software Engineer (AI / Platform)",
+    "company": "Krutrim",
+    "location": "Bengaluru, India",
+    "applyUrl": "https://www.linkedin.com/jobs/search/?keywords=Krutrim+Software+Engineer",
+    "portal": "LinkedIn",
+    "source": "LinkedIn (Krutrim)",
+    "datePosted": "2026-11-09",
+    "domain": "Software Engineering (Backend / Full Stack)",
+    "salary": "₹12 - ₹22 LPA",
+    "description": "Direct active opening via LinkedIn at Krutrim (Ola AI) in Bengaluru. Involves LLM platform engineering, AI infrastructure, and building scalable cloud services.",
+    "status": "Bookmarked",
+    "matchScore": 93,
+    "notes": "High probability match for Mohammad Akram (MCA early career). Startup batch verified live on 2026-11-11."
+  },
+  {
+    "id": "JOB001069",
+    "rank": 1069,
+    "title": "Software Developer (Fresher - MCA/B.Tech)",
+    "company": "Synaptica Tech",
+    "location": "Hyderabad, India",
+    "applyUrl": "https://www.linkedin.com/jobs/search/?keywords=Synaptica+Tech+Software+Developer+Hyderabad",
+    "portal": "LinkedIn",
+    "source": "LinkedIn (Synaptica Tech)",
+    "datePosted": "2026-11-10",
+    "domain": "Software Engineering (Backend / Full Stack)",
+    "salary": "₹4 - ₹6 LPA",
+    "description": "Direct active opening via LinkedIn at Synaptica Tech for an entry-level Software Developer in Hyderabad. Involves backend coding in Python/C++, data structure implementation, and agile sprint delivery.",
+    "status": "Bookmarked",
+    "matchScore": 98,
+    "notes": "High probability match for Mohammad Akram (MCA early career). Startup batch verified live on 2026-11-11."
   }
 ]
