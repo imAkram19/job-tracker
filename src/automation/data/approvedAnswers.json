@@ -2945,14 +2945,6 @@
     "notes": "Provided by user during automation"
   },
   {
-    "id": "ans_1794296060509",
-    "questionKeywords": [],
-    "normalizedQuestion": "Select region",
-    "answer": "Telangana",
-    "confidence": "HIGH",
-    "notes": "Provided by user during automation"
-  },
-  {
     "id": "ans_1794306616968",
     "questionKeywords": [],
     "normalizedQuestion": "Home Address",
@@ -2981,6 +2973,118 @@
     "questionKeywords": [],
     "normalizedQuestion": "How did you come across this vacancy?",
     "answer": "Instagram",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794385737901",
+    "questionKeywords": [],
+    "normalizedQuestion": "This role is based in Hyderabad and requires working from the office three days per week. Are you currently based in Hyderabad?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457244955",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you ever worked for Broadridge as an employee, independent contractor, vendor or temporary employee?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457442745",
+    "questionKeywords": [],
+    "normalizedQuestion": "How much of your production, work experience involves building UI in React specifically?",
+    "answer": "Most/all of my experience — React is what I build in day-to-day",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457443221",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you been interviewed for this role in the past 1 year?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457443389",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your current compensation?",
+    "answer": "<8 LPA",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457443720",
+    "questionKeywords": [],
+    "normalizedQuestion": "I confirm that all the information provided above is true, and I understand that providing false information may result in the disqualification of my application.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457443874",
+    "questionKeywords": [],
+    "normalizedQuestion": "Self-Identify Your Gender at Headout:",
+    "answer": "Man",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457517441",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which programming languages are you comfortable with?",
+    "answer": "Python",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457521976",
+    "questionKeywords": [],
+    "normalizedQuestion": "Which cloud infrastructure platforms have you worked on?",
+    "answer": "Amazon Web Services",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794457528104",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you open to WFO 5 days/week ?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794459570945",
+    "questionKeywords": [],
+    "normalizedQuestion": "Select region",
+    "answer": "English (CA)",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794564267143",
+    "questionKeywords": [],
+    "normalizedQuestion": "What languages do you speak fluently?",
+    "answer": "Malayalam",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794564831200",
+    "questionKeywords": [],
+    "normalizedQuestion": "smsConsent",
+    "answer": "Yes - I consent to receiving SMS text messages",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794564831381",
+    "questionKeywords": [],
+    "normalizedQuestion": "whatsAppConsent",
+    "answer": "Yes - I consent to receiving WhatsApp messages",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
   }
