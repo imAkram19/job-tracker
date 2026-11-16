@@ -3087,5 +3087,45 @@
     "answer": "Yes - I consent to receiving WhatsApp messages",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794801868337",
+    "questionKeywords": [],
+    "normalizedQuestion": "Total Year Experience?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794801923797",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your desired salary?",
+    "answer": "400000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794801927160",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you able to work EST Time Zone",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794802334480",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you hear about Glean?",
+    "answer": "Linkedin",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794813870075",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you open to work in Rotational Shift (Including Night Shift)",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
