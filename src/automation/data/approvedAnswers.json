@@ -3143,5 +3143,125 @@
     "answer": "Immediately",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824046635",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you familiar with troubleshooting technical problems (including platform or customer-facing issues)?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824061400",
+    "questionKeywords": [],
+    "normalizedQuestion": "Can you work in the Bangalore office 3 days a week at a minimum?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824188011",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing and able to commute 3 days a week to our Bengaluru office?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824195164",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you ever worked for a Metropolis company (e.g., SP+, Premier Parking) in the past?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824340405",
+    "questionKeywords": [],
+    "normalizedQuestion": "ECTC?",
+    "answer": "400000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824429169",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you worked at DoorDash?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824432927",
+    "questionKeywords": [],
+    "normalizedQuestion": "Applicant Privacy Acknowledgement",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824450108",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your expected total annual compensation?",
+    "answer": "4.0 - 4.5 LPA",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824453078",
+    "questionKeywords": [],
+    "normalizedQuestion": "How would you describe your gender?",
+    "answer": "Male",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794824657574",
+    "questionKeywords": [],
+    "normalizedQuestion": "By selecting \"I agree\", I understand that the information I have provided as part of this job application will be processed in accordance with Toast's Applicant Privacy Statement. (required) 1b4698c3",
+    "answer": "I agree",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794825169235",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you on location (BLR) or willing to move?",
+    "answer": "Willing to move to BLR",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794825227837",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently residing in Pune? If not, are you willing to relocate?",
+    "answer": "Currently not residing in Pune, but open to relocating",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794825231228",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you willing to work in rotational shifts that also includes night shifts?",
+    "answer": "yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794825291535",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently in Bangalore and willing to work on-site?",
+    "answer": "No, but willing to relocate",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794825318152",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is your expected compensation?",
+    "answer": "4.0 - 5.0 LPA",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
