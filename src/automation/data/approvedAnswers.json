@@ -3263,5 +3263,13 @@
     "answer": "4.0 - 5.0 LPA",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794826857600",
+    "questionKeywords": [],
+    "normalizedQuestion": "I certify that I have reviewed and understand the Convera Internal Transfer policy.",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
