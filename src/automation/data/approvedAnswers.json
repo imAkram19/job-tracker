@@ -2953,14 +2953,6 @@
     "notes": "Provided by user during automation"
   },
   {
-    "id": "ans_1794306719050",
-    "questionKeywords": [],
-    "normalizedQuestion": "Notice Period",
-    "answer": "Immediate",
-    "confidence": "HIGH",
-    "notes": "Provided by user during automation"
-  },
-  {
     "id": "ans_1794306719239",
     "questionKeywords": [],
     "normalizedQuestion": "wpforms[fields][45][]",
@@ -3125,6 +3117,30 @@
     "questionKeywords": [],
     "normalizedQuestion": "Are you open to work in Rotational Shift (Including Night Shift)",
     "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794816789363",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you comfortable working in EST hours(until 3:30 AM IST)",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794816982247",
+    "questionKeywords": [],
+    "normalizedQuestion": "Where are you located?",
+    "answer": "US Remote",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794817021832",
+    "questionKeywords": [],
+    "normalizedQuestion": "Notice Period",
+    "answer": "Immediately",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
   }
