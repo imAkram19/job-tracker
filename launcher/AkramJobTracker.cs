@@ -25,9 +25,11 @@ namespace AkramJobTracker
             bool isNewInstance;
             using (var mutex = new Mutex(true, "AkramJobTrackerSingleInstanceMutex", out isNewInstance))
             {
+                Log("Main entered. isNewInstance=" + isNewInstance);
                 try
                 {
                     appUrl = DetectActiveUrl();
+                    Log("DetectActiveUrl result: " + (appUrl ?? "null"));
                     if (!isNewInstance)
                     {
                         if (appUrl != null) OpenAppWindow();
