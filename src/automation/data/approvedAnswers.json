@@ -3343,5 +3343,13 @@
     "answer": "Immediately – My bags are packed!",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794927468367",
+    "questionKeywords": [],
+    "normalizedQuestion": "When you apply for a job on this site, the personal information in your application is collected and processed as described in the GHX Privacy Policy (See hyperlink below). The Privacy Policy also describes your rights with respect to your personal information and how to exercise your rights. Please review the Privacy Policy carefully, and if you do not agree to processing of your personal information as described in the Privacy Policy, do not submit your personal information.",
+    "answer": "I concent",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
