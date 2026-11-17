@@ -3351,5 +3351,85 @@
     "answer": "I concent",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794931542839",
+    "questionKeywords": [],
+    "normalizedQuestion": "This role is is NAMER shift (6:30PM to 3:30AM IST), are you comfortable with it?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794931777237",
+    "questionKeywords": [],
+    "normalizedQuestion": "Total Professional Experience",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794931782974",
+    "questionKeywords": [],
+    "normalizedQuestion": "Relevant Professional Experience",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794931798808",
+    "questionKeywords": [],
+    "normalizedQuestion": "How did you come to know about Sigmoid?",
+    "answer": "Career Page",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794932056110",
+    "questionKeywords": [],
+    "normalizedQuestion": "Did you know about Sigmoid before our reach-out?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794932063590",
+    "questionKeywords": [],
+    "normalizedQuestion": "What is the one word that comes to your mind when you think of Sigmoid as a place to work?",
+    "answer": "Innovation",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794932495605",
+    "questionKeywords": [],
+    "normalizedQuestion": "How many years of relevant experience do you have as a Team Lead?",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794932498671",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have prior experience in international calling?.",
+    "answer": "0",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794932585659",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please describe your experience leading Product Ownership, Product Management, or similar responsibilities",
+    "answer": "I am a fresher and have not held a formal Product Ownership or Product Management role. However, through my academic projects, I have developed an understanding of problem-solving, requirement analysis, planning, and coordinating tasks. I am eager to apply these skills, learn product management practices, and take ownership of responsibilities while working with cross-functional teams.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794932596084",
+    "questionKeywords": [],
+    "normalizedQuestion": "Please describe your experience managing and prioritizing product backlogs, user stories, acceptance criteria, and sprint deliverables.",
+    "answer": "I have not managed product backlogs or sprint deliverables in a formal professional role. However, I understand the fundamentals of breaking requirements into smaller tasks, prioritizing work based on importance, defining clear acceptance criteria, and tracking progress. I am familiar with Agile concepts and eager to gain practical experience in backlog management, user story creation, and sprint planning.",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
