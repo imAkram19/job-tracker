@@ -3271,5 +3271,77 @@
     "answer": "Yes",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794902529889",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have any friends or relatives currently working at GHX? If yes, please mention their name?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794902602264",
+    "questionKeywords": [],
+    "normalizedQuestion": "What are your compensation expectations for this role?",
+    "answer": "400000",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794902900394",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously been employed by Fastly?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794902910009",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently, or have you been employed by KPMG within the past 36 months?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794902914885",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you subject to any agreements that may restrict your ability to be employed in this position or perform the functions of this position?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794903114585",
+    "questionKeywords": [],
+    "normalizedQuestion": "How would you rate your proficiency in Data Structures and overall Problem-Solving skills on a scale of 1 to 5 (5 being the highest)?",
+    "answer": "5",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794903120270",
+    "questionKeywords": [],
+    "normalizedQuestion": "I acknowledge that I have reviewed and understood the Applicant Privacy Policy (link below).",
+    "answer": "Ye",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794903276283",
+    "questionKeywords": [],
+    "normalizedQuestion": "What's your current Employment status?",
+    "answer": "Fresher",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794903276480",
+    "questionKeywords": [],
+    "normalizedQuestion": "How soon can you join us?",
+    "answer": "Immediately – My bags are packed!",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]
