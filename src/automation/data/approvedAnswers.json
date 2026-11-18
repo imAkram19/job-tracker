@@ -3431,5 +3431,37 @@
     "answer": "I have not managed product backlogs or sprint deliverables in a formal professional role. However, I understand the fundamentals of breaking requirements into smaller tasks, prioritizing work based on importance, defining clear acceptance criteria, and tracking progress. I am familiar with Agile concepts and eager to gain practical experience in backlog management, user story creation, and sprint planning.",
     "confidence": "HIGH",
     "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794980160066",
+    "questionKeywords": [],
+    "normalizedQuestion": "Have you previously been employed by Coupa?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794980163327",
+    "questionKeywords": [],
+    "normalizedQuestion": "If your role requires it, would you be prepared to work in the office?",
+    "answer": "Yes",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794980166884",
+    "questionKeywords": [],
+    "normalizedQuestion": "Do you have any relatives, household members, or anyone with whom you have a close personal relationship currently employed at Coupa Software?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
+  },
+  {
+    "id": "ans_1794980169485",
+    "questionKeywords": [],
+    "normalizedQuestion": "Are you currently employed by a Coupa partner?",
+    "answer": "No",
+    "confidence": "HIGH",
+    "notes": "Provided by user during automation"
   }
 ]

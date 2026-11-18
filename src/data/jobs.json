@@ -19893,5 +19893,225 @@
       "curriculumOverlap": "Medium"
     },
     "notes": "Infrastructure & platform reliability opening on Greenhouse; works on Kubernetes, Docker, Prometheus, Grafana, and Linux systems administration."
+  },
+  {
+    "id": "JOB001266",
+    "rank": 1266,
+    "company": "Qualcomm",
+    "title": "Associate Engineer – CAD AI/ML",
+    "category": "AI / Machine Learning",
+    "location": "Bengaluru, Karnataka, India",
+    "workMode": "On-site / Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹12,00,000 - ₹18,00,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-17",
+    "source": "Qualcomm Careers",
+    "applyUrl": "https://careers.qualcomm.com/careers/job/446721332822",
+    "assessment": {
+      "overallScore": 96,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Posted yesterday on Qualcomm Careers; explicitly targets 0-1 year freshers in CS/IT/AI/ML with Python, DSA, OOP, and ML fundamentals."
+  },
+  {
+    "id": "JOB001267",
+    "rank": 1267,
+    "company": "Qualcomm",
+    "title": "Associate Engineer (Software Engineering)",
+    "category": "Software Engineering",
+    "location": "Bengaluru, Karnataka, India",
+    "workMode": "On-site / Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹11,00,000 - ₹17,00,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-12",
+    "source": "Qualcomm Careers",
+    "applyUrl": "https://careers.qualcomm.com/careers/job/446721997186",
+    "assessment": {
+      "overallScore": 96,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Entry-level Software Engineering Associate role in Bengaluru; requires only a Bachelor's in CS/IS/Engineering with no mandatory prior work experience."
+  },
+  {
+    "id": "JOB001268",
+    "rank": 1268,
+    "company": "Eurofins",
+    "title": "Junior Financial Systems Support Engineer (IT Product Support)",
+    "category": "IT / Application Support",
+    "location": "Bengaluru, Karnataka, India",
+    "workMode": "Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹4,50,000 - ₹7,50,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-12",
+    "source": "SmartRecruiters",
+    "applyUrl": "https://jobs.smartrecruiters.com/Eurofins/744000161242645-it-product-support",
+    "assessment": {
+      "overallScore": 95,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Explicitly Fresher / 0-1 Year opening on SmartRecruiters for CS/IT/Computer Applications (BCA/MCA) graduates with structured enterprise training in Bengaluru."
+  },
+  {
+    "id": "JOB001269",
+    "rank": 1269,
+    "company": "Eurofins",
+    "title": "IT Infrastructure Process Engineer",
+    "category": "IT / Cloud Infrastructure",
+    "location": "Bengaluru, Karnataka, India",
+    "workMode": "Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹5,00,000 - ₹8,50,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-17",
+    "source": "SmartRecruiters",
+    "applyUrl": "https://jobs.smartrecruiters.com/Eurofins/744000161992749-it-infrastructure-process-engineer",
+    "assessment": {
+      "overallScore": 92,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Posted yesterday on SmartRecruiters; covers multi-cloud infrastructure, IT security, and ITSM processes. Prior experience explicitly marked as a plus, not a requirement."
+  },
+  {
+    "id": "JOB001270",
+    "rank": 1270,
+    "company": "Eurofins",
+    "title": "IT Deployment & Support Engineer (LIMS)",
+    "category": "IT / Systems Support",
+    "location": "Bengaluru, Karnataka, India",
+    "workMode": "Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹4,50,000 - ₹7,50,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-17",
+    "source": "SmartRecruiters",
+    "applyUrl": "https://jobs.smartrecruiters.com/Eurofins/744000162013664-it-product-support",
+    "assessment": {
+      "overallScore": 92,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Posted yesterday on SmartRecruiters; 1st/2nd line application & cloud troubleshooting with QA/DevOps teams. Requires CS/related degree with no mandatory prior experience."
+  },
+  {
+    "id": "JOB001271",
+    "rank": 1271,
+    "company": "Amazon",
+    "title": "System Development Engineer, Engineering & IT",
+    "category": "Systems / DevOps Engineering",
+    "location": "Hyderabad, Telangana, India",
+    "workMode": "On-site / Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹12,00,000 - ₹20,00,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-16",
+    "source": "Amazon Careers",
+    "applyUrl": "https://www.amazon.jobs/en/jobs/10606130/system-development-engineer-engineering-it",
+    "assessment": {
+      "overallScore": 93,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Direct Amazon Jobs posting in Hyderabad; requires programming in Python/Java/C++/Go/C#, Linux/Unix, and CI/CD with no mandatory years of prior experience."
+  },
+  {
+    "id": "JOB001272",
+    "rank": 1272,
+    "company": "Amazon",
+    "title": "Applied Scientist I, Buyer Risk Prevention (BRP)",
+    "category": "AI / Machine Learning",
+    "location": "Bengaluru, Karnataka, India",
+    "workMode": "On-site / Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹14,00,000 - ₹22,00,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-11",
+    "source": "Amazon Careers",
+    "applyUrl": "https://www.amazon.jobs/en/jobs/10596351/applied-scientist-i-buyer-risk-prevention-brp",
+    "assessment": {
+      "overallScore": 92,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Entry-level Level I ML & GenAI/LLM role in Bengaluru on Amazon Jobs; basic qualifications require Java/C++/Python and SQL/RDBMS with no mandatory prior years of work experience."
+  },
+  {
+    "id": "JOB001273",
+    "rank": 1273,
+    "company": "Salesforce",
+    "title": "Systems Engineering Associate",
+    "category": "Systems / Software Engineering",
+    "location": "Hyderabad, Telangana, India",
+    "workMode": "Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹10,00,000 - ₹15,00,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-16",
+    "source": "Workday",
+    "applyUrl": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/India---Hyderabad/Systems-Engineering-Associate_JR368441",
+    "assessment": {
+      "overallScore": 96,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Futureforce University Recruiting new-graduate track on Salesforce Workday; dedicated fresher role in Hyderabad with no mandatory prior work experience."
+  },
+  {
+    "id": "JOB001274",
+    "rank": 1274,
+    "company": "NielsenIQ",
+    "title": "Jr. Customer Support Analyst",
+    "category": "Data / Support Analytics",
+    "location": "Pune, Maharashtra, India",
+    "workMode": "Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹4,50,000 - ₹7,50,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-12",
+    "source": "SmartRecruiters",
+    "applyUrl": "https://jobs.smartrecruiters.com/NielsenIQ/744000161270965-jr-customer-support-analyst",
+    "assessment": {
+      "overallScore": 93,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Junior data & database support analyst role in Pune on SmartRecruiters; open to Engineering/CS/Analytics fresh graduates with no mandatory prior work experience."
+  },
+  {
+    "id": "JOB001275",
+    "rank": 1275,
+    "company": "NielsenIQ",
+    "title": "Research Analyst",
+    "category": "Data & Analytics",
+    "location": "Mumbai, Maharashtra, India",
+    "workMode": "Hybrid",
+    "experience": "0-1 years",
+    "salary": "₹5,00,000 - ₹8,00,000 / yr (Est.)",
+    "employmentType": "Full-Time",
+    "datePosted": "2026-11-16",
+    "source": "SmartRecruiters",
+    "applyUrl": "https://jobs.smartrecruiters.com/NielsenIQ/744000161731359-research-analyst",
+    "assessment": {
+      "overallScore": 93,
+      "eligibility": "100%",
+      "freshersSuitability": "High",
+      "curriculumOverlap": "High"
+    },
+    "notes": "Mumbai data & analytics opening on SmartRecruiters targeting Post Graduate freshers (MCA qualifies!) with extensive structured onboarding training and no mandatory prior experience."
   }
 ]
